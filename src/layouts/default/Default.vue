@@ -3,10 +3,14 @@
     <default-bar />
 
     <default-view />
+
+    <default-footer/>
   </v-app>
 </template>
 
 <script setup>
   import DefaultBar from './AppBar.vue'
+  import DefaultFooter from './Footer.vue'
   import DefaultView from './View.vue'
+  import Footer from './Footer.vue';
 </script>
