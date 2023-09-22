@@ -9,7 +9,7 @@
         src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
         cover
       >
-        <v-card-title>Top 10 Australian beaches</v-card-title>
+        <v-card-title>Top 20 Australian beaches</v-card-title>
       </v-img>
   
       <v-card-subtitle class="pt-4">
