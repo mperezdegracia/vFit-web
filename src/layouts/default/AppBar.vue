@@ -2,7 +2,7 @@
   <v-app-bar color="white" app>
     <!-- Logo/Branding -->
     <a href="#">
-      <img src="@/assets/logo_omg.png" alt="Logo" class="logo-img">
+      <img src="@/assets/logo_omg.png" alt="Logo" class="logo-img" />
     </a>
 
     <!-- Spacer to push icons to the right -->
@@ -19,13 +19,13 @@
 </template>
 
 <script setup>
-import { useRouter } from 'vue-router';
+import { useRouter } from "vue-router";
 
 const router = useRouter();
 
 const navigate = (route) => {
   // Implement navigation based on the route (e.g., using Vue Router)
-  console.log('Navigating to:', route);
+  console.log("Navigating to:", route);
   // Example: Navigate to the route
   router.push({ path: `/${route}` });
 };
