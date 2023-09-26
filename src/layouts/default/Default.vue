@@ -12,5 +12,4 @@
   import DefaultBar from './AppBar.vue'
   import DefaultFooter from './Footer.vue'
   import DefaultView from './View.vue'
-  import Footer from './Footer.vue';
 </script>
