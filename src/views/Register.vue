@@ -1,6 +1,6 @@
 <template>
   <div class="bg-contrast min h-screen d-flex flex-column justify-center align-center">
-    <h1>Home</h1>
+    <h1>Register</h1>
   </div>
 </template>
 

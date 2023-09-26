@@ -1,6 +1,7 @@
 
 <template>
-    <v-footer class="bg-black">
+    <v-footer class="bg-secondary
+    ">
       <v-row justify="center" no-gutters>
         <v-btn
           v-for="link in links"
