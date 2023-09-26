@@ -15,15 +15,17 @@
           class="rounded-0" outlined></v-text-field>
         <v-text-field label="Confirm your password" name="confirmPassword" prepend-inner-icon="mdi-lock" type="password"
           class="rounded-0" outlined></v-text-field>
-        <v-btn class="rounded-lg mx-auto w-50" color="primary" variant="tonal" >Sign Up</v-btn>
-        <v-btn class="rounded-circle ml-10 text-button " variant="tonal" color="secondary" >
+          <v-checkbox color="primary" class="" label="I agree to the terms and conditions"></v-checkbox>
+
+          <v-card-actions class="d-flex align-center mt-0 pt-0 h-5 justify-center flex-wrap">
+          <v-btn class="rounded-lg  w-50 mt-0" color="primary" variant="tonal" >Sign Up</v-btn>
+          <v-btn class="rounded-circle  ml-10 text-button mt-0" variant="tonal" color="primary" >
           <v-icon >mdi-google</v-icon> 
         </v-btn>
-        <v-card-actions class="d-flex align-center justify-center flex-wrap">
-          <v-checkbox color="primary" class="" label="I agree to the terms and conditions"></v-checkbox>
-          <p class="text-h5">Already have an account?</p>
-          <v-btn @click="navigateToLogin" color="secondary" x-large block dark variant="tonal" class="ml-5 mb-4">Login</v-btn>
         </v-card-actions>
+       
+          <p class="text-h5">Already have an account?</p>
+          <v-btn @click="navigateToLogin" color="secondary" x-large block dark variant="tonal" class="">Login</v-btn>
       </v-form>
     </v-card-text>
     <v-card-actions class="text-center flex-column">
