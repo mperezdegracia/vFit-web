@@ -2,11 +2,10 @@
   <v-app-bar color="white" app>
     <!-- Logo/Branding -->
 
-    <a href="#">
 
 
-        <img src="@/assets/logo_omg.png" alt="Logo" class="logo-img" />
-    </a>
+    <img @click="navigate('home')" src="@/assets/logo_omg.png" alt="Logo" class="logo-img mb-4" />
+    
 
     
     <!-- Spacer to push icons to the right -->
