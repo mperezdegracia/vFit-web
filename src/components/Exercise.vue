@@ -13,12 +13,18 @@
       {{ name }}
     </v-card-title>
     <v-card-subtitle>
+      <b>Difficulty: </b>
       <Icon :icon="dif < 1 ? 'icon-park-solid:rectangle' : 'icon-park-solid:rectangle'" :color="dif < 1 ? 'dimgrey' : '#0404ac'"/>
       <Icon :icon="dif < 2 ? 'icon-park-solid:rectangle' : 'icon-park-solid:rectangle'" :color="dif < 2 ? 'dimgrey' : '#2ff18d'"/>
       <Icon :icon="dif < 3 ? 'icon-park-solid:rectangle' : 'icon-park-solid:rectangle'" :color="dif < 3 ? 'dimgrey' : '#fcbd00'"/>
       <Icon :icon="dif < 4 ? 'icon-park-solid:rectangle' : 'icon-park-solid:rectangle'" :color="dif < 4 ? 'dimgrey' : '#f64c1a'"/>
       <Icon :icon="dif < 5 ? 'icon-park-solid:rectangle' : 'icon-park-solid:rectangle'" :color="dif < 5 ? 'dimgrey' : 'red'"/>
 
+    </v-card-subtitle>
+
+    <v-card-subtitle>
+      <br/>
+      <b>By: </b>{{ user }}
     </v-card-subtitle>
 
     <v-card-actions>
@@ -76,8 +82,9 @@ export default{
   data() {
     return {
       name: 'Routine 1',
+      user:'User 1',
       rate: 4,
-      dif:2,
+      dif:3,
       exercises: [
         'Abs',
         'Legs',
