@@ -81,20 +81,18 @@ import { Icon } from '@iconify/vue';
 export default{
   data() {
     return {
-      name: 'Routine 1',
-      user:'User 1',
-      rate: 4,
-      dif:3,
-      exercises: [
-        'Abs',
-        'Legs',
-        'Push up',
-        'Abs',
-        'Legs',
-      ],
       show:false,
     };
   },
+
+  props: {
+    name: String,
+    rate: Number,
+    dif: Number,
+    user: String,
+    exercises: Array
+  },
+
   components: {
     Icon,
   },
