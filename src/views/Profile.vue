@@ -62,7 +62,7 @@
             </v-card-text>
             <v-card-actions>
                 <v-btn color="primary" text @click="guardarCambios">Guardar</v-btn>
-                <v-btn color="primary" text @click="mostrarConfirmacion = false">Cancelar</v-btn>
+                <v-btn color="primary" text @click="deshacerCambios">Cancelar</v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>
@@ -94,6 +94,7 @@ export default {
                 sexo: 'Masculino',
                 foto: '../src/photos/perfil1.jpg'
             },
+            usuarioOriginal: {},
             sexos: ['Masculino', 'Femenino'],
             edicionHabilitada: false,
             mostrarConfirmacion: false,
@@ -105,20 +106,23 @@ export default {
 
     methods: {
         toggleModoEdicion() {
-            this.edicionHabilitada = !this.edicionHabilitada;
-            if (this.edicionHabilitada) {
+            // Verifica si el usuario está cancelando los cambios
+            if (!this.edicionHabilitada) {
                 this.mostrarConfirmacion = false;
             } else {
                 this.mostrarConfirmacion = true;
             }
-            
-            
+            this.edicionHabilitada = !this.edicionHabilitada;
         },
         guardarCambios() {
             // Agregar la lógica para guardar los cambios
-            alert('Los cambios han sido guardados exitosamente');
             this.mostrarConfirmacion = false;
         },
+        deshacerCambios() {
+            //this.usuario = datos traido de la api
+            this.mostrarConfirmacion = false;
+            // logica para deshacer cambios
+        }
     },
 };
 </script>
