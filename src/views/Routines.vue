@@ -4,9 +4,9 @@
     <v-container fluid>
       <v-row>
         <!-- Lado Izquierdo (25%) -->
-        <v-col cols="3"> <!-- Cambia el valor de "cols" según tus necesidades -->
+        <v-col cols="3" md="3" class="d-md-block d-sm-none"> <!-- Cambia el valor de "cols" según tus necesidades -->
           <!-- Contenido del lado izquierdo -->
-          <div class="left-content">
+          <div class="left-content" height>
             <v-container class="bg-surface-variant mb-6">
               <h3 style="text-align: center;">FILTERS</h3>
             </v-container>
@@ -22,7 +22,7 @@
         <v-col cols="9"> <!-- Cambia el valor de "cols" según tus necesidades -->
           
           <v-row>  
-            <v-col cols="4"> <!-- Ajusta el valor de "cols" según tus necesidades -->
+            <v-col md="4" sm="12"> <!-- Ajusta el valor de "cols" según tus necesidades -->
               <Exercise
                 :name="exerciseName1"
                 :rate="exerciseRate1"
@@ -31,7 +31,7 @@
                 :exercises="exerciseList1"
               />
             </v-col>
-            <v-col cols="4"> <!-- Ajusta el valor de "cols" según tus necesidades -->
+            <v-col md="4" sm="12"> <!-- Ajusta el valor de "cols" según tus necesidades -->
               <Exercise
                 :name="exerciseName2"
                 :rate="exerciseRate2"
@@ -40,7 +40,7 @@
                 :exercises="exerciseList2"
               />
             </v-col> 
-            <v-col cols="4"> <!-- Ajusta el valor de "cols" según tus necesidades -->
+            <v-col md="4" sm="12"> <!-- Ajusta el valor de "cols" según tus necesidades -->
               <Exercise
                 :name="exerciseName3"
                 :rate="exerciseRate3"
@@ -61,7 +61,7 @@
 .left-content {
   /* Estilos para el lado izquierdo (25%) */
   background-color: #ccc; /* Puedes personalizar el color de fondo */
-  height: 100%; /* Ajusta la altura según tus necesidades */
+  height: 200px; /* Ajusta la altura según tus necesidades */
 }
 
 </style>

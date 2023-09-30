@@ -23,14 +23,26 @@
     </v-card-subtitle>
 
     <v-card-subtitle>
-      <br/>
+      <b>Rate:</b> 
+      <v-icon color="yellow" v-for="index in 5" :key="index">
+        <template v-if="rate >= index">
+          mdi-star
+        </template>
+        <template v-else>
+          mdi-star-outline
+        </template>
+      </v-icon>
+    </v-card-subtitle>
+
+    <v-card-subtitle>
       <b>By: </b>{{ user }}
     </v-card-subtitle>
 
     <v-card-actions>
       <v-btn
-        color="orange-lighten-2"
+        color="primary"
         variant="text"
+        class="btn-start"
       >
         START
       </v-btn>
@@ -46,28 +58,15 @@
     <v-expand-transition>
       <div v-show="show">
         <v-divider></v-divider>
-
-        <v-card-text
-          v-for="ex in exercises"
-          color="black"
-        >
-         - {{ ex }} 
-        </v-card-text>
-        
-        <v-card-subtitle>
-          Rate: 
-        </v-card-subtitle>
-
-        <v-card-subtitle>
-          <v-icon color="yellow" v-for="index in 5" :key="index">
-            <template v-if="rate >= index">
-              mdi-star
-            </template>
-            <template v-else>
-              mdi-star-outline
-            </template>
-          </v-icon>
-        </v-card-subtitle>
+        <div class="ml-3 mt-2 mb-2">
+          <p
+            v-for="ex in exercises"
+            color="black"
+            class="v-card-subtitle"
+          >
+          - {{ ex }} 
+          </p>
+        </div>
 
       </div>
     </v-expand-transition>
