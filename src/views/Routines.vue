@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-contrast min h-screen d-flex flex-column justify-center align-center">
+  <div class="bg-contrast min h-screen d-flex flex-column justify-start align-center">
     <h1>My-Routines</h1>
     <v-container fluid>
       <v-row>
@@ -21,32 +21,14 @@
         <!-- Parte derecha (75%) -->
         <v-col cols="9"> <!-- Cambia el valor de "cols" según tus necesidades -->
           
-          <v-row>  
-            <v-col md="4" sm="12"> <!-- Ajusta el valor de "cols" según tus necesidades -->
+          <v-row class="justify-center">  
+            <v-col v-for="(routine, index) in routines" :key="index" md="4" sm="12"> <!-- Ajusta el valor de "cols" según tus necesidades -->
               <Exercise
-                :name="exerciseName1"
-                :rate="exerciseRate1"
-                :dif="exerciseDif1"
-                :user="exerciseUser1"
-                :exercises="exerciseList1"
-              />
-            </v-col>
-            <v-col md="4" sm="12"> <!-- Ajusta el valor de "cols" según tus necesidades -->
-              <Exercise
-                :name="exerciseName2"
-                :rate="exerciseRate2"
-                :dif="exerciseDif2"
-                :user="exerciseUser2"
-                :exercises="exerciseList2"
-              />
-            </v-col> 
-            <v-col md="4" sm="12"> <!-- Ajusta el valor de "cols" según tus necesidades -->
-              <Exercise
-                :name="exerciseName3"
-                :rate="exerciseRate3"
-                :dif="exerciseDif3"
-                :user="exerciseUser3"
-                :exercises="exerciseList3"
+                :name="routine.name"
+                :rate="routine.rate"
+                :dif="routine.dif"
+                :user="routine.user"
+                :exercises="routine.cycles"
               />
             </v-col>         
           </v-row> 
@@ -74,24 +56,213 @@ import Exercise from '@/components/Exercise.vue';
 export default{
   data() {
     return {
-      // TODOS ESTOS DATOS LOS TENEMOS Q TRAER DE LA API
-      exerciseName1: 'Routine 1', // Define los valores deseados aquí
-      exerciseUser1: 'User 1',
-      exerciseRate1: 4,
-      exerciseDif1: 3,
-      exerciseList1: ['Abs', 'Legs', 'Push up', 'Abs', 'Legs'],
-
-      exerciseName2: 'Routine 2', // Define los valores deseados aquí
-      exerciseUser2: 'User 2',
-      exerciseRate2: 5,
-      exerciseDif2: 2,
-      exerciseList2: ['Abs', 'Legs', 'Push up'],
-
-      exerciseName3: 'Routine 3', // Define los valores deseados aquí
-      exerciseUser3: 'User 3',
-      exerciseRate3: 2,
-      exerciseDif3: 5,
-      exerciseList3: ['Abs', 'Legs', 'Push up', 'Abs', 'Legs', 'Abs', 'Legs'],
+      routines: [
+        {
+          name: 'Routine 1',
+          user: 'User 1',
+          rate: 4,
+          dif: 3,
+          cycles: [
+            {
+              name: 'Warm-up',
+              items: [
+                {
+                  name: 'Jumping jacks',
+                  duration: 30,
+                },
+                {
+                  name: 'High knees',
+                  duration: 30,
+                },
+                {
+                  name: 'Butt kicks',
+                  duration: 30,
+                },
+              ],
+            },
+            {
+              name: 'Cycle 1',
+              items: [
+                {
+                  name: 'Squats',
+                  duration: 60,
+                },
+                {
+                  name: 'Lunges',
+                  duration: 60,
+                },
+                {
+                  name: 'Push ups',
+                  duration: 60,
+                },
+              ],
+            },
+            {
+              name: 'Cycle 2',
+              items: [
+                {
+                  name: 'Crunches',
+                  duration: 30,
+                },
+                {
+                  name: 'Plank',
+                  duration: 30,
+                },
+                {
+                  name: 'Leg raises',
+                  duration: 30,
+                },
+              ],
+            },
+            {
+              name: 'Cool-down',
+              items: [
+                {
+                  name: 'Stretching',
+                  duration: 60,
+                },
+              ],
+            },
+          ],
+        },
+        {
+          name: 'Routine 2',
+          user: 'User 2',
+          rate: 5,
+          dif: 2,
+          cycles: [
+            {
+              name: 'Warm-up',
+              items: [
+                {
+                  name: 'Jumping jacks',
+                  duration: 30,
+                },
+                {
+                  name: 'High knees',
+                  duration: 30,
+                },
+                {
+                  name: 'Butt kicks',
+                  duration: 30,
+                },
+              ],
+            },
+            {
+              name: 'Cycle 1',
+              items: [
+                {
+                  name: 'Squats',
+                  duration: 60,
+                },
+                {
+                  name: 'Lunges',
+                  duration: 60,
+                },
+                {
+                  name: 'Push ups',
+                  duration: 60,
+                },
+              ],
+            },
+            {
+              name: 'Cool-down',
+              items: [
+                {
+                  name: 'Stretching',
+                  duration: 60,
+                },
+              ],
+            },
+          ],
+        },
+        {
+          name: 'Routine 3',
+          user: 'User 3',
+          rate: 2,
+          dif: 5,
+          cycles: [
+            {
+              name: 'Warm-up',
+              items: [
+                {
+                  name: 'Jumping jacks',
+                  duration: 30,
+                },
+                {
+                  name: 'High knees',
+                  duration: 30,
+                },
+                {
+                  name: 'Butt kicks',
+                  duration: 30,
+                },
+              ],
+            },
+            {
+              name: 'Cycle 1',
+              items: [
+                {
+                  name: 'Squats',
+                  duration: 60,
+                },
+                {
+                  name: 'Lunges',
+                  duration: 60,
+                },
+                {
+                  name: 'Push ups',
+                  duration: 60,
+                },
+              ],
+            },
+            {
+              name: 'Cycle 2',
+              items: [
+                {
+                  name: 'Crunches',
+                  duration: 30,
+                },
+                {
+                  name: 'Plank',
+                  duration: 30,
+                },
+                {
+                  name: 'Leg raises',
+                  duration: 30,
+                },
+              ],
+            },
+            {
+              name: 'Cycle 3',
+              items: [
+                {
+                  name: 'Squats',
+                  duration: 60,
+                },
+                {
+                  name: 'Lunges',
+                  duration: 60,
+                },
+                {
+                  name: 'Push ups',
+                  duration: 60,
+                },
+              ],
+            },
+            {
+              name: 'Cool-down',
+              items: [
+                {
+                  name: 'Stretching',
+                  duration: 60,
+                },
+              ],
+            },
+          ],
+        },
+      ]
+      ,
     };
   },
   components: {

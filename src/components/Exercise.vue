@@ -1,86 +1,66 @@
 <template>
-    <v-card
-    class="mx-auto"
-    max-width="344"
-    >
-    <v-img
-      src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-      height="200px"
-      cover
-    ></v-img>
+  <v-card class="mx-auto" max-width="500">
+    <v-img src="src/assets/routine.png" height="200px" cover class="bg-white"></v-img>
 
-    <v-card-title>
-      {{ name }}
-    </v-card-title>
-    <v-card-subtitle>
-      <b>Difficulty: </b>
-      <Icon :icon="dif < 1 ? 'icon-park-solid:rectangle' : 'icon-park-solid:rectangle'" :color="dif < 1 ? 'dimgrey' : '#0404ac'"/>
-      <Icon :icon="dif < 2 ? 'icon-park-solid:rectangle' : 'icon-park-solid:rectangle'" :color="dif < 2 ? 'dimgrey' : '#2ff18d'"/>
-      <Icon :icon="dif < 3 ? 'icon-park-solid:rectangle' : 'icon-park-solid:rectangle'" :color="dif < 3 ? 'dimgrey' : '#fcbd00'"/>
-      <Icon :icon="dif < 4 ? 'icon-park-solid:rectangle' : 'icon-park-solid:rectangle'" :color="dif < 4 ? 'dimgrey' : '#f64c1a'"/>
-      <Icon :icon="dif < 5 ? 'icon-park-solid:rectangle' : 'icon-park-solid:rectangle'" :color="dif < 5 ? 'dimgrey' : 'red'"/>
+    <v-card-title>{{ name }}</v-card-title>
+    <div v-if="!show">
 
-    </v-card-subtitle>
+      <v-card-subtitle>
+        <b>Difficulty: </b>
+        <Icon :icon="'icon-park-solid:rectangle'" :color="difficultyColor(1)" />
+        <Icon :icon="'icon-park-solid:rectangle'" :color="difficultyColor(2)" />
+        <Icon :icon="'icon-park-solid:rectangle'" :color="difficultyColor(3)" />
+        <Icon :icon="'icon-park-solid:rectangle'" :color="difficultyColor(4)" />
+        <Icon :icon="'icon-park-solid:rectangle'" :color="difficultyColor(5)" />
+      </v-card-subtitle>
 
-    <v-card-subtitle>
-      <b>Rate:</b> 
-      <v-icon color="yellow" v-for="index in 5" :key="index">
-        <template v-if="rate >= index">
-          mdi-star
-        </template>
-        <template v-else>
-          mdi-star-outline
-        </template>
-      </v-icon>
-    </v-card-subtitle>
+      <v-card-subtitle>
+        <b>Rate:</b>
+        <v-icon color="yellow" v-for="index in 5" :key="index"
+          :class="{ 'mdi-star': rate >= index, 'mdi-star-outline': rate < index }"></v-icon>
+      </v-card-subtitle>
 
-    <v-card-subtitle>
-      <b>By: </b>{{ user }}
-    </v-card-subtitle>
+      <v-card-subtitle>
+        <b>By: </b>{{ user }}
+      </v-card-subtitle>
 
+
+    </div>
+   <v-expand-transition>
+    <div v-if="show" class="details">
+    <div class="exercises">
+      <div class="columns">
+        <div v-for="(cycle, index) in exercises" :key="index" class="column">
+          <p class="subtitle-1">{{ cycle.name }}</p>
+          <div v-for="(item, index) in cycle.items" :key="index" class="item">
+            <p class="subtitle-2">{{ item.name }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</v-expand-transition>
     <v-card-actions>
-      <v-btn
-        color="primary"
-        variant="text"
-        class="btn-start"
-      >
-        START
-      </v-btn>
+      <v-btn color="secondary" variant="tonal" class="btn-start">Edit</v-btn>
+      <v-btn color="red" variant="outlined" class="btn-start">Remove</v-btn>
 
       <v-spacer></v-spacer>
 
-      <v-btn
-        :icon="show ? 'mdi-chevron-up' : 'mdi-chevron-down'"
-        @click="show = !show"
-      ></v-btn>
+      <v-icon :color="show ? 'primary' : 'grey'" @click="show = !show">mdi-information</v-icon>
     </v-card-actions>
 
-    <v-expand-transition>
-      <div v-show="show">
-        <v-divider></v-divider>
-        <div class="ml-3 mt-2 mb-2">
-          <p
-            v-for="ex in exercises"
-            color="black"
-            class="v-card-subtitle"
-          >
-          - {{ ex }} 
-          </p>
-        </div>
 
-      </div>
-    </v-expand-transition>
+
   </v-card>
-  </template>
-
+</template>
 
 <script>
-//import Exercise from '@/components/Exercise.vue';
 import { Icon } from '@iconify/vue';
-export default{
+
+export default {
   data() {
     return {
-      show:false,
+      show: false,
     };
   },
 
@@ -89,11 +69,78 @@ export default{
     rate: Number,
     dif: Number,
     user: String,
-    exercises: Array
+    exercises: Array,
+    description: String,
   },
 
   components: {
     Icon,
   },
-}
+
+  computed: {
+    difficultyColor() {
+      return (index) => {
+        if (this.dif >= index) {
+          switch (this.dif) {
+            case 1:
+            case 2:
+              return '#2ff18d'; // green
+            case 3:
+              return '#fcbd00'; // yellow
+            default:
+              return 'red';
+          }
+        } else {
+          return 'dimgrey';
+        }
+      };
+    },
+  },
+};
 </script>
+
+<style>
+.details-enter-active,
+.details-leave-active {
+  transition: all 0.8s ease;
+}
+
+.details-enter,
+.details-leave-to {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+.exercises {
+  display: flex;
+  justify-content: center;
+}
+
+.cycle {
+  width: 100%;
+}
+.columns {
+  display: flex;
+  
+}
+
+.column {
+  width: calc(100/4% - 10px);
+  margin-left: 10px;
+  margin-right: 5px;
+
+}
+.subtitle-1{
+  margin-bottom: 5px;
+}
+.item {
+  width: 100%;
+  margin-bottom: 2px;;
+ 
+}
+
+.details {
+  opacity: 1;
+  transform: translateY(0);
+}
+</style>

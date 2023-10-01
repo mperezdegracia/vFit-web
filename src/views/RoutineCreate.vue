@@ -6,5 +6,4 @@
 </template>
 
 <script setup>
-import Exercise from '@/components/Exercise.vue';
 </script>
