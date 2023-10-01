@@ -8,11 +8,11 @@
                 <v-text-field label="Enter your password" name="previousPass" type="password"
                     class="rounded-0" outlined></v-text-field>
                 <v-text-field label="Enter your new password" name="password" type="password" class="rounded-0" outlined/>
-                <v-text-field label="Repite your new password" name="password" type="password" class="rounded-0" outlined/>
+                <v-text-field label="Repeat your new password" name="password" type="password" class="rounded-0" outlined/>
                 <v-btn class="rounded-lg" color="primary" variant="tonal" x-large block dark>Change password</v-btn>
                 <br/>
                 <RouterLink to="#" class="d-flex align-center justify-center terms-link">
-                    forgot your password?
+                    Forgot your password?
                 </RouterLink>
             </v-form>
         </v-card-text>
@@ -24,9 +24,6 @@ import { useRouter } from 'vue-router';
 
 const router = useRouter();
 
-const navigateToRegister = () => {
-    router.push({ name: 'Register' }); // Navigate to the register page
-};
 </script>
   
 <style scoped>

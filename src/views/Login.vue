@@ -1,5 +1,5 @@
 <template>
-  <v-card  elevation="0" class="w-25 mx-auto custom_card">
+  <v-card elevation="0" class="w-25 mx-auto custom_card">
     <div class="text-center">
       <a href="http://localhost:3000/home" name="Fedorae Education" title="Fedorae Education" target="_blank">
         <v-img src="@/assets/logo.png" alt="Fedorae Education Log" contain height="250"></v-img>
@@ -11,11 +11,18 @@
           outlined></v-text-field>
         <v-text-field label="Enter your password" name="password" prepend-inner-icon="mdi-lock" type="password"
           suffix="| Forgot?" class="rounded-0" outlined></v-text-field>
+
+        <RouterLink to="#" class="d-flex align-center justify-center terms-link">
+          forgot your password?
+        </RouterLink>
+        <br/>
         <v-btn class="rounded-lg" color="primary" variant="tonal" x-large block dark>Login</v-btn>
+
         <v-card-actions class="d-flex align-center justify-center flex-wrap">
           <v-checkbox color="primary" class="pt-3" label="Remember me"></v-checkbox>
           <v-btn @click="navigateToRegister" color="secondary" variant="tonal" class="ml-5 mb-4">Sign Up</v-btn>
         </v-card-actions>
+
       </v-form>
     </v-card-text>
     <v-card-actions class="text-center flex-column">
@@ -42,14 +49,18 @@ const navigateToRegister = () => {
 
 <style scoped>
 .terms-link {
-  color: #1976D2; /* Change to your desired link color */
+  color: #1976D2;
+  /* Change to your desired link color */
   text-decoration: none;
-  margin: 0 5px; /* Adjust the spacing between links */
+  margin: 0 5px;
+  /* Adjust the spacing between links */
 }
 
 .terms-link:hover {
-  text-decoration: underline; /* Underline the link on hover */
+  text-decoration: underline;
+  /* Underline the link on hover */
 }
+
 .custom_card {
   min-width: 400px;
 }
