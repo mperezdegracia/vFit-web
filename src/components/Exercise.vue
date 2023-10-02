@@ -41,8 +41,8 @@
   </div>
 </v-expand-transition>
     <v-card-actions>
-      <v-btn color="secondary" variant="tonal" class="btn-start">Edit</v-btn>
-      <v-btn color="red" variant="outlined" class="btn-start">Remove</v-btn>
+      <v-btn color="primary" variant="tonal" class="btn-start">Edit</v-btn>
+      <v-btn color="red" variant="outlined" class="btn-start">Delete</v-btn>
 
       <v-spacer></v-spacer>
 

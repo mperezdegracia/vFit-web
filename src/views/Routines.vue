@@ -20,18 +20,14 @@
 
         <!-- Parte derecha (75%) -->
         <v-col cols="9"> <!-- Cambia el valor de "cols" según tus necesidades -->
-          
-          <v-row class="justify-center">  
-            <v-col v-for="(routine, index) in routines" :key="index" md="4" sm="12"> <!-- Ajusta el valor de "cols" según tus necesidades -->
-              <Exercise
-                :name="routine.name"
-                :rate="routine.rate"
-                :dif="routine.dif"
-                :user="routine.user"
-                :exercises="routine.cycles"
-              />
-            </v-col>         
-          </v-row> 
+
+          <v-row class="justify-center">
+            <v-col v-for="(routine, index) in routines" :key="index" md="4" sm="12">
+              <!-- Ajusta el valor de "cols" según tus necesidades -->
+              <Exercise2 :name="routine.name" :rate="routine.rate" :dif="routine.dif" :user="routine.user"
+                :exercises="routine.cycles" :tags="routine.tags" :image="routine.image" :reviews="routine.reviews" />
+            </v-col>
+          </v-row>
 
         </v-col>
       </v-row>
@@ -42,18 +38,19 @@
 <style>
 .left-content {
   /* Estilos para el lado izquierdo (25%) */
-  background-color: #ccc; /* Puedes personalizar el color de fondo */
-  height: 200px; /* Ajusta la altura según tus necesidades */
+  background-color: #ccc;
+  /* Puedes personalizar el color de fondo */
+  height: 200px;
+  /* Ajusta la altura según tus necesidades */
 }
-
 </style>
 
 
 
 <script default>
-import Exercise from '@/components/Exercise.vue';
+import Exercise2 from '@/components/Exercise2.vue';
 
-export default{
+export default {
   data() {
     return {
       routines: [
@@ -62,6 +59,9 @@ export default{
           user: 'User 1',
           rate: 4,
           dif: 3,
+          reviews: 10,
+          tags: ['Abs', 'Upper Body'],
+          image: "src/assets/routine.png",
           cycles: [
             {
               name: 'Warm-up',
@@ -130,6 +130,11 @@ export default{
           user: 'User 2',
           rate: 5,
           dif: 2,
+          reviews: 70,
+
+          tags: ['Abs', 'Upper Body'],
+          image: "src/assets/routine.png",
+
           cycles: [
             {
               name: 'Warm-up',
@@ -181,6 +186,11 @@ export default{
           user: 'User 3',
           rate: 2,
           dif: 5,
+          reviews: 23,
+
+          tags: ['Abs', 'Upper Body'],
+          image: "src/assets/routine.png",
+
           cycles: [
             {
               name: 'Warm-up',
@@ -266,7 +276,7 @@ export default{
     };
   },
   components: {
-    Exercise,
+    Exercise2,
   }
   // Resto de tu lógica de componente aquí
 };
