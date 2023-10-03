@@ -22,10 +22,9 @@
         <v-col cols="9"> <!-- Cambia el valor de "cols" según tus necesidades -->
 
           <v-row class="justify-center">
-            <v-col v-for="(routine, index) in routines" :key="index" md="4" sm="12">
+            <v-col v-for="(routine_, index) in routines" :key="index" md="4" sm="12">
               <!-- Ajusta el valor de "cols" según tus necesidades -->
-              <Exercise2 :name="routine.name" :rate="routine.rate" :dif="routine.dif" :user="routine.user"
-                :exercises="routine.cycles" :tags="routine.tags" :image="routine.image" :reviews="routine.reviews" />
+              <RoutineCard :routine="routine_" />
             </v-col>
           </v-row>
 
@@ -48,7 +47,7 @@
 
 
 <script default>
-import Exercise2 from '@/components/Exercise2.vue';
+import RoutineCard from '@/components/RoutineCard.vue';
 
 export default {
   data() {
@@ -276,7 +275,7 @@ export default {
     };
   },
   components: {
-    Exercise2,
+    RoutineCard,
   }
   // Resto de tu lógica de componente aquí
 };
