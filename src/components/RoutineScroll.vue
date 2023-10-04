@@ -1,7 +1,7 @@
 <template>
   <div class="d-flex justify-center align-center ">
-    <v-slide-group v-model="model" class="slide" show-arrows transition="all 0.5s">
-      <v-slide-group-item v-for="(routine, index) in routines" :key="index">
+    <v-slide-group v-model="model" class="slide" show-arrows >
+      <v-slide-group-item v-for="(routine, index) in routines"  :key="index" >
         <RoutineCard class="mr-10" :routine="routine" />
       </v-slide-group-item>
 

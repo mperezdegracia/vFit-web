@@ -24,7 +24,7 @@
         </v-btn>
         </v-card-actions>
        
-          <p class="text-h5">Already have an account?</p>
+          <p class="text-h5 text-center">Already have an account?</p>
           <v-btn @click="navigateToLogin" color="secondary" x-large block dark variant="tonal" class="">Login</v-btn>
       </v-form>
     </v-card-text>

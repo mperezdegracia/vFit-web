@@ -9,7 +9,7 @@ const routes = [
       {
         path: "",
         name: "Landing",
-        meta: {requiresAuth: false},
+        meta: { requiresAuth: false },
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
@@ -19,7 +19,7 @@ const routes = [
       {
         path: "profile",
         name: "Profile",
-        meta: {requiresAuth: true},
+        meta: { requiresAuth: true },
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
@@ -29,7 +29,7 @@ const routes = [
       {
         path: "change-password",
         name: "Change Password",
-        meta: {requiresAuth: true},
+        meta: { requiresAuth: true },
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
@@ -39,7 +39,7 @@ const routes = [
       {
         path: "login",
         name: "Login",
-        meta: {requiresAuth: false},
+        meta: { requiresAuth: false },
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
@@ -49,7 +49,7 @@ const routes = [
       {
         path: "register",
         name: "Register",
-        meta: {requiresAuth: false},
+        meta: { requiresAuth: false },
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
@@ -59,7 +59,7 @@ const routes = [
       {
         path: "home",
         name: "Home",
-        meta: {requiresAuth: false},
+        meta: { requiresAuth: false },
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
@@ -69,26 +69,38 @@ const routes = [
       {
         path: "my-routines",
         name: "Routines",
-        meta: {requiresAuth: true},
+        meta: { requiresAuth: true },
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+
+        component: () =>
+          import(/* webpackChunkName: "home" */ "@/views/Routines.vue"),
+      },
+      {
+        path: "routine",
+        name: "Routine",
+        meta: { requiresAuth: false },
+
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
         children: [
           {
-            path: "",
-            name: "My-Routines",
+            path: ":id",
+            name: "Detailed-Routine",
             // route level code-splitting
             // this generates a separate chunk (about.[hash].js) for this route
             // which is lazy-loaded when the route is visited.
             component: () =>
               import(
-                /* webpackChunkName: "home" */ "@/views/Routines.vue"
+                /* webpackChunkName: "home" */ "@/views/DetailedRoutine.vue"
               ),
           },
           {
             path: "create",
             name: "Create-Routine",
-            meta: {requiresAuth: true},
+            meta: { requiresAuth: false },
             // route level code-splitting
             // this generates a separate chunk (about.[hash].js) for this route
             // which is lazy-loaded when the route is visited.
@@ -96,12 +108,14 @@ const routes = [
               import(
                 /* webpackChunkName: "home" */ "@/views/RoutineCreate.vue"
               ),
-          }
+          },
         ],
       },
       {
         path: "settings",
-        name: "RoutineCreate",
+        name: "Settings",
+        meta: { requiresAuth: true },
+
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
