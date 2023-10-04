@@ -254,7 +254,7 @@ export default {
                   duration: 60,
                 },
                 {
-                  name: 'Push ups',
+                  name: 'Push up',
                   duration: 60,
                 },
               ],

@@ -1,32 +1,41 @@
 <template>
-        <v-row>
-          <v-col class="mx-10" v-for="(routine, index) in routines" :key="index" cols="12" sm="6" md="4" lg="3">
-            <RoutineCard :routine="routine" />
-          </v-col>
-        </v-row>
-  </template>
+  <div class="d-flex justify-center align-center ">
+    <v-slide-group v-model="model" class="slide" show-arrows transition="all 0.5s">
+      <v-slide-group-item v-for="(routine, index) in routines" :key="index">
+        <RoutineCard class="mr-10" :routine="routine" />
+      </v-slide-group-item>
+
+    </v-slide-group>
+
+  </div>
+</template>
   
-  <script>
-  import RoutineCard from './RoutineCard.vue';
-  
-  export default {
-    name: "RoutineScroll",
-    components: {
-      RoutineCard,
+<script>
+import RoutineCard from './RoutineCard.vue';
+
+export default {
+  name: "RoutineScroll",
+  components: {
+    RoutineCard,
+  },
+  props: {
+    routines: {
+      type: Array,
+      required: true,
     },
-    props: {
-      routines: {
-        type: Array,
-        required: true,
-      },
-    },
-  };
-  </script>
+  },
+};
+</script>
   
-  <style>
-  .routine-scroll {
-    
-    overflow-x: auto;
-    overflow-y: auto;
-  }
-  </style>
+<style>
+.slide {
+  max-width: 90%;
+}
+
+
+.routine-scroll {
+
+  overflow-x: auto;
+  overflow-y: auto;
+}
+</style>

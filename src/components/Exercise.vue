@@ -41,9 +41,7 @@
   </div>
 </v-expand-transition>
     <v-card-actions>
-      <v-btn color="primary" variant="tonal" class="btn-start">Edit</v-btn>
-      <v-btn color="red" variant="outlined" class="btn-start">Delete</v-btn>
-
+    
       <v-spacer></v-spacer>
 
       <v-icon :color="show ? 'primary' : 'grey'" @click="show = !show">mdi-information</v-icon>
