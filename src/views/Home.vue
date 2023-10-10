@@ -23,18 +23,22 @@
       </div>
 
       <h1 class="w-50 text-center font-weight-medium text-h4 slide-title"> Liked</h1>
-      <div class="d-flex justify-center flex-scroll-container">
+      <div class="d-flex ">
         <div class="scroll-container">
           <RoutineScroll :routines="routines"></RoutineScroll>
         </div>
       </div>
     </div>
     <div v-else>
-      <h1 class="w-50 text-center font-weight-medium text-h4 slide-title"> Search result</h1>
+      <!-- <h1 class="w-50 text-center font-weight-medium text-h4 slide-title"> Search result</h1>
       <div class="d-flex justify-center flex-scroll-container">
-        <div class="scroll-container flex-container">
-          <RoutineCard v-for="routine in searchResult" :routine="routine" />
+        <div class="scroll-container">
+          <RoutineScroll :routines="searchResult"></RoutineScroll>
         </div>
+      </div> -->
+      <h1 class="w-50 text-center font-weight-medium text-h4 slide-title"> Search result</h1>
+      <div class="d-flex flex-container">
+        <RoutineCard v-for="routine in searchResult" :routine="routine" />
       </div>
     </div>
   </div>
@@ -123,7 +127,7 @@ const clearSearch = () => {
   display: flex;
   flex-wrap: wrap;
   /* Permite que los elementos se envuelvan a la siguiente línea cuando no haya suficiente espacio */
-  justify-content: space-between;
+  justify-content: space-evenly !important;
   /* Distribuye el espacio disponible de manera uniforme entre los elementos */
 }
 
