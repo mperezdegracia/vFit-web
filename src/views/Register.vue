@@ -71,6 +71,8 @@ const navigateToLogin = () => {
 
 .v-card-actions {
   margin-top: 30px;
+  position: relative;
+  bottom:0px
 }
 
 .terms-link {

@@ -29,7 +29,7 @@ export default {
   
 <style>
 .slide {
-  max-width: 90%;
+  max-width: 100%;
 }
 
 

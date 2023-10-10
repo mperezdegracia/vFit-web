@@ -1,9 +1,11 @@
 <template>
+<v-btn class="like-icon"  icon="mdi-heart-outline" ></v-btn>
   <v-card :loading="loading" class="mx-auto my-12" >
     <template v-slot:loader="{ isActive }">
       <v-progress-linear :active="isActive" color="deep-purple" height="4" indeterminate></v-progress-linear>
     </template>
-    <vue-flip v-model="show">
+    
+    <vue-flip class="flip-card" v-model="show">
       <template v-slot:front>
         <div>
           <v-img cover height="160" :src="routine.image"></v-img>
@@ -11,14 +13,14 @@
           <v-card-item>
             <v-card-title>{{ routine.name }}</v-card-title>
 
-            <v-card-subtitle>
+            <v-card-subtitle class="mt-1">
               <span class="me-1">{{ routine.user }}</span>
 
               <v-icon color="error" icon="mdi-account" size="small"></v-icon>
             </v-card-subtitle>
           </v-card-item>
 
-          <v-card-text class="pr-0">
+          <v-card-text class="pr-0 mt-1">
             <v-row align="center" class="mx-0">
               <v-rating :model-value="routine.rate" color="amber" density="compact" half-increments readonly
                 size="small"></v-rating>
@@ -37,12 +39,11 @@
 
           <v-divider class="mx-4 mb-2 mt-2"></v-divider>
 
-          <div class="px-4">
+          <div class="px-4 mt-3">
             <v-chip v-for="(tag, index) in routine.tags" color="secondary" class="mr-1">{{ tag }}</v-chip>
           </div>
-          <v-card-actions class="ml-2">
-            <v-btn color="primary" variant="tonal" class="btn-start" @click="edit">Edit</v-btn>
-            <v-btn color="red" variant="outlined" class="btn-start" @click="remove">Delete</v-btn>
+          <v-card-actions class="ml-2 mt-0">
+           
             <v-spacer></v-spacer>
 
             <v-icon :color="show ? 'primary' : 'grey'" @click="show = !show">mdi-information</v-icon>
@@ -69,7 +70,7 @@
             </v-col>
           </v-row>
         </v-container>
-        <v-card-actions>
+        <v-card-actions class="info-actions">
           <v-spacer></v-spacer>
           <div v-if="routine.cycles.length > 4" class="d-flex mt-10 mr-2">
             <v-spacer></v-spacer>
@@ -158,7 +159,16 @@ export default {
 .fade-leave-to {
   opacity: 0;
 }
-
+.routine-card, .flip-card {
+  position: relative;
+}
+.like-icon {
+  position: absolute;
+  top: 50px;
+  right: 50px;
+  background-color: transparent;
+  color: red;
+}
 .details-container {
   min-height: inherit;
   display: flex;
@@ -192,7 +202,8 @@ export default {
   }
 }
 
-.v-card-actions {
+
+.info-actions {
   position: absolute;
   bottom: calc(-350px);
   left: 0px;

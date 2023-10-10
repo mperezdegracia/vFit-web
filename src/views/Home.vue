@@ -11,7 +11,7 @@
         </v-text-field>
 
       </v-responsive>
-      <v-btn color="primary new-button">New Routine</v-btn>
+      <v-btn variant="tonal" color="primary"  class="new-button">New Routine</v-btn>
     </div>
     <v-divider class="mx-auto divider mb-2 mt-10"></v-divider>
     <div v-if="searchResult.length === 0">
@@ -91,7 +91,7 @@ const clearSearch = () => {
   width: 80%;
 }
 
-.flex-scroll-container {}
+
 
 .slide-title {
   font-family: 'Courier New', Courier, monospace;
