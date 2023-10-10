@@ -3,7 +3,15 @@
     <h1 class="text-h2 pt-10 text-secondary text-center">Welcome Back!</h1>
     <div class="search-div">
       <v-responsive class="search-container" max-width="40%">
-        <v-text-field class="search-field" v-model="search" label="Search" variant="solo" outlined dense rounded clearable
+        <v-text-field class="search-field" v-if="search.length>0"  label="Search" variant="solo" outlined dense rounded clearable
+          @input="constantSearch" @keydown.enter="searchItems" prepend-inner-icon="mdi-magnify">
+          {{ search }}
+          <template v-slot:append>
+              <v-icon @click="clearSearch" type="button" class="custom-append-icon">mdi-close</v-icon>   
+          </template>
+        </v-text-field>
+
+        <v-text-field class="search-field" v-else  label="Search" variant="solo" outlined dense rounded clearable
           @input="constantSearch" @keydown.enter="searchItems" prepend-inner-icon="mdi-magnify">
           <template v-slot:append>
               <v-icon @click="clearSearch" type="button" class="custom-append-icon">mdi-close</v-icon>   
