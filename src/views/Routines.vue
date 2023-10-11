@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="bg-contrast  d-flex flex-column justify-start align-center"
-  >
+  <div class="bg-contrast d-flex flex-column justify-start align-center">
     <h1>My-Routines</h1>
     <v-container fluid>
       <v-row>
@@ -55,12 +53,11 @@
 <script setup>
 import routines from "@/data/mockRoutines";
 </script>
+
 <script>
 import RoutineCard from "@/components/RoutineCard.vue";
 export default {
-  data() {
-    return {};
-  },
+  data: () => {},
   components: {
     RoutineCard,
   },
