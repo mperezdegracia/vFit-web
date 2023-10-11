@@ -1,5 +1,6 @@
 <template>
-  <div class="bg-contrast min h-screen flex-column pt-4">
+  <div class="bg-contrast flex-column pt-4 pb-16">
+    <h1 class="text-center mt-4 mb-8">Create your own routine!</h1>
     <v-sheet class="mx-auto" max-width="800">
       <v-container class="bg-surface-variant">
         <h3>Describe us your routine</h3>
@@ -10,11 +11,10 @@
           :rules="titleRules"
           label="Routine Title"
           required
-          hide-details
         >
         </v-text-field>
 
-        <div class="mt-8">
+        <div class="mt-4">
           <div class="text-caption">Select the expected difficulty</div>
           <v-slider
             v-model="difficulty"
@@ -24,7 +24,7 @@
             step="1"
             show-ticks="always"
             tick-size="4"
-            color="orange"
+            color="primary"
           >
           </v-slider>
         </div>
@@ -35,48 +35,80 @@
         <h3>Now add your exercises</h3>
       </v-container>
       <v-container class="px-16">
-        <div class="text-subtitle-2 mt-4 mb-2">Ejercicios seleccionados</div>
-        <v-expansion-panels variant="inset" class="my-4">
-          <v-expansion-panel v-for="ejercicio in ejercicios" :key="ejercicio">
+        <v-expansion-panels class="my-4">
+          <v-expansion-panel
+            v-for="(stage, stageIdx) in stages"
+            :key="stageIdx"
+          >
             <v-expansion-panel-title class="bg-grey-lighten-2">{{
-              ejercicio.nombre
+              stage.name
             }}</v-expansion-panel-title>
-            <v-expansion-panel-text
-              >{{ ejercicio.nombre }} -
-              {{ ejercicio.repeticiones }}</v-expansion-panel-text
-            >
-          </v-expansion-panel>
-        </v-expansion-panels>
-        <div class="text-center">
-          <v-btn color="primary" block
-            >Add an exercise
-            <v-dialog v-model="dialog" activator="parent" width="auto">
-              <v-card>
-                <v-card-title>
-                  <span class="text-h5"> Add an exercise </span>
-                </v-card-title>
-                <v-card-text>
-                  <v-container>
-                    <v-row>
-                      <v-col>
+            <v-expansion-panel-text>
+              <v-table>
+                <thead>
+                  <tr>
+                    <th class="text-left" style="width: 50%">Name</th>
+                    <th class="text-left" style="width: 45%">Repetitions</th>
+                    <th class="text-right" style="width: 5%"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    v-for="(exercise, exerciseIdx) in stage.exercises"
+                    :key="exerciseIdx"
+                  >
+                    <td>{{ exercise.name }}</td>
+                    <td>{{ exercise.reps }}</td>
+                    <td class="text-right">
+                      <v-icon
+                        small
+                        @click="deleteExercise(stageIdx, exerciseIdx)"
+                        >mdi-delete</v-icon
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </v-table>
+              <v-btn class="mt-8" color="primary" block
+                >Add an exercise
+                <v-dialog v-model="dialog" activator="parent" width="600">
+                  <v-card title="Add an exercise" max-width="600">
+                    <v-card-text>
+                      <v-container>
                         <v-text-field
                           v-model="exerciseName"
                           label="Exercise name"
-                          required
+                          :rules="titleRules"
                         ></v-text-field>
-                      </v-col>
-                    </v-row>
-                  </v-container>
-                </v-card-text>
-                <v-card-actions>
-                  <v-spacer></v-spacer>
-                  <v-btn color="primary" @click="dialog = false">Cancel</v-btn>
-                  <v-btn color="primary" @click="addEjercicio">Add</v-btn>
-                </v-card-actions>
-              </v-card>
-            </v-dialog>
-          </v-btn>
-        </div>
+                        <v-text-field
+                          v-model="exerciseReps"
+                          label="Repetitions"
+                          :rules="exerciseRepsRules"
+                          class="mt-4"
+                        ></v-text-field>
+                      </v-container>
+                    </v-card-text>
+                    <v-card-actions>
+                      <v-spacer></v-spacer>
+                      <v-btn color="primary" @click="dialog = false"
+                        >Cancel</v-btn
+                      >
+                      <v-btn color="primary" @click="addExercise(stageIdx)"
+                        >Add</v-btn
+                      >
+                    </v-card-actions>
+                  </v-card>
+                </v-dialog>
+              </v-btn>
+              <v-btn
+                block
+                class="mt-2 bg-red-lighten-2"
+                @click="deleteStage(stageIdx)"
+                >Remove</v-btn
+              >
+            </v-expansion-panel-text>
+          </v-expansion-panel>
+        </v-expansion-panels>
       </v-container>
     </v-sheet>
   </div>
@@ -87,12 +119,9 @@ import RoutineCard from "@/components/RoutineCard.vue";
 
 export default {
   data: () => ({
-    dialog: false,
-    valid: false,
     title: "",
     titleRules: [
       (value) => {
-        console.log(value);
         if (value) return true;
         return "Title is required.";
       },
@@ -109,27 +138,53 @@ export default {
       4: "Hard",
       5: "Really hard",
     },
-    exerciseName: "",
 
-    ejercicios: [
-      {
-        nombre: "Abdominales",
-        repeticiones: 6,
+    dialog: false,
+
+    exerciseName: "",
+    exerciseReps: "",
+    exerciseRepsRules: [
+      (value) => {
+        if (value > 0) return true;
+        return "Reps cannot be less or equal than 0.";
       },
+    ],
+
+    stages: [
       {
-        nombre: "Press de banca",
-        repeticiones: 8,
-      },
-      {
-        nombre: "Sentadillas",
-        repeticiones: 3,
+        name: "Hola",
+        exercises: [
+          {
+            name: "Abdominales",
+            reps: 6,
+          },
+          {
+            name: "Press de banca",
+            reps: 8,
+          },
+          {
+            name: "Sentadillas",
+            reps: 3,
+          },
+        ],
       },
     ],
   }),
   methods: {
-    addEjercicio() {
-      this.ejercicios.push({ nombre: this.exerciseName, repeticiones: 10 });
+    deleteStage(stage) {
+      this.stages.splice(stage, 1);
+    },
+    addExercise(stage) {
+      this.stages[stage].exercises.push({
+        name: this.exerciseName,
+        reps: this.exerciseReps,
+      });
       this.dialog = false;
+      this.exerciseName = "";
+      this.exerciseReps = "";
+    },
+    deleteExercise(stage, exercise) {
+      this.stages[stage].exercises.splice(exercise, 1);
     },
   },
   components: {
