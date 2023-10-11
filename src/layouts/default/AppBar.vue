@@ -2,22 +2,29 @@
   <v-app-bar color="white" app>
     <!-- Logo/Branding -->
 
+    <img
+      @click="navigate('Home')"
+      src="@/assets/logo_omg.png"
+      alt="Logo"
+      class="logo-img mb-4"
+    />
 
-
-    <img @click="navigate('Home')" src="@/assets/logo_omg.png" alt="Logo" class="logo-img mb-4" />
-    
-
-    
     <!-- Spacer to push icons to the right -->
     <v-spacer></v-spacer>
 
     <!-- Navigation Buttons -->
-    <v-btn text  class="mx-1">About Us</v-btn>
-    <v-btn text  class="mx-1">Services</v-btn>
+    <v-btn text class="mx-1">About Us</v-btn>
+    <v-btn text class="mx-1">Services</v-btn>
     <v-btn text class="mx-1">Contact</v-btn>
 
     <!-- Login Button -->
-    <v-btn  @click="navigate('Login')" variant="outlined" color="secondary" class="mr-5 ml-1">Login</v-btn>
+    <v-btn
+      @click="navigate('Login')"
+      variant="outlined"
+      color="primary"
+      class="mr-5 ml-1"
+      >Login</v-btn
+    >
   </v-app-bar>
 </template>
 
