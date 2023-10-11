@@ -109,6 +109,18 @@
             </v-expansion-panel-text>
           </v-expansion-panel>
         </v-expansion-panels>
+        <v-row class="mt-4">
+          <v-col cols="9">
+            <v-text-field
+              v-model="stageName"
+              label="Stage name"
+            >
+            </v-text-field>
+          </v-col>
+          <v-col>
+            <v-btn block color="primary" @click="addStage">Add stage</v-btn>
+          </v-col>
+        </v-row>
       </v-container>
     </v-sheet>
   </div>
@@ -150,6 +162,8 @@ export default {
       },
     ],
 
+    stageName: "",
+
     stages: [
       {
         name: "Hola",
@@ -171,6 +185,11 @@ export default {
     ],
   }),
   methods: {
+    addStage() {
+      if (this.stageName == "") return;
+      this.stages.push({ name: this.stageName, exercises: [] });
+      this.stageName = "";
+    },
     deleteStage(stage) {
       this.stages.splice(stage, 1);
     },
