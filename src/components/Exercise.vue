@@ -41,7 +41,7 @@
   </div>
 </v-expand-transition>
     <v-card-actions>
-    
+
       <v-spacer></v-spacer>
 
       <v-icon :color="show ? 'primary' : 'grey'" @click="show = !show">mdi-information</v-icon>
@@ -119,7 +119,7 @@ export default {
 }
 .columns {
   display: flex;
-  
+
 }
 
 .column {
@@ -134,7 +134,7 @@ export default {
 .item {
   width: 100%;
   margin-bottom: 2px;;
- 
+
 }
 
 .details {
