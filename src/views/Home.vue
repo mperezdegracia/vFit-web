@@ -3,19 +3,10 @@
     <h1 class="text-h2 pt-10 text-secondary text-center">Welcome Back!</h1>
     <div class="search-div">
       <v-responsive class="search-container" max-width="40%">
-        <v-text-field class="search-field" v-if="search.length>0"  label="Search" variant="solo" outlined dense rounded clearable
-          @input="constantSearch" @keydown.enter="searchItems" prepend-inner-icon="mdi-magnify">
-          {{ search }}
-          <template v-slot:append>
-              <v-icon @click="clearSearch" type="button" class="custom-append-icon">mdi-close</v-icon>   
-          </template>
-        </v-text-field>
+        
 
-        <v-text-field class="search-field" v-else  label="Search" variant="solo" outlined dense rounded clearable
-          @input="constantSearch" @keydown.enter="searchItems" prepend-inner-icon="mdi-magnify">
-          <template v-slot:append>
-              <v-icon @click="clearSearch" type="button" class="custom-append-icon">mdi-close</v-icon>   
-          </template>
+        <v-text-field class="search-field" label="Search" variant="solo" outlined dense rounded clearable
+          @input="constantSearch" @click:clear="clearSearch" @keydown.enter="searchItems" prepend-inner-icon="mdi-magnify">
         </v-text-field>
 
       </v-responsive>
@@ -31,19 +22,14 @@
       </div>
 
       <h1 class="w-50 text-center font-weight-medium text-h4 slide-title"> Liked</h1>
-      <div class="d-flex ">
+      <div class="d-flex justify-center flex-scroll-container">
         <div class="scroll-container">
           <RoutineScroll :routines="routines"></RoutineScroll>
         </div>
       </div>
     </div>
     <div v-else>
-      <!-- <h1 class="w-50 text-center font-weight-medium text-h4 slide-title"> Search result</h1>
-      <div class="d-flex justify-center flex-scroll-container">
-        <div class="scroll-container">
-          <RoutineScroll :routines="searchResult"></RoutineScroll>
-        </div>
-      </div> -->
+     
       <h1 class="w-50 text-center font-weight-medium text-h4 slide-title"> Search result</h1>
       <div class="d-flex flex-container">
         <RoutineCard v-for="routine in searchResult" :routine="routine" />
@@ -135,7 +121,7 @@ const clearSearch = () => {
   display: flex;
   flex-wrap: wrap;
   /* Permite que los elementos se envuelvan a la siguiente línea cuando no haya suficiente espacio */
-  justify-content: space-evenly !important;
+  justify-content: space-between;
   /* Distribuye el espacio disponible de manera uniforme entre los elementos */
 }
 

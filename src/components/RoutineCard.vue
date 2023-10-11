@@ -1,20 +1,26 @@
 <template>
-  <div class="v-card">
-    <v-btn class="like-icon" icon="mdi-heart-outline"></v-btn>
-    <v-card :loading="loading" class="mx-auto my-12">
+  <div class="routine-card">
+    <div class="d-flex ">
+      <v-spacer></v-spacer>
+      <v-btn class="like-icon" variant="text" :color="isLiked ? 'red-lighten-3' : 'grey'"
+        :icon="isLiked ? 'mdi-heart' : 'mdi-heart-outline'" @click="toggleLike"></v-btn>
+    </div>
+
+    <v-card :loading="loading" class="mx-auto my-12 mt-0 card" @mouseover="isHovered = true" @mouseout="isHovered = false">
       <template v-slot:loader="{ isActive }">
-        <v-progress-linear
-          :active="isActive"
-          color="deep-purple"
-          height="4"
-          indeterminate
-        ></v-progress-linear>
+        <v-progress-linear :active="isActive" color="deep-purple" height="4" indeterminate></v-progress-linear>
       </template>
 
       <vue-flip class="flip-card" v-model="show">
         <template v-slot:front>
           <div>
-            <v-img cover height="160" :src="routine.image"></v-img>
+            <v-img cover height="160" :src="routine.image">
+              <template v-slot:placeholder>
+                <div class="d-flex align-center justify-center fill-height">
+                  <v-progress-circular color="grey-lighten-4" indeterminate></v-progress-circular>
+                </div>
+              </template>
+            </v-img>
 
             <v-card-item>
               <v-card-title>{{ routine.name }}</v-card-title>
@@ -26,16 +32,10 @@
               </v-card-subtitle>
             </v-card-item>
 
-            <v-card-text class="pr-0 mt-1">
+            <v-card-text class="pr-0 mt-0">
               <v-row align="center" class="mx-0">
-                <v-rating
-                  :model-value="routine.rate"
-                  color="amber"
-                  density="compact"
-                  half-increments
-                  readonly
-                  size="small"
-                ></v-rating>
+                <v-rating :model-value="routine.rate" color="amber" density="compact" half-increments readonly
+                  size="small"></v-rating>
 
                 <div class="text-grey ml-1">
                   {{ routine.rate }} <span>({{ routine.reviews }})</span>
@@ -43,63 +43,42 @@
                 <v-card-subtitle class="px-2">
                   <b>Difficulty: </b>
                   <template v-for="index in 5">
-                    <Icon
-                      :icon="'icon-park-solid:rectangle'"
-                      :color="difficultyColor(index)"
-                    />
+                    <Icon :icon="'icon-park-solid:rectangle'" :color="difficultyColor(index)" />
                   </template>
                 </v-card-subtitle>
               </v-row>
             </v-card-text>
 
-            <v-divider class="mx-4 mb-2 mt-2"></v-divider>
+            <v-divider class="mx-4 mb-2 mt-1"></v-divider>
 
             <div class="px-4 mt-3">
-              <v-chip
-                v-for="(tag, index) in routine.tags"
-                color="secondary"
-                class="mr-1"
-                >{{ tag }}</v-chip
-              >
+              <v-chip v-for="(tag, index) in routine.tags" color="secondary" class="mr-1">{{ tag }}</v-chip>
             </div>
             <v-card-actions class="ml-2 mt-0">
-              <v-spacer></v-spacer>
 
-              <v-icon :color="show ? 'primary' : 'grey'" @click="show = !show"
-                >mdi-information</v-icon
-              >
+              <v-btn variant="tonal" class="text-body-2 me-2" color="primary" prepend-icon="mdi-open-in-new">
+
+                DETAILS
+              </v-btn>
+              <v-spacer></v-spacer>
+              <v-icon :color="show ? 'primary' : 'grey'" @click="show = !show">mdi-information</v-icon>
             </v-card-actions>
           </div>
         </template>
         <template v-slot:back>
           <v-container class="details-container pt-0 pl-1 pr-1" :key="1">
             <v-row class="details-row" no-gutters>
-              <v-col
-                class="details-col"
-                v-for="(cycle, index) in cyclesToShow"
-                :key="index"
-                cols="6"
-                no-gutters
-              >
+              <v-col class="details-col" v-for="(cycle, index) in cyclesToShow" :key="index" cols="6" no-gutters>
                 <v-list dense class="cycle mx-auto pt-0 pb-0 pr-0" no-padding>
                   <v-list-subheader color="secondary">{{
                     cycle.name
                   }}</v-list-subheader>
                   <v-divider class="mr-4"></v-divider>
-                  <v-list-item
-                    min-height="20"
-                    class="list-item px-0"
-                    v-for="(item, i) in cycle.items"
-                    :key="i"
-                    color="primary"
-                    :selectable="false"
-                  >
+                  <v-list-item min-height="20" class="list-item px-0" v-for="(item, i) in cycle.items" :key="i"
+                    color="primary" :selectable="false">
                     <div class="d-flex align-items-center item">
                       <v-icon color="grey">mdi-dumbbell</v-icon>
-                      <v-list-item-title
-                        class="ml-2 icon-info"
-                        v-text="item.name"
-                      ></v-list-item-title>
+                      <v-list-item-title class="ml-2 icon-info" v-text="item.name"></v-list-item-title>
                     </div>
                   </v-list-item>
                 </v-list>
@@ -112,34 +91,20 @@
               <v-spacer></v-spacer>
               <v-tooltip location="top">
                 <template v-slot:activator="{ props }">
-                  <v-btn
-                    icon
-                    variant="tonal"
-                    color="secondary"
-                    v-bind="props"
-                    height="35px"
-                    width="35px"
-                  >
+                  <v-btn icon variant="tonal" color="secondary" v-bind="props" height="35px" width="35px">
                     {{ routine.cycles.length - 4 }}+
                   </v-btn>
                 </template>
                 <span>{{
-                  `There ${routine.cycles.length - 4 === 1 ? "is" : "are"} ${
-                    routine.cycles.length - 4
-                  } more
-                              section${
-                                routine.cycles.length - 4 === 1 ? "" : "s"
-                              } in this workout!`
+                  `There ${routine.cycles.length - 4 === 1 ? "is" : "are"} ${routine.cycles.length - 4
+                    } more
+                                  section${routine.cycles.length - 4 === 1 ? "" : "s"
+                    } in this workout!`
                 }}</span>
               </v-tooltip>
             </div>
 
-            <v-icon
-              class="mt-10"
-              :color="show ? 'primary' : 'grey'"
-              @click="show = !show"
-              >mdi-information</v-icon
-            >
+            <v-icon class="mt-10" :color="show ? 'primary' : 'grey'" @click="show = !show">mdi-information</v-icon>
           </v-card-actions>
         </template>
       </vue-flip>
@@ -155,6 +120,8 @@ export default {
   data: () => ({
     loading: false,
     show: false,
+    isLiked: false,
+    isHovered: false,
   }),
   props: {
     routine: {
@@ -194,8 +161,11 @@ export default {
 
       setTimeout(() => (this.loading = false), 2000);
     },
-    remove() {},
-    edit() {},
+    toggleLike() {
+      this.isLiked = !this.isLiked;
+    },
+    remove() { },
+    edit() { },
   },
 };
 </script>
@@ -210,18 +180,28 @@ export default {
 .fade-leave-to {
   opacity: 0;
 }
-.routine-card,
+
+.routine-card {
+  transition: transform 0.3s ease-in-out;
+}
+
+.routine-card:hover {
+  transform: scale(1.05);
+}
+
 .flip-card {
   position: relative;
 }
+
 .like-icon {
-  position: absolute !important;
-  top: 50px;
-  right: 0px;
+
+  position: relative !important;
+  top: 45px;
+  right: -15px;
   z-index: 1;
-  background-color: transparent !important;
-  color: red;
+  transition: color 2s ease-in-out; 
 }
+
 .details-container {
   min-height: inherit;
   display: flex;
@@ -239,6 +219,7 @@ export default {
   width: 80%;
   padding: 0px;
 }
+
 /* min-width="320" max-width="320" min-height="370" max-height="370" */
 .v-card {
   min-width: 320px;
@@ -248,7 +229,7 @@ export default {
 
 @media (max-width: 768px) {
   .v-card {
-    height: 350px;
+    min-height: 350px;
     /* adjust the height for smaller screens */
   }
 }
