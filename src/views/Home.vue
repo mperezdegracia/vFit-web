@@ -3,18 +3,19 @@
     <h1 class="text-h2 pt-10 text-secondary text-center">Welcome Back!</h1>
     <div class="search-div">
       <v-responsive class="search-container" max-width="40%">
-        
+
 
         <v-text-field class="search-field" label="Search" variant="solo" outlined dense rounded clearable
-          @input="constantSearch" @click:clear="clearSearch" @keydown.enter="searchItems" prepend-inner-icon="mdi-magnify">
+          @input="constantSearch" @click:clear="clearSearch" @keydown.enter="searchItems"
+          prepend-inner-icon="mdi-magnify">
         </v-text-field>
 
       </v-responsive>
-      <v-btn variant="tonal" color="primary"  class="new-button" @click="navigate('Create-Routine')">New Routine</v-btn>
+      <v-btn variant="tonal" color="primary" class="new-button" @click="navigate('Create-Routine')">New Routine</v-btn>
     </div>
     <v-divider class="mx-auto divider mb-2 mt-10"></v-divider>
     <div v-if="searchResult.length === 0">
-      <h1 class="w-50 text-center  text-h4 text-secondary slide-title"> Recommended</h1>
+      <h1 class="w-50 text-center  text-h4 text-secondary slide-title pt-5"> Recommended</h1>
       <div class="d-flex justify-center flex-scroll-container">
         <div class="scroll-container">
           <RoutineScroll :routines="routines"></RoutineScroll>
@@ -29,7 +30,7 @@
       </div>
     </div>
     <div v-else>
-     
+
       <h1 class="w-50 text-center font-weight-medium text-h4 slide-title"> Search result</h1>
       <!-- <div class="d-flex flex-container mx-auto">
         <RoutineCard v-for="routine in searchResult" :routine="routine" class="mx-auto" />
@@ -116,6 +117,11 @@ const clearSearch = () => {
     display: block;
   }
 
+  .divider {
+    width: 90%;
+    margin-top: 50px !important;
+  }
+
   .search-container {
     min-width: 80%;
     margin: auto;
@@ -150,7 +156,8 @@ const clearSearch = () => {
 .custom-append-icon {
   position: absolute;
   top: 50%;
-  right: 25px; /* Ajusta la distancia desde el borde derecho del campo de texto */
+  right: 25px;
+  /* Ajusta la distancia desde el borde derecho del campo de texto */
   transform: translateY(-90%);
 }
 </style>
