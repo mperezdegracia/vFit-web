@@ -5,7 +5,7 @@
       <v-responsive class="search-container" max-width="40%">
 
 
-        <v-text-field class="search-field" label="Search" variant="solo" outlined dense rounded clearable
+        <v-text-field class="search-field" v-model="search" id="search" label="Search" variant="solo" outlined dense rounded clearable
           @input="constantSearch" @click:clear="clearSearch" @keydown.enter="searchItems"
           prepend-inner-icon="mdi-magnify">
         </v-text-field>
@@ -31,10 +31,11 @@
     </div>
     <div v-else>
 
-      <h1 class="w-50 text-center font-weight-medium text-h4 slide-title"> Search result</h1>
+      <h1 class="w-50 text-center  text-h4 text-secondary slide-title pt-5" id="searchResultLabel"> </h1>
       <!-- <div class="d-flex flex-container mx-auto">
         <RoutineCard v-for="routine in searchResult" :routine="routine" class="mx-auto" />
       </div> -->
+      
       <RoutineGrid :routines="searchResult"></RoutineGrid>
     </div>
   </div>
@@ -62,6 +63,9 @@ const searchItems = () => {
   console.log(`Searching for ${search.toLowerCase()}`);
   // hacer la logica del search
   searchResult.value = routines;
+  const searchResultLabel = document.getElementById('searchResultLabel');
+
+  searchResultLabel.textContent = "Results for '"+search+"'";
   return { searchResult };
 };
 

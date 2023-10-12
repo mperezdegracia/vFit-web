@@ -1,11 +1,11 @@
 <template>
     <div class="d-flex justify-center">
 
-        <v-col cols="11">
+        <v-col cols="12">
             <!-- Cambia el valor de "cols" según tus necesidades -->
 
             <v-row class="justify-center ">
-                <v-col v-for="(routine_, index) in routines" :key="index" md="3" sm="5" class="">
+                <v-col v-for="(routine_, index) in routines" :key="index" lg="3" md="4" sm="6" xs="12" class="">
                     <!-- Ajusta el valor de "cols" según tus necesidades -->
                     <div class="d-flex justify-center">
                         <RoutineCard :routine="routine_" />
