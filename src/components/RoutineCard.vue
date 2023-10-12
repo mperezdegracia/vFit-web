@@ -197,7 +197,7 @@ export default {
 
   position: relative !important;
   top: 45px;
-  right: -15px;
+  right: -5px;
   z-index: 1;
   transition: color 2s ease-in-out; 
 }
