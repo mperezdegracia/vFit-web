@@ -10,18 +10,18 @@
         </v-text-field>
 
       </v-responsive>
-      <v-btn variant="tonal" color="primary"  class="new-button">New Routine</v-btn>
+      <v-btn variant="tonal" color="primary"  class="new-button" @click="navigate('Create-Routine')">New Routine</v-btn>
     </div>
     <v-divider class="mx-auto divider mb-2 mt-10"></v-divider>
     <div v-if="searchResult.length === 0">
-      <h1 class="w-50 text-center font-weight-medium text-h4 slide-title"> Recommended</h1>
+      <h1 class="w-50 text-center  text-h4 text-secondary slide-title"> Recommended</h1>
       <div class="d-flex justify-center flex-scroll-container">
         <div class="scroll-container">
           <RoutineScroll :routines="routines"></RoutineScroll>
         </div>
       </div>
 
-      <h1 class="w-50 text-center font-weight-medium text-h4 slide-title"> Liked</h1>
+      <h1 class="w-50 text-center text-h4 text-secondary slide-title"> Liked</h1>
       <div class="d-flex justify-center flex-scroll-container">
         <div class="scroll-container">
           <RoutineScroll :routines="routines"></RoutineScroll>
@@ -31,9 +31,10 @@
     <div v-else>
      
       <h1 class="w-50 text-center font-weight-medium text-h4 slide-title"> Search result</h1>
-      <div class="d-flex flex-container">
-        <RoutineCard v-for="routine in searchResult" :routine="routine" />
-      </div>
+      <!-- <div class="d-flex flex-container mx-auto">
+        <RoutineCard v-for="routine in searchResult" :routine="routine" class="mx-auto" />
+      </div> -->
+      <RoutineGrid :routines="searchResult"></RoutineGrid>
     </div>
   </div>
 </template>
@@ -41,9 +42,17 @@
 <script setup>
 import RoutineScroll from "@/components/RoutineScroll.vue";
 import RoutineCard from "@/components/RoutineCard.vue";
+import RoutineGrid from "@/components/RoutineGrid.vue";
+import { useRouter } from "vue-router";
+
 import routines from "@/data/mockRoutines.js";
 import { ref } from 'vue';
 
+const router = useRouter();
+
+const navigate = (routeName) => {
+  router.push({ name: routeName }); // Navigate to the register page
+};
 const name = "SearchBar"; // Asigna el nombre de componente a una constante
 let search = ""; // Cambia "data" a "let" para definir una variable local
 let searchResult = ref("");
@@ -121,7 +130,7 @@ const clearSearch = () => {
   display: flex;
   flex-wrap: wrap;
   /* Permite que los elementos se envuelvan a la siguiente línea cuando no haya suficiente espacio */
-  justify-content: space-between;
+  justify-content: center;
   /* Distribuye el espacio disponible de manera uniforme entre los elementos */
 }
 

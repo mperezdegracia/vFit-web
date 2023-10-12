@@ -69,7 +69,7 @@
                   </tr>
                 </tbody>
               </v-table>
-              <v-btn class="mt-8" color="primary" block
+              <v-btn class="mt-8" color="primary" variant="tonal" block
                 >Add an exercise
                 <v-dialog v-model="dialog" activator="parent" width="600">
                   <v-card title="Add an exercise" max-width="600">
@@ -90,10 +90,10 @@
                     </v-card-text>
                     <v-card-actions>
                       <v-spacer></v-spacer>
-                      <v-btn color="primary" @click="dialog = false"
+                      <v-btn color="primary" variant="tonal" @click="dialog = false"
                         >Cancel</v-btn
                       >
-                      <v-btn color="primary" @click="addExercise(stageIdx)"
+                      <v-btn color="primary" variant="tonal" @click="addExercise(stageIdx)"
                         >Add</v-btn
                       >
                     </v-card-actions>
@@ -101,8 +101,10 @@
                 </v-dialog>
               </v-btn>
               <v-btn
+                variant="tonal"
                 block
-                class="mt-2 bg-red-lighten-2"
+                color="red-lighten-1"
+                class="mt-2"
                 @click="deleteStage(stageIdx)"
                 >Remove</v-btn
               >
@@ -118,7 +120,7 @@
             </v-text-field>
           </v-col>
           <v-col>
-            <v-btn block color="primary" @click="addStage">Add stage</v-btn>
+            <v-btn block color="primary" variant="tonal" @click="addStage">Add stage</v-btn>
           </v-col>
         </v-row>
       </v-container>

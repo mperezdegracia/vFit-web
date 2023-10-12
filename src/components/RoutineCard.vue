@@ -183,6 +183,8 @@ export default {
 
 .routine-card {
   transition: transform 0.3s ease-in-out;
+  transform-origin: center;
+
 }
 
 .routine-card:hover {
@@ -221,7 +223,7 @@ export default {
 }
 
 /* min-width="320" max-width="320" min-height="370" max-height="370" */
-.v-card {
+.v-card,.routine-card {
   min-width: 320px;
   min-height: 350px;
   max-width: 320px;

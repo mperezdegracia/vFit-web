@@ -17,7 +17,7 @@
     <v-btn text class="mx-1">Contact</v-btn>
 
     <!-- Login Button -->
-    <v-btn  @click="navigate('Login')" variant="outlined" color="secondary" class="mr-5 ml-1">Login</v-btn>
+    <v-btn  @click="navigate('Login')" variant="tonal" color="secondary" class="mr-5 ml-1">Login</v-btn>
   </v-app-bar>
 </template>
 
