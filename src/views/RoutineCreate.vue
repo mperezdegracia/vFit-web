@@ -279,6 +279,7 @@ export default {
         exercises: [],
       });
       this.cycleName = "";
+      this.cycleReps = "";
     },
     deleteCycle(cycle) {
       this.cycles.splice(cycle, 1);
