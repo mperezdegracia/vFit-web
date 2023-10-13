@@ -1,16 +1,17 @@
 <template>
   <div class="bg-contrast flex-column pt-4 pb-16">
     <h1 class="text-center mt-4 mb-8">Create your own routine!</h1>
-    <v-sheet class="mx-auto" max-width="800">
-      <v-container class="bg-surface-variant">
+    <v-sheet class="mx-auto elevation-6 rounded-lg" max-width="800">
+      <v-container class="bg-primary rounded-t-lg">
         <h3>Describe us your routine</h3>
       </v-container>
-      <v-container class="px-16">
+      <v-container class="px-8">
         <v-text-field
           v-model="title"
           :rules="titleRules"
           label="Routine Title"
           required
+          class="my-4"
         >
         </v-text-field>
 
@@ -30,46 +31,53 @@
         </div>
       </v-container>
     </v-sheet>
-    <v-sheet class="mx-auto mt-8" max-width="800">
-      <v-container class="bg-surface-variant">
+    <v-sheet class="mx-auto mt-8 elevation-6 rounded-lg" max-width="800">
+      <v-container class="bg-primary rounded-t-lg">
         <h3>Now add your exercises</h3>
       </v-container>
-      <v-container class="px-16">
-        <v-expansion-panels class="my-4">
+      <v-container class="px-8">
+        <v-expansion-panels class="mt-4 mb-8" variant="accordion" v-if="cycles.length">
           <v-expansion-panel
-            v-for="(stage, stageIdx) in stages"
-            :key="stageIdx"
+            v-for="(cycle, cycleIdx) in cycles"
+            :key="cycleIdx"
           >
-            <v-expansion-panel-title class="bg-grey-lighten-2">{{
-              stage.name
-            }}</v-expansion-panel-title>
+            <v-expansion-panel-title class="bg-grey-lighten-2"
+              >{{ cycle.name }} -
+              <span class="font-weight-bold ml-1"
+                >{{ cycle.reps }} reps</span
+              ></v-expansion-panel-title
+            >
             <v-expansion-panel-text>
-              <v-table>
+              <v-table v-if="cycle.exercises.length" class="mb-4">
                 <thead>
                   <tr>
                     <th class="text-left" style="width: 50%">Name</th>
-                    <th class="text-left" style="width: 45%">Repetitions</th>
+                    <th class="text-left" style="width: 45%">Reps/time</th>
                     <th class="text-right" style="width: 5%"></th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr
-                    v-for="(exercise, exerciseIdx) in stage.exercises"
+                    v-for="(exercise, exerciseIdx) in cycle.exercises"
                     :key="exerciseIdx"
                   >
                     <td>{{ exercise.name }}</td>
-                    <td>{{ exercise.reps }}</td>
+                    <td>
+                      <span v-if="exercise.reps"
+                        >{{ exercise.reps }} reps / </span
+                      >{{ exercise.time }}s
+                    </td>
                     <td class="text-right">
                       <v-icon
                         small
-                        @click="deleteExercise(stageIdx, exerciseIdx)"
+                        @click="deleteExercise(cycleIdx, exerciseIdx)"
                         >mdi-delete</v-icon
                       >
                     </td>
                   </tr>
                 </tbody>
               </v-table>
-              <v-btn class="mt-8" color="primary" variant="tonal" block
+              <v-btn class="mt-2" color="primary" variant="tonal" block
                 >Add an exercise
                 <v-dialog v-model="dialog" activator="parent" width="600">
                   <v-card title="Add an exercise" max-width="600">
@@ -80,20 +88,43 @@
                           label="Exercise name"
                           :rules="titleRules"
                         ></v-text-field>
-                        <v-text-field
-                          v-model="exerciseReps"
-                          label="Repetitions"
-                          :rules="exerciseRepsRules"
-                          class="mt-4"
-                        ></v-text-field>
+                        <v-row>
+                          <v-col v-if="!exerciseOnlyTime">
+                            <v-text-field
+                              v-model="exerciseReps"
+                              label="Repetitions"
+                              :rules="exerciseRepsRules"
+                              class="mt-4"
+                            ></v-text-field>
+                          </v-col>
+                          <v-col>
+                            <v-text-field
+                              v-model="exerciseTime"
+                              label="Time (in seconds)"
+                              :rules="exerciseTimeRules"
+                              class="mt-4"
+                            ></v-text-field>
+                          </v-col>
+                        </v-row>
+                        <v-checkbox
+                          v-model="exerciseOnlyTime"
+                          color="primary"
+                          label="Only time specified"
+                        ></v-checkbox>
                       </v-container>
                     </v-card-text>
                     <v-card-actions>
                       <v-spacer></v-spacer>
-                      <v-btn color="primary" variant="tonal" @click="dialog = false"
+                      <v-btn
+                        color="primary"
+                        variant="tonal"
+                        @click="dialog = false"
                         >Cancel</v-btn
                       >
-                      <v-btn color="primary" variant="tonal" @click="addExercise(stageIdx)"
+                      <v-btn
+                        color="primary"
+                        variant="tonal"
+                        @click="addExercise(cycleIdx)"
                         >Add</v-btn
                       >
                     </v-card-actions>
@@ -105,24 +136,25 @@
                 block
                 color="red-lighten-1"
                 class="mt-2"
-                @click="deleteStage(stageIdx)"
-                >Remove</v-btn
+                @click="deleteCycle(cycleIdx)"
+                >Remove cycle</v-btn
               >
             </v-expansion-panel-text>
           </v-expansion-panel>
         </v-expansion-panels>
-        <v-row class="mt-4">
-          <v-col cols="9">
-            <v-text-field
-              v-model="stageName"
-              label="Stage name"
-            >
+        <v-row>
+          <v-col>
+            <v-text-field v-model="cycleName" label="Cycle name">
             </v-text-field>
           </v-col>
           <v-col>
-            <v-btn block color="primary" variant="tonal" @click="addStage">Add stage</v-btn>
+            <v-text-field v-model="cycleReps" label="Repetitions">
+            </v-text-field>
           </v-col>
         </v-row>
+        <v-btn block color="primary" variant="tonal" @click="addCycle"
+          >Add cycle</v-btn
+        >
       </v-container>
     </v-sheet>
   </div>
@@ -137,7 +169,7 @@ export default {
     titleRules: [
       (value) => {
         if (value) return true;
-        return "Title is required.";
+        return "This field is required.";
       },
       (value) => {
         if (value?.length <= 30) return true;
@@ -159,53 +191,118 @@ export default {
     exerciseReps: "",
     exerciseRepsRules: [
       (value) => {
+        if (value) return true;
+        return "This field is required.";
+      },
+      (value) => {
         if (value > 0) return true;
         return "Reps cannot be less or equal than 0.";
       },
     ],
+    exerciseTime: "",
+    exerciseTimeRules: [
+      (value) => {
+        if (value) return true;
+        return "This field is required.";
+      },
+      (value) => {
+        if (value > 0) return true;
+        return "Time cannot be less or equal than 0.";
+      },
+    ],
+    exerciseOnlyTime: false,
 
-    stageName: "",
+    cycleName: "",
+    cycleReps: "",
 
-    stages: [
+    cycles: [
       {
-        name: "Hola",
+        name: "Ciclo de ejercitación A",
+        reps: 2,
         exercises: [
           {
+            name: "Flexiones de brazos",
+            reps: 20,
+            time: 60,
+          },
+          {
+            name: "Descanso",
+            time: 60,
+          },
+          {
             name: "Abdominales",
-            reps: 6,
+            reps: 15,
+            time: 50,
           },
           {
-            name: "Press de banca",
-            reps: 8,
+            name: "Descanso",
+            time: 40,
+          },
+        ],
+      },
+      {
+        name: "Ciclo de ejercitación B (opcional)",
+        reps: 3,
+        exercises: [
+          {
+            name: "Jumping jacks",
+            time: 30,
           },
           {
-            name: "Sentadillas",
-            reps: 3,
+            name: "Descanso",
+            time: 60,
+          },
+        ],
+      },
+      {
+        name: "Ciclo de enfriamiento",
+        reps: 4,
+        exercises: [
+          {
+            name: "Estirar hombros",
+            time: 60,
+          },
+          {
+            name: "Estirar piernas",
+            time: 40,
           },
         ],
       },
     ],
   }),
   methods: {
-    addStage() {
-      if (this.stageName == "") return;
-      this.stages.push({ name: this.stageName, exercises: [] });
-      this.stageName = "";
+    addCycle() {
+      if (this.cycleName == "" || this.cycleReps == "") return;
+      this.cycles.push({
+        name: this.cycleName,
+        reps: this.cycleReps,
+        exercises: [],
+      });
+      this.cycleName = "";
     },
-    deleteStage(stage) {
-      this.stages.splice(stage, 1);
+    deleteCycle(cycle) {
+      this.cycles.splice(cycle, 1);
     },
-    addExercise(stage) {
-      this.stages[stage].exercises.push({
+    addExercise(cycle) {
+      if (
+        this.exerciseName == "" ||
+        this.exerciseTime == "" ||
+        (this.exerciseReps == "" && this.exerciseOnlyTime == false)
+      )
+        return;
+      this.cycles[cycle].exercises.push({
         name: this.exerciseName,
         reps: this.exerciseReps,
+        time: this.exerciseTime,
       });
       this.dialog = false;
       this.exerciseName = "";
       this.exerciseReps = "";
+      this.exerciseTime = "";
+      this.exerciseOnlyTime = false;
     },
-    deleteExercise(stage, exercise) {
-      this.stages[stage].exercises.splice(exercise, 1);
+    deleteExercise(cycle, exercise) {
+      this.cycles[cycle].exercises.splice(exercise, 1);
     },
   },
   components: {
