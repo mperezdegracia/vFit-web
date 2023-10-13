@@ -46,4 +46,9 @@ const navigate = (route) => {
   max-height: 120px; /* Set the maximum height to 80px */
   max-width: 120px; /* Set the maximum width to 80px */
 }
+
+
+.logo-img:hover {
+  cursor: pointer;
+}
 </style>

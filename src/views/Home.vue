@@ -5,9 +5,16 @@
       <v-responsive class="search-container" max-width="40%">
 
 
-        <v-text-field class="search-field" v-model="search" id="search" label="Search" variant="solo" outlined dense rounded clearable
-          @input="constantSearch" @click:clear="clearSearch" @keydown.enter="searchItems"
+        <v-text-field class="search-field" v-model="search" id="search" label="Search" variant="solo" outlined dense
+          rounded clearable @input="constantSearch" @click:clear="clearSearch" @keydown.enter="searchItems"
           prepend-inner-icon="mdi-magnify">
+          <template #append>
+            <v-btn @click="searchItems" icon>
+              <v-icon>
+                mdi-send
+              </v-icon>
+            </v-btn>
+          </template>
         </v-text-field>
 
       </v-responsive>
@@ -35,7 +42,7 @@
       <!-- <div class="d-flex flex-container mx-auto">
         <RoutineCard v-for="routine in searchResult" :routine="routine" class="mx-auto" />
       </div> -->
-      
+
       <RoutineGrid :routines="searchResult"></RoutineGrid>
     </div>
   </div>
@@ -59,14 +66,17 @@ const name = "SearchBar"; // Asigna el nombre de componente a una constante
 let search = ""; // Cambia "data" a "let" para definir una variable local
 let searchResult = ref("");
 const searchItems = () => {
-  // Perform search logic here
-  console.log(`Searching for ${search.toLowerCase()}`);
-  // hacer la logica del search
-  searchResult.value = routines;
-  const searchResultLabel = document.getElementById('searchResultLabel');
+  if (search.length > 0) {
+    // Perform search logic here
+    console.log(`Searching for ${search.toLowerCase()}`);
+    // hacer la logica del search
+    searchResult.value = routines;
+    
+    const searchResultLabel = document.getElementById('searchResultLabel');
+    searchResultLabel.textContent = "Results for '" + search + "'";
 
-  searchResultLabel.textContent = "Results for '"+search+"'";
-  return { searchResult };
+    return { searchResult };
+  }
 };
 
 const constantSearch = () => {

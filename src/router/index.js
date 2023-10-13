@@ -96,7 +96,8 @@ const routes = [
         // which is lazy-loaded when the route is visited.
         children: [
           {
-            path: ":id",
+            //path: ":id",
+            path:"detailed", // cambio de path para testear
             name: "Detailed-Routine",
             // route level code-splitting
             // this generates a separate chunk (about.[hash].js) for this route

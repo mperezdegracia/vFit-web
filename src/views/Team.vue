@@ -41,7 +41,7 @@
                     A team of passionate IT professionals, driven by their love for technology and education,
                     came together to create a groundbreaking web platform. With a clear vision of providing accessible
                     and effective learning opportunities, this group of talented programmers designed a training website
-                    that transformed the way people acquire tech skills.<br><br>The platform, known as 'V-Fit,' offers
+                    that transformed the way people acquire tech skills.<br><br>The platform, known as 'V-Fit', offers
                     a wide range of interactive courses in web development, programming, cybersecurity, and more. What
                     sets it apart is its hands-on approach and the vibrant community of enthusiastic learners that has
                     grown around it. Users can learn at their own pace, access practical projects, and receive real-time
