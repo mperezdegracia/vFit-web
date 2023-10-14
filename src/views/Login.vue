@@ -1,38 +1,25 @@
 <template>
   <v-card elevation="0" class="w-25 mx-auto custom_card">
     <div class="text-center">
-      <a
-        href="http://localhost:3000/home"
-        name="Fedorae Education"
-        title="Fedorae Education"
-        target="_blank"
-      >
-        <v-img
-          src="@/assets/logo.png"
-          alt="Fedorae Education Log"
-          contain
-          height="250"
-        ></v-img>
+      <a href="/home" target="_blank">
+        <v-img src="@/assets/logo.png" contain height="250"></v-img>
       </a>
     </div>
     <v-card-text>
-      <v-form>
+      <v-form validate-on="submit lazy" @submit.prevent="submit">
         <v-text-field
-          label="Enter your email"
-          name="email"
-          prepend-inner-icon="mdi-email"
-          type="email"
-          class="rounded-0"
-          outlined
+          v-model="username"
+          :rules="rules"
+          label="Enter your username"
+          prepend-inner-icon="mdi-account"
         ></v-text-field>
         <v-text-field
-          label="Enter your password"
-          name="password"
-          prepend-inner-icon="mdi-lock"
+          v-model="password"
+          :rules="rules"
           type="password"
+          label="Enter your password"
+          prepend-inner-icon="mdi-lock"
           suffix="| Forgot?"
-          class="rounded-0"
-          outlined
         ></v-text-field>
 
         <RouterLink
@@ -43,6 +30,7 @@
         </RouterLink>
         <br />
         <v-btn
+          type="submit"
           class="rounded-lg"
           color="primary"
           variant="tonal"
@@ -80,16 +68,6 @@
   </v-card>
 </template>
 
-<script setup>
-import { useRouter } from "vue-router";
-
-const router = useRouter();
-
-const navigateToRegister = () => {
-  router.push({ name: "Register" }); // Navigate to the register page
-};
-</script>
-
 <style scoped>
 .terms-link {
   color: #1976d2;
@@ -108,3 +86,39 @@ const navigateToRegister = () => {
   min-width: 400px;
 }
 </style>
+
+<script setup>
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+
+const navigateToRegister = () => {
+  router.push({ name: "Register" }); // Navigate to the register page
+};
+</script>
+
+<script>
+import { useAuthStore } from "@/store/auth.store";
+
+export default {
+  data: () => ({
+    username: "",
+    password: "",
+
+    rules: [
+      (value) => {
+        if (value) return true;
+        return "This field is required.";
+      },
+    ],
+  }),
+  methods: {
+    async submit(event) {
+      const results = await event;
+      if (!results.valid) return;
+      const authStore = useAuthStore();
+      await authStore.login(this.username, this.password);
+    },
+  },
+};
+</script>

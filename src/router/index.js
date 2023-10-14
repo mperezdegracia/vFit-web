@@ -1,6 +1,6 @@
-// Composables
+import { useAuthStore } from "@/store/auth.store";
 import { createRouter, createWebHistory } from "vue-router";
-import Home from '@/views/Home.vue'
+
 const routes = [
   {
     path: "/",
@@ -10,114 +10,71 @@ const routes = [
         path: "",
         name: "Landing",
         meta: { requiresAuth: false },
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: () =>
-          import(/* webpackChunkName: "home" */ "@/views/Landing.vue"),
+        component: () => import("@/views/Landing.vue"),
       },
       {
         path: "profile",
         name: "Profile",
         meta: { requiresAuth: true },
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: () =>
-          import(/* webpackChunkName: "home" */ "@/views/Profile.vue"),
+        component: () => import("@/views/Profile.vue"),
       },
       {
         path: "team",
         name: "Team",
         meta: { requiresAuth: true },
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: () =>
-          import(/* webpackChunkName: "home" */ "@/views/Team.vue"),
+        component: () => import("@/views/Team.vue"),
       },
       {
         path: "change-password",
         name: "Change Password",
         meta: { requiresAuth: true },
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: () =>
-          import(/* webpackChunkName: "home" */ "@/views/ChangePassword.vue"),
+        component: () => import("@/views/ChangePassword.vue"),
       },
       {
         path: "login",
         name: "Login",
         meta: { requiresAuth: false },
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: () =>
-          import(/* webpackChunkName: "home" */ "@/views/Login.vue"),
+        component: () => import("@/views/Login.vue"),
       },
       {
         path: "register",
         name: "Register",
         meta: { requiresAuth: false },
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: () =>
-          import(/* webpackChunkName: "home" */ "@/views/Register.vue"),
+        component: () => import("@/views/Register.vue"),
+      },
+      {
+        path: "verify-email",
+        name: "Verify Email",
+        component: () => import("@/views/VerifyEmail.vue"),
       },
       {
         path: "home",
         name: "Home",
         meta: { requiresAuth: false },
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: Home
+        component: () => import("@/views/Home.vue"),
       },
       {
         path: "my-routines",
         name: "Routines",
         meta: { requiresAuth: true },
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-
-        component: () =>
-          import(/* webpackChunkName: "home" */ "@/views/Routines.vue"),
+        component: () => import("@/views/Routines.vue"),
       },
       {
         path: "routine",
         name: "Routine",
         meta: { requiresAuth: false },
-
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
         children: [
           {
             //path: ":id",
-            path:"detailed", // cambio de path para testear
+            path: "detailed", // cambio de path para testear
             name: "Detailed-Routine",
-            // route level code-splitting
-            // this generates a separate chunk (about.[hash].js) for this route
-            // which is lazy-loaded when the route is visited.
-            component: () =>
-              import(
-                /* webpackChunkName: "home" */ "@/views/DetailedRoutine.vue"
-              ),
+            component: () => import("@/views/DetailedRoutine.vue"),
           },
           {
             path: "create",
             name: "Create-Routine",
             meta: { requiresAuth: false },
-            // route level code-splitting
-            // this generates a separate chunk (about.[hash].js) for this route
-            // which is lazy-loaded when the route is visited.
-            component: () =>
-              import(
-                /* webpackChunkName: "home" */ "@/views/RoutineCreate.vue"
-              ),
+            component: () => import("@/views/RoutineCreate.vue"),
           },
         ],
       },
@@ -125,32 +82,35 @@ const routes = [
         path: "settings",
         name: "Settings",
         meta: { requiresAuth: true },
-
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: () =>
-          import(/* webpackChunkName: "home" */ "@/views/Settings.vue"),
+        component: () => import("@/views/Settings.vue"),
       },
       {
         path: "/:notFound",
         name: "PathNotFound",
         meta: { requiresAuth: false },
-
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: () =>
-          import(/* webpackChunkName: "home" */ "@/views/PageNotFound.vue"),
+        component: () => import("@/views/PageNotFound.vue"),
       },
     ],
   },
 ];
 
-const router = createRouter({
+export const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
 });
+
+router.beforeEach(async (to) => {
+  const publicPages = ["/login", "/register"];
+  const authRequired = !publicPages.includes(to.path);
+  const authStore = useAuthStore();
+
+  if (authRequired && !authStore.user) {
+    authStore.returnUrl = to.fullPath;
+    return "/login";
+  }
+});
+
+export default router;
 
 // Esto es para validar q los usuarios esten logueados antes de pasar a otro lado
 // Esta el meta q es para definir si necesita estar logueado o no
@@ -166,5 +126,3 @@ const router = createRouter({
     }
   }
 })*/
-
-export default router;
