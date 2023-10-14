@@ -3,8 +3,6 @@
     <h1 class="text-h2 pt-10 text-secondary text-center">Welcome Back!</h1>
     <div class="search-div">
       <v-responsive class="search-container" max-width="40%">
-
-
         <v-text-field class="search-field" v-model="search" id="search" label="Search" variant="solo" outlined dense
           rounded clearable @input="constantSearch" @click:clear="clearSearch" @keydown.enter="searchItems"
           prepend-inner-icon="mdi-magnify">
@@ -22,17 +20,21 @@
     </div>
     <v-divider class="mx-auto divider mb-2 mt-10"></v-divider>
     <div v-if="searchResult.length === 0">
-      <h1 class="w-50 text-center  text-h4 text-secondary slide-title pt-5"> Recommended</h1>
-      <div class="d-flex justify-center flex-scroll-container">
-        <div class="scroll-container">
-          <RoutineScroll :routines="routines"></RoutineScroll>
+      <div>
+        <h1 class="text-center text-h4 text-secondary slide-title pt-5 subtitles"> Recommended</h1>
+        <div class="d-flex justify-center flex-scroll-container">
+          <div class="scroll-container">
+            <RoutineScroll :routines="routines"></RoutineScroll>
+          </div>
         </div>
       </div>
-
-      <h1 class="w-50 text-center text-h4 text-secondary slide-title"> Liked</h1>
-      <div class="d-flex justify-center flex-scroll-container">
-        <div class="scroll-container">
-          <RoutineScroll :routines="routines"></RoutineScroll>
+      <v-divider class="mx-auto divider mb-2 mt-10"></v-divider> 
+      <div>
+        <h1 class="text-center text-h4 text-secondary slide-title subtitles"> Liked</h1>
+        <div class="d-flex justify-center flex-scroll-container">
+          <div class="scroll-container">
+            <RoutineScroll :routines="routines"></RoutineScroll>
+          </div>
         </div>
       </div>
     </div>
@@ -71,9 +73,9 @@ const searchItems = () => {
     console.log(`Searching for ${search.toLowerCase()}`);
     // hacer la logica del search
     searchResult.value = routines;
-    
-    const searchResultLabel = document.getElementById('searchResultLabel');
-    searchResultLabel.textContent = "Results for '" + search + "'";
+
+    // No se xq la primera vez no me cambia el txt
+    changeText(search);
 
     return { searchResult };
   }
@@ -84,6 +86,11 @@ const constantSearch = () => {
   if (search.length > 3) {
     searchItems();
   }
+};
+
+const changeText = (search) => {
+  const searchResultLabel = document.getElementById('searchResultLabel');
+  searchResultLabel.textContent = "Results for '" + search + "'";
 };
 
 const clearSearch = () => {
@@ -106,7 +113,9 @@ const clearSearch = () => {
 .divider {
   width: 90%;
 }
-
+.subtitles{
+  margin-bottom: -50px;
+}
 .scroll-container {
   margin-top: 40px;
   align-items: center;
@@ -161,6 +170,7 @@ const clearSearch = () => {
   margin-bottom: 20px;
   /* Espacio entre las filas */
 }
+
 
 .my-custom-button {
   color: black;
