@@ -20,27 +20,57 @@
     </div>
     <v-divider class="mx-auto divider mb-2 mt-10"></v-divider>
     <div v-if="searchResult.length === 0">
-      <div>
-        <h1 class="text-center text-h4 text-secondary slide-title pt-5 subtitles"> Recommended</h1>
-        <div class="d-flex justify-center flex-scroll-container">
-          <div class="scroll-container">
-            <RoutineScroll :routines="routines"></RoutineScroll>
-          </div>
-        </div>
-      </div>
-      <v-divider class="mx-auto divider mb-2 mt-10"></v-divider> 
-      <div>
-        <h1 class="text-center text-h4 text-secondary slide-title subtitles"> Liked</h1>
-        <div class="d-flex justify-center flex-scroll-container">
-          <div class="scroll-container">
-            <RoutineScroll :routines="routines"></RoutineScroll>
-          </div>
-        </div>
-      </div>
+      <v-container fluid>
+        <v-row>
+          <v-col cols="2" md="2" class="d-md-block d-sm-none">
+            <!-- Cambia el valor de "cols" según tus necesidades -->
+            <!-- Contenido del lado izquierdo -->
+            <div class="left-content" height>
+              <v-tabs v-model="tab" direction="vertical" color="primary">
+                <v-tab value="home">
+                  Home
+                </v-tab>
+                
+                <v-tab value="my-routines">
+                  My routines
+                </v-tab>
+
+                <v-tab value="my-excercises">
+                  My exercises
+                </v-tab>
+                <v-tab @click="scrollToLiked" value="liked">
+                  Liked routines
+                </v-tab>
+              </v-tabs>
+            </div>
+          </v-col>
+          <v-divider vertical></v-divider>
+          <v-col cols="10" md="10">
+            <div>
+              <h1 class="text-center text-h4 text-secondary slide-title pt-5 subtitles"> Recommended</h1>
+              <div class="d-flex justify-center flex-scroll-container">
+                <div class="scroll-container">
+                  <RoutineScroll :routines="routines"></RoutineScroll>
+                </div>
+              </div>
+            </div>
+            <v-divider class="mx-auto divider mb-2 mt-10"></v-divider>
+            <div>
+              <h1 class="text-center text-h4 text-secondary slide-title subtitles" id="liked-section"> Liked</h1>
+              <div class="d-flex justify-center flex-scroll-container">
+                <div class="scroll-container">
+                  <RoutineScroll :routines="routines"></RoutineScroll>
+                </div>
+              </div>
+            </div>
+          </v-col>
+        </v-row>
+      </v-container>
     </div>
+
     <div v-else>
 
-      <h1 class="w-50 text-center  text-h4 text-secondary slide-title pt-5" id="searchResultLabel"> </h1>
+      <h1 class="w-50 text-center  text-h4 text-secondary slide-title pt-5" id="searchResultLabel">{{ searchResultLabel }} </h1>
       <!-- <div class="d-flex flex-container mx-auto">
         <RoutineCard v-for="routine in searchResult" :routine="routine" class="mx-auto" />
       </div> -->
@@ -58,7 +88,7 @@ import { useRouter } from "vue-router";
 
 import routines from "@/data/mockRoutines.js";
 import { ref } from 'vue';
-
+let tab = "home";
 const router = useRouter();
 
 const navigate = (routeName) => {
@@ -67,6 +97,9 @@ const navigate = (routeName) => {
 const name = "SearchBar"; // Asigna el nombre de componente a una constante
 let search = ""; // Cambia "data" a "let" para definir una variable local
 let searchResult = ref("");
+let searchResultLabel = ''; // Texto del h1 de searchResults
+const searchResultLabelId = 'searchResultLabel';
+
 const searchItems = () => {
   if (search.length > 0) {
     // Perform search logic here
@@ -88,9 +121,19 @@ const constantSearch = () => {
   }
 };
 
+const scrollToLiked = () => {
+  const likedSection = document.getElementById('liked-section');
+  if (likedSection) {
+    likedSection.scrollIntoView({ behavior: 'smooth' });
+  }
+};
+
+
+
 const changeText = (search) => {
-  const searchResultLabel = document.getElementById('searchResultLabel');
-  searchResultLabel.textContent = "Results for '" + search + "'";
+  searchResultLabel = "Results for '" + search + "'";
+  const searchResultLabel1 = document.getElementById('searchResultLabel');
+  searchResultLabel1.textContent = searchResultLabel;
 };
 
 const clearSearch = () => {
@@ -113,9 +156,11 @@ const clearSearch = () => {
 .divider {
   width: 90%;
 }
-.subtitles{
+
+.subtitles {
   margin-bottom: -50px;
 }
+
 .scroll-container {
   margin-top: 40px;
   align-items: center;
