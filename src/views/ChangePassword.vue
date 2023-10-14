@@ -5,10 +5,10 @@
                 Change Password
             </v-card-title>
             <v-form>
-                <v-text-field label="Enter your password" name="previousPass" type="password"
+                <v-text-field label="Enter your password" :rules="passRules" v-model="oldPassword" name="previousPass" type="password"
                     class="rounded-0" outlined></v-text-field>
-                <v-text-field label="Enter your new password" name="password" type="password" class="rounded-0" outlined/>
-                <v-text-field label="Repeat your new password" name="password" type="password" class="rounded-0" outlined/>
+                <v-text-field label="Enter your new password" :rules="newPassRules" v-model="password" name="password" type="password" class="rounded-0" outlined/>
+                <v-text-field label="Repeat your new password" :rules="repPassRules" v-model="secondPassword" name="password" type="password" class="rounded-0" outlined/>
                 <v-btn class="rounded-lg" color="primary" variant="tonal" x-large block dark>Change password</v-btn>
                 <br/>
                 <RouterLink to="#" class="d-flex align-center justify-center terms-link">
@@ -19,11 +19,65 @@
     </v-card>
 </template>
   
-<script setup>
+<script>
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
+export default {
+  data() {
+    return {
+      password: '', // Campo de contraseña principal
+      secondPassword: '', // Campo de confirmación de contraseña
+      oldPassword:'',
 
+      passRules: [
+        (value) => {
+          if (value) return true;
+          return "Password is required.";
+
+        },
+        (value) => {
+          if (value?.length > 16 || value?.length < 8) return "Password must be between 8 and 16 characters";
+          return true;
+        },
+      ],
+      newPassRules: [
+        (value) => {
+          if (value) return true;
+          return "Password is required.";
+
+        },
+        (value) => {
+           if(value === this.oldPassword){
+            return "New password must be diferent";
+          }
+        },
+        (value) => {
+          if (value?.length > 16 || value?.length < 8) return "Password must be between 8 and 16 characters";
+          return true;
+        },
+      ],
+      repPassRules: [
+        (value) => {
+          if (value) return true;
+          return "Password is required.";
+
+        },
+        (value) => {
+          if (value?.length > 16 || value?.length < 8) return "Password must be between 8 and 16 characters";
+          return true;
+        },
+        (value) => {
+           if(value === this.password){
+            return true;
+          }
+          return "Las contraseñas no coinciden"
+        }
+      ],
+    }
+  }
+
+}
 </script>
   
 <style scoped>

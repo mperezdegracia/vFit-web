@@ -99,7 +99,7 @@ export default {
             nameRules: [
                 (value) => {
                     if (value) return true;
-                    return "Title is required.";
+                    return "Name is required.";
 
                 },
                 (value) => {

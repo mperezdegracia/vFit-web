@@ -7,51 +7,19 @@
     </div>
     <v-card-text>
       <v-form validate-on="submit lazy" @submit.prevent="submit">
-        <v-text-field
-          v-model="username"
-          :rules="rules"
-          label="Enter your username"
-          prepend-inner-icon="mdi-account"
-        ></v-text-field>
-        <v-text-field
-          v-model="password"
-          :rules="rules"
-          type="password"
-          label="Enter your password"
-          prepend-inner-icon="mdi-lock"
-          suffix="| Forgot?"
-        ></v-text-field>
+        <v-text-field v-model="username" :rules="rules" label="Enter your username"
+          prepend-inner-icon="mdi-account"></v-text-field>
+        <v-text-field v-model="password" :rules="rules" type="password" label="Enter your password"
+          prepend-inner-icon="mdi-lock" suffix="| Forgot?"></v-text-field>
 
-        <RouterLink
-          to="#"
-          class="d-flex align-center justify-center terms-link"
-        >
+        <RouterLink to="#" class="d-flex align-center justify-center terms-link">
           forgot your password?
         </RouterLink>
         <br />
-        <v-btn
-          type="submit"
-          class="rounded-lg"
-          color="primary"
-          variant="tonal"
-          x-large
-          block
-          dark
-          >Login</v-btn
-        >
+        <v-btn type="submit" class="rounded-lg" color="primary" variant="tonal" x-large block dark>Login</v-btn>
         <div class="d-flex align-center mt-2">
-          <v-checkbox
-            color="primary"
-            class="pt-3"
-            label="Remember me"
-          ></v-checkbox>
-          <v-btn
-            @click="navigateToRegister"
-            color="secondary"
-            variant="tonal"
-            class="ml-5 mb-4"
-            >Sign Up</v-btn
-          >
+          <v-checkbox color="primary" class="pt-3" label="Remember me"></v-checkbox>
+          <v-btn @click="navigateToRegister" color="secondary" variant="tonal" class="ml-5 mb-4">Sign Up</v-btn>
         </div>
 
         <div class="text-center">
