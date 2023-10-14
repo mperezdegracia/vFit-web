@@ -7,25 +7,25 @@
     </div>
     <v-card-text>
       <v-form>
-        <v-text-field label="Enter your name" name="name" prepend-inner-icon="mdi-account" type="text" class="rounded-0"
-          outlined></v-text-field>
-        <v-text-field label="Enter your email" name="email" prepend-inner-icon="mdi-email" type="email" class="rounded-0"
-          outlined></v-text-field>
-        <v-text-field label="Enter your password" name="password" prepend-inner-icon="mdi-lock" type="password"
+        <v-text-field label="Enter your name" :rules="nameRules" name="name" prepend-inner-icon="mdi-account" type="text"
           class="rounded-0" outlined></v-text-field>
-        <v-text-field label="Confirm your password" name="confirmPassword" prepend-inner-icon="mdi-lock" type="password"
-          class="rounded-0" outlined></v-text-field>
-          <v-checkbox color="primary" class="" label="I agree to the terms and conditions"></v-checkbox>
+        <v-text-field label="Enter your email" :rules="emailRules" name="email" prepend-inner-icon="mdi-email"
+          type="email" class="rounded-0" outlined></v-text-field>
+        <v-text-field label="Enter your password" :rules="passRules" name="password" prepend-inner-icon="mdi-lock"
+          type="password" v-model="password" class="rounded-0" outlined></v-text-field>
+        <v-text-field label="Confirm your password" :rules="repPassRules" name="confirmPassword"
+          prepend-inner-icon="mdi-lock" v-model="secondPassword" type="password" class="rounded-0" outlined></v-text-field>
+        <v-checkbox color="primary" class="" label="I agree to the terms and conditions"></v-checkbox>
 
-          <v-card-actions class="d-flex align-center mt-0 pt-0 h-5 justify-center flex-wrap">
-          <v-btn class="rounded-lg  w-50 mt-0" color="primary" variant="tonal" >Sign Up</v-btn>
-          <v-btn class="ml-10 text-button mt-0" variant="tonal" color="primary" >
-          <v-icon color="green" >mdi-google</v-icon> 
-        </v-btn>
+        <v-card-actions class="d-flex align-center mt-0 pt-0 h-5 justify-center flex-wrap">
+          <v-btn class="rounded-lg  w-50 mt-0" color="primary" variant="tonal">Sign Up</v-btn>
+          <v-btn class="ml-10 text-button mt-0" variant="tonal" color="primary">
+            <v-icon color="green">mdi-google</v-icon>
+          </v-btn>
         </v-card-actions>
-       
-          <p class="text-h6 text-center">Already have an account?</p>
-          <v-btn @click="navigateToLogin" color="secondary" x-large block dark variant="tonal" class="">Login</v-btn>
+
+        <p class="text-h6 text-center">Already have an account?</p>
+        <v-btn @click="navigateToLogin" color="secondary" x-large block dark variant="tonal" class="">Login</v-btn>
       </v-form>
     </v-card-text>
     <v-card-actions class="text-center flex-column">
@@ -39,13 +39,75 @@
     </v-card-actions>
   </v-card>
 </template>
-<script setup>
+<script>
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
 const navigateToLogin = () => {
   router.push({ name: 'Login' }); // Navigate to the register page
 };
+
+export default {
+  data() {
+    return {
+      password: '', // Campo de contraseña principal
+      secondPassword: '', // Campo de confirmación de contraseña
+      
+      passRules: [
+        (value) => {
+          if (value) return true;
+          return "Password is required.";
+
+        },
+        (value) => {
+          if (value?.length > 16 || value?.length < 8) return "Password must be between 8 and 16 characters";
+          return true;
+        },
+      ],
+      nameRules: [
+        (value) => {
+          if (value) return true;
+          return "Name is required.";
+
+        },
+        (value) => {
+          if (value?.length <= 30) return true;
+          return "Name must be less than 30 characters.";
+        },
+      ],
+      emailRules: [
+        (value) => {
+          if (value) return true;
+          return "Email is required.";
+
+        },
+        (value) => {
+          const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,5}$/;
+          if (emailPattern.test(value)) return true;
+          return "Ingrese un correo electrónico válido.";
+        },
+      ],
+      repPassRules: [
+        (value) => {
+          if (value) return true;
+          return "Password is required.";
+
+        },
+        (value) => {
+          if (value?.length > 16 || value?.length < 8) return "Password must be between 8 and 16 characters";
+          return true;
+        },
+        (value) => {
+           if(value === this.password){
+            return true;
+          }
+          return "Las contraseñas no coinciden"
+        }
+      ],
+    }
+  }
+
+}
 </script>
 <style scoped>
 .v-card {
@@ -54,6 +116,7 @@ const navigateToLogin = () => {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   padding: 30px;
 }
+
 .v-card-title {
   font-size: 24px;
   font-weight: bold;
@@ -71,7 +134,7 @@ const navigateToLogin = () => {
 .v-card-actions {
   margin-top: 30px;
   position: relative;
-  bottom:0px
+  bottom: 0px
 }
 
 .terms-link {
@@ -82,9 +145,11 @@ const navigateToLogin = () => {
 .terms-link:hover {
   text-decoration: underline;
 }
+
 .custom_card {
   min-width: 400px;
 }
+
 .v-btn.rounded-circle {
   width: 20px;
   height: 60px;
