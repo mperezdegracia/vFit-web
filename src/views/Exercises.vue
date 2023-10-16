@@ -10,21 +10,25 @@
                   prepend-icon="mdi-view-dashboard"
                   title="Home"
                   value="home"
+                  to="/home"
                 />
                 <v-list-item
                   prepend-icon="mdi-weight-lifter"
                   title="My Routines"
                   value="my_routines"
+                  to="/my-routines"
                 />
                 <v-list-item
                   prepend-icon="mdi-heart"
                   title="Liked"
                   value="liked"
+                  to="/home/#liked-section"
                 />
                 <v-list-item
                   prepend-icon="mdi-dumbbell"
                   title="Exercises"
                   value="exercises"
+                  to="/exercises"
                 />
               </v-list>
             </v-navigation-drawer>
@@ -34,7 +38,7 @@
       </v-col>
       <v-divider vertical></v-divider>
       <v-col cols="10" align="center" justify="center">
-        <h1 class="title">Exercises</h1>
+        <h1 class="title mb-5">Exercises</h1>
         <v-row class="d-flex" align="center" justify="center">
           <v-col v-for="(exercise, index) in exercises" :key="index" cols="4">
             <v-card variant="outlined" elevation="4">
@@ -44,7 +48,67 @@
           </v-col>
 
           <v-col cols="4" align="center" justify="center">
-            <v-btn color="primary" class="ma-4"> Add exercise </v-btn>
+            <v-dialog v-model="dialog" persistent width="1024">
+              <template v-slot:activator="{ props }">
+                <v-btn color="primary" v-bind="props"> Add exercise </v-btn>
+              </template>
+              <v-card>
+                <v-card-title class="ma-2">
+                  <span class="title text-h5">Add exercise</span>
+                </v-card-title>
+                <v-card-text>
+                  <v-container>
+                    <v-row>
+                      <v-col cols="12" sm="12" md="12">
+                        <v-text-field label="Name*" required></v-text-field>
+                      </v-col>
+                      <v-col cols="12">
+                        <v-text-field
+                          label="Description*"
+                          required
+                        ></v-text-field>
+                      </v-col>
+                      <v-col cols="12" sm="12">
+                        <v-autocomplete
+                          :items="[
+                            'Upper Body',
+                            'Lower Body',
+                            'Chest',
+                            'Back',
+                            'Abdominals',
+                            'Cardio',
+                            'Arms',
+                            'Biceps',
+                            'Triceps',
+                            'Shoulder',
+                            'Latissimus dorsi (lats)',
+                            'Legs',
+                            'Hamstrings',
+                            'Calves',
+                            'Quadriceps',
+                            'Glutes',
+                            'Forearms',
+                            'Trapezius (traps)',
+                          ]"
+                          label="Tags*"
+                          multiple
+                        ></v-autocomplete>
+                      </v-col>
+                    </v-row>
+                  </v-container>
+                  <small>*indicates required field</small>
+                </v-card-text>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn color="primary" variant="text" @click="dialog = false">
+                    Close
+                  </v-btn>
+                  <v-btn color="primary" variant="text" @click="dialog = false">
+                    Save
+                  </v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
           </v-col>
         </v-row>
       </v-col>
@@ -71,5 +135,8 @@ export default {
       exercises: exercisesData,
     };
   },
+  data: () => ({
+    dialog: false,
+  }),
 };
 </script>

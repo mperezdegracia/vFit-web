@@ -3,51 +3,83 @@
     <h1 class="text-h2 pt-10 text-secondary text-center">Welcome Back!</h1>
     <div class="search-div">
       <v-responsive class="search-container" max-width="40%">
-        <v-text-field class="search-field" v-model="search" id="search" label="Search" variant="solo" outlined dense
-          rounded clearable @input="constantSearch" @click:clear="clearSearch" @keydown.enter="searchItems"
-          prepend-inner-icon="mdi-magnify">
+        <v-text-field
+          class="search-field"
+          v-model="search"
+          id="search"
+          label="Search"
+          variant="solo"
+          outlined
+          dense
+          rounded
+          clearable
+          @input="constantSearch"
+          @click:clear="clearSearch"
+          @keydown.enter="searchItems"
+          prepend-inner-icon="mdi-magnify"
+        >
           <template #append>
             <v-btn @click="searchItems" icon>
-              <v-icon>
-                mdi-send
-              </v-icon>
+              <v-icon> mdi-send </v-icon>
             </v-btn>
           </template>
         </v-text-field>
-
       </v-responsive>
-      <v-btn variant="tonal" color="primary" class="new-button" @click="navigate('Create-Routine')">New Routine</v-btn>
+      <v-btn
+        variant="tonal"
+        color="primary"
+        class="new-button"
+        @click="navigate('Create-Routine')"
+        >New Routine</v-btn
+      >
     </div>
     <v-divider class="mx-auto divider mb-2 mt-10"></v-divider>
     <div v-if="searchResult.length === 0">
       <v-container fluid>
         <v-row>
           <v-col cols="2" md="2" class="d-md-block d-sm-none">
-            <!-- Cambia el valor de "cols" según tus necesidades -->
-            <!-- Contenido del lado izquierdo -->
-            <div class="left-content" height>
-              <v-tabs v-model="tab" direction="vertical" color="primary">
-                <v-tab value="home">
-                  Home
-                </v-tab>
-                
-                <v-tab value="my-routines">
-                  My routines
-                </v-tab>
-
-                <v-tab value="my-excercises">
-                  My exercises
-                </v-tab>
-                <v-tab @click="scrollToLiked" value="liked">
-                  Liked routines
-                </v-tab>
-              </v-tabs>
-            </div>
+            <v-sheet>
+              <v-layout>
+                <v-navigation-drawer class="bg-primary" permanent>
+                  <v-list nav>
+                    <v-list-item
+                      prepend-icon="mdi-view-dashboard"
+                      title="Home"
+                      value="home"
+                      to="/home"
+                    />
+                    <v-list-item
+                      prepend-icon="mdi-weight-lifter"
+                      title="My Routines"
+                      value="my_routines"
+                      to="/my-routines"
+                    />
+                    <v-list-item
+                      prepend-icon="mdi-heart"
+                      title="Liked"
+                      value="liked"
+                      to="/home/liked"
+                    />
+                    <v-list-item
+                      prepend-icon="mdi-dumbbell"
+                      title="Exercises"
+                      value="exercises"
+                      to="/exercises"
+                    />
+                  </v-list>
+                </v-navigation-drawer>
+                <v-main style="height: 225px"></v-main>
+              </v-layout>
+            </v-sheet>
           </v-col>
           <v-divider vertical></v-divider>
           <v-col cols="10" md="10">
             <div>
-              <h1 class="text-center text-h4 text-secondary slide-title pt-5 subtitles"> Recommended</h1>
+              <h1
+                class="text-center text-h4 text-secondary slide-title pt-5 subtitles"
+              >
+                Recommended
+              </h1>
               <div class="d-flex justify-center flex-scroll-container">
                 <div class="scroll-container">
                   <RoutineScroll :routines="routines"></RoutineScroll>
@@ -56,7 +88,12 @@
             </div>
             <v-divider class="mx-auto divider mb-2 mt-10"></v-divider>
             <div>
-              <h1 class="text-center text-h4 text-secondary slide-title subtitles" id="liked-section"> Liked</h1>
+              <h1
+                class="text-center text-h4 text-secondary slide-title subtitles"
+                id="liked-section"
+              >
+                Liked
+              </h1>
               <div class="d-flex justify-center flex-scroll-container">
                 <div class="scroll-container">
                   <RoutineScroll :routines="routines"></RoutineScroll>
@@ -69,8 +106,12 @@
     </div>
 
     <div v-else>
-
-      <h1 class="w-50 text-center  text-h4 text-secondary slide-title pt-5" id="searchResultLabel">{{ searchResultLabel }} </h1>
+      <h1
+        class="w-50 text-center text-h4 text-secondary slide-title pt-5"
+        id="searchResultLabel"
+      >
+        {{ searchResultLabel }}
+      </h1>
       <!-- <div class="d-flex flex-container mx-auto">
         <RoutineCard v-for="routine in searchResult" :routine="routine" class="mx-auto" />
       </div> -->
@@ -87,7 +128,7 @@ import RoutineGrid from "@/components/RoutineGrid.vue";
 import { useRouter } from "vue-router";
 
 import routines from "@/data/mockRoutines.js";
-import { ref } from 'vue';
+import { ref } from "vue";
 let tab = "home";
 const router = useRouter();
 
@@ -97,8 +138,8 @@ const navigate = (routeName) => {
 const name = "SearchBar"; // Asigna el nombre de componente a una constante
 let search = ""; // Cambia "data" a "let" para definir una variable local
 let searchResult = ref("");
-let searchResultLabel = ''; // Texto del h1 de searchResults
-const searchResultLabelId = 'searchResultLabel';
+let searchResultLabel = ""; // Texto del h1 de searchResults
+const searchResultLabelId = "searchResultLabel";
 
 const searchItems = () => {
   if (search.length > 0) {
@@ -115,33 +156,28 @@ const searchItems = () => {
 };
 
 const constantSearch = () => {
-
   if (search.length > 3) {
     searchItems();
   }
 };
 
 const scrollToLiked = () => {
-  const likedSection = document.getElementById('liked-section');
+  const likedSection = document.getElementById("liked-section");
   if (likedSection) {
-    likedSection.scrollIntoView({ behavior: 'smooth' });
+    likedSection.scrollIntoView({ behavior: "smooth" });
   }
 };
 
-
-
 const changeText = (search) => {
   searchResultLabel = "Results for '" + search + "'";
-  const searchResultLabel1 = document.getElementById('searchResultLabel');
+  const searchResultLabel1 = document.getElementById("searchResultLabel");
   searchResultLabel1.textContent = searchResultLabel;
 };
 
 const clearSearch = () => {
   searchResult.value = "";
   search = "";
-}
-
-
+};
 </script>
 
 <style>
@@ -167,10 +203,8 @@ const clearSearch = () => {
   width: 80%;
 }
 
-
-
 .slide-title {
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
 }
 
 .search-div {
@@ -215,7 +249,6 @@ const clearSearch = () => {
   margin-bottom: 20px;
   /* Espacio entre las filas */
 }
-
 
 .my-custom-button {
   color: black;

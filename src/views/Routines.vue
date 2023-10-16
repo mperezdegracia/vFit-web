@@ -3,10 +3,43 @@
     <h1>My-Routines</h1>
     <v-container fluid>
       <v-row>
-        <!-- Lado Izquierdo (25%) -->
-        <v-col cols="3" md="3" class="d-md-block d-sm-none">
-          <!-- Cambia el valor de "cols" según tus necesidades -->
-          <!-- Contenido del lado izquierdo -->
+        <v-col cols="2" md="2" class="d-md-block d-sm-none">
+          <v-sheet>
+            <v-layout>
+              <v-navigation-drawer class="bg-primary" permanent>
+                <v-list nav>
+                  <v-list-item
+                    prepend-icon="mdi-view-dashboard"
+                    title="Home"
+                    value="home"
+                    to="/home"
+                  />
+                  <v-list-item
+                    prepend-icon="mdi-weight-lifter"
+                    title="My Routines"
+                    value="my_routines"
+                    to="/my-routines"
+                  />
+                  <v-list-item
+                    prepend-icon="mdi-heart"
+                    title="Liked"
+                    value="liked"
+                    to="/home/#liked-section"
+                  />
+                  <v-list-item
+                    prepend-icon="mdi-dumbbell"
+                    title="Exercises"
+                    value="exercises"
+                    to="/exercises"
+                  />
+                </v-list>
+              </v-navigation-drawer>
+              <v-main style="height: 225px"></v-main>
+            </v-layout>
+          </v-sheet>
+          <br />
+          <br />
+
           <div class="left-content" height>
             <v-container class="bg-surface-variant mb-6">
               <h3 style="text-align: center">FILTERS</h3>
@@ -19,10 +52,7 @@
           </div>
         </v-col>
 
-        <!-- Parte derecha (75%) -->
         <v-col cols="9">
-          <!-- Cambia el valor de "cols" según tus necesidades -->
-
           <v-row class="justify-center">
             <v-col
               v-for="(routine_, index) in routines"
@@ -30,7 +60,6 @@
               md="4"
               sm="12"
             >
-              <!-- Ajusta el valor de "cols" según tus necesidades -->
               <RoutineCard :routine="routine_" />
             </v-col>
           </v-row>
