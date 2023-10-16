@@ -9,46 +9,26 @@
         class="mx-2"
         rounded="xl"
       >
-        <h3
-          clase="txt-btn"
-          :class="{ hover: isHovered(link) }"
-          @mouseover="setHovered(link, true)"
-          @mouseout="setHovered(link, false)"
-        >
+        <h3 class="txt-btn">
           {{ link }}
         </h3>
       </v-btn>
       <v-col class="text-center mt-8" cols="12">
         {{ new Date().getFullYear() }} —
-        <strong>VFit <Icon icon="ph:copyright-bold" /></strong>
+        <strong
+          >VFit
+          <Icon icon="ph:copyright-bold" />
+        </strong>
       </v-col>
       <v-col class="text-center mt-4" cols="9">
         <a href="https://www.instagram.com/" target="_blank">
-          <Icon
-            icon="mdi:instagram"
-            class="mr-2 icon-lg"
-            :class="{ hover: instagramHover }"
-            @mouseover="instagramHover = true"
-            @mouseout="instagramHover = false"
-          />
+          <Icon icon="mdi:instagram" class="mr-2 icon-lg" />
         </a>
         <a href="https://www.facebook.com/?locale=es_LA" target="_blank">
-          <Icon
-            icon="ic:baseline-facebook"
-            class="mr-2 icon-lg"
-            :class="{ hover: facebookHover }"
-            @mouseover="facebookHover = true"
-            @mouseout="facebookHover = false"
-          />
+          <Icon icon="ic:baseline-facebook" class="mr-2 icon-lg" />
         </a>
         <a href="https://twitter.com/home" target="_blank">
-          <Icon
-            icon="mdi:twitter"
-            class="mr-2 icon-lg"
-            :class="{ hover: twitterHover }"
-            @mouseover="twitterHover = true"
-            @mouseout="twitterHover = false"
-          />
+          <Icon icon="mdi:twitter" class="mr-2 icon-lg" />
         </a>
       </v-col>
     </v-row>
@@ -61,37 +41,26 @@
   transition: color 0.5s;
   color: aliceblue;
 }
-.hover {
+
+.icon-lg:hover {
   color: darkblue;
 }
+
 .txt-btn {
   transition: color 0.1s;
+}
+
+.txt-btn:hover {
+  color: darkblue;
 }
 </style>
 
 <script default>
 import { Icon } from "@iconify/vue";
 export default {
-  data() {
-    return {
-      links: ["Home", "About Us", "Team", "Services", "Contact Us"],
-      hoveredLinks: {},
-      instagramHover: false,
-      facebookHover: false,
-      twitterHover: false,
-    };
-  },
-
-  methods: {
-    isHovered(link) {
-      return this.hoveredLinks[link];
-    },
-    setHovered(link, isHovered) {
-      console.log(link);
-      this.hoveredLinks[link] = isHovered;
-    },
-  },
-
+  data: () => ({
+    links: ["Home", "About Us", "Team", "Services", "Contact Us"],
+  }),
   components: {
     Icon,
   },
