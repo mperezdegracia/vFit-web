@@ -25,55 +25,53 @@
           </template>
         </v-text-field>
       </v-responsive>
-      <v-btn
-        variant="tonal"
-        color="primary"
-        class="new-button"
-        @click="navigate('Create-Routine')"
-        >New Routine</v-btn
-      >
     </div>
     <v-divider class="mx-auto divider mb-2 mt-10"></v-divider>
     <div v-if="searchResult.length === 0">
       <v-container fluid>
         <v-row>
           <v-col cols="2" md="2" class="d-md-block d-sm-none">
-            <v-sheet>
-              <v-layout>
-                <v-navigation-drawer class="bg-primary" permanent>
-                  <v-list nav>
-                    <v-list-item
-                      prepend-icon="mdi-view-dashboard"
-                      title="Home"
-                      value="home"
-                      to="/home"
-                    />
-                    <v-list-item
-                      prepend-icon="mdi-weight-lifter"
-                      title="My Routines"
-                      value="my_routines"
-                      to="/my-routines"
-                    />
-                    <v-list-item
-                      prepend-icon="mdi-heart"
-                      title="Liked"
-                      value="liked"
-                      to="/home/liked"
-                    />
-                    <v-list-item
-                      prepend-icon="mdi-dumbbell"
-                      title="Exercises"
-                      value="exercises"
-                      to="/exercises"
-                    />
-                  </v-list>
-                </v-navigation-drawer>
-                <v-main style="height: 225px"></v-main>
-              </v-layout>
-            </v-sheet>
+            <SideBar />
           </v-col>
           <v-divider vertical></v-divider>
           <v-col cols="10" md="10">
+            <v-row align="center" justify="center">
+              <v-col
+                class="features rounded_card elevation-4"
+                cols="3"
+                align="center"
+                justify="center"
+              >
+                <router-link class="no_deco" to="/my-routines">
+                  <v-img :width="250" :height="250" cover src="/home0.svg" />
+                  <p class="description">Start working out!</p>
+                </router-link>
+              </v-col>
+
+              <v-col
+                class="features rounded_card elevation-4"
+                cols="3"
+                align="center"
+                justify="center"
+              >
+                <router-link class="no_deco" to="/exercises">
+                  <v-img :width="250" :height="250" cover src="/home1.svg" />
+                  <p class="description">Create an exercise!</p>
+                </router-link>
+              </v-col>
+
+              <v-col
+                class="features rounded_card elevation-4"
+                cols="3"
+                align="center"
+                justify="center"
+              >
+                <router-link class="no_deco" to="/routine/create">
+                  <v-img :width="250" :height="250" cover src="/home2.svg" />
+                  <p class="description">Create your routine!</p>
+                </router-link>
+              </v-col>
+            </v-row>
             <div>
               <h1
                 class="text-center text-h4 text-secondary slide-title pt-5 subtitles"
@@ -125,6 +123,8 @@
 import RoutineScroll from "@/components/RoutineScroll.vue";
 import RoutineCard from "@/components/RoutineCard.vue";
 import RoutineGrid from "@/components/RoutineGrid.vue";
+import SideBar from "@/components/SideBar.vue";
+
 import { useRouter } from "vue-router";
 
 import routines from "@/data/mockRoutines.js";
@@ -261,5 +261,21 @@ const clearSearch = () => {
   right: 25px;
   /* Ajusta la distancia desde el borde derecho del campo de texto */
   transform: translateY(-90%);
+}
+
+.rounded_card {
+  margin: 20px;
+  border-radius: 24px;
+}
+
+.features {
+  background-color: white;
+}
+.no_deco {
+  text-decoration: none;
+  color: black;
+}
+.description {
+  font-size: 25px;
 }
 </style>

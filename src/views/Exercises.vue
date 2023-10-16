@@ -2,39 +2,7 @@
   <v-container fluid>
     <v-row>
       <v-col cols="2" md="2" class="d-md-block d-sm-none">
-        <v-sheet>
-          <v-layout>
-            <v-navigation-drawer class="bg-primary" permanent>
-              <v-list nav>
-                <v-list-item
-                  prepend-icon="mdi-view-dashboard"
-                  title="Home"
-                  value="home"
-                  to="/home"
-                />
-                <v-list-item
-                  prepend-icon="mdi-weight-lifter"
-                  title="My Routines"
-                  value="my_routines"
-                  to="/my-routines"
-                />
-                <v-list-item
-                  prepend-icon="mdi-heart"
-                  title="Liked"
-                  value="liked"
-                  to="/home/#liked-section"
-                />
-                <v-list-item
-                  prepend-icon="mdi-dumbbell"
-                  title="Exercises"
-                  value="exercises"
-                  to="/exercises"
-                />
-              </v-list>
-            </v-navigation-drawer>
-            <v-main style="height: 225px"></v-main>
-          </v-layout>
-        </v-sheet>
+        <SideBar />
       </v-col>
       <v-divider vertical></v-divider>
       <v-col cols="10" align="center" justify="center">
@@ -43,7 +11,7 @@
           <v-col v-for="(exercise, index) in exercises" :key="index" cols="4">
             <v-card variant="outlined" elevation="4">
               <v-card-title>{{ exercise.name }}</v-card-title>
-              <v-img :width="300" :src="exercise.image" />
+              <v-img :width="350" :src="exercise.image" />
             </v-card>
           </v-col>
 
@@ -126,8 +94,12 @@
 <script>
 import { ref } from "vue";
 import { exercises } from "@/data/exercises.js";
+import SideBar from "@/components/SideBar.vue";
 
 export default {
+  components: {
+    SideBar,
+  },
   setup() {
     const exercisesData = ref(exercises);
 

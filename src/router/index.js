@@ -45,6 +45,11 @@ const routes = [
         component: () => import("@/views/Routines.vue"),
       },
       {
+        path: "liked-routines",
+        name: "Liked Routines",
+        component: () => import("@/views/LikedRoutines.vue"),
+      },
+      {
         path: "routine",
         name: "Routine",
         children: [
@@ -96,7 +101,7 @@ export const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
 });
-
+/*
 router.beforeEach(async (to) => {
   const publicPages = ["/", "/team", "/login", "/register", "/verify-email"];
   const authRequired = !publicPages.includes(to.path);
@@ -107,5 +112,5 @@ router.beforeEach(async (to) => {
     return "/login";
   }
 });
-
+*/
 export default router;
