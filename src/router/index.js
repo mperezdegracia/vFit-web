@@ -76,6 +76,13 @@ const routes = [
         name: "Settings",
         component: () => import("@/views/Settings.vue"),
       },
+
+      {
+        path: "exercises",
+        name: "Exercises",
+        meta: { requiresAuth: true },
+        component: () => import("@/views/Exercises.vue"),
+      },
       {
         path: "/:notFound",
         name: "PathNotFound",
