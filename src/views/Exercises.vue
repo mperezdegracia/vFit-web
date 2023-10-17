@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <v-container fluid>
     <v-row>
       <v-col cols="2" md="2" class="d-md-block d-sm-none">
@@ -82,6 +82,118 @@
       </v-col>
     </v-row>
   </v-container>
+</template> -->
+
+<template>
+  <div class="bg-contrast">
+    <v-container fluid>
+      <v-row>
+        <v-col md="2">
+          <SideBar />
+        </v-col>
+
+        <v-col>
+          <v-sheet class="mx-auto elevation-6 rounded-lg">
+            <v-container class="bg-primary rounded-t-lg" fluid>
+              <h2>My Exercises</h2>
+            </v-container>
+
+            <v-container fluid align="center" justify="center">
+              <v-row align="center" justify="center">
+                <v-col
+                  v-for="(exercise, index) in exercises"
+                  :key="index"
+                  cols="4"
+                >
+                  <v-card variant="outlined" elevation="4" class="ma-2">
+                    <v-card-title>{{ exercise.name }}</v-card-title>
+                    <v-img :width="350" :src="exercise.image" />
+                  </v-card>
+                </v-col>
+
+                <v-col cols="4" align="center" justify="center">
+                  <v-dialog v-model="dialog" persistent max-width="1024">
+                    <template v-slot:activator="{ props }">
+                      <v-btn color="primary" v-bind="props">
+                        Add exercise
+                      </v-btn>
+                    </template>
+                    <v-card max-width="1024">
+                      <v-card-title class="ma-2">
+                        <span class="title text-h5">Add exercise</span>
+                      </v-card-title>
+                      <v-card-text>
+                        <v-container>
+                          <v-row>
+                            <v-col cols="12" sm="12" md="12">
+                              <v-text-field
+                                label="Name*"
+                                required
+                              ></v-text-field>
+                            </v-col>
+                            <v-col cols="12">
+                              <v-text-field
+                                label="Description*"
+                                required
+                              ></v-text-field>
+                            </v-col>
+                            <v-col cols="12" sm="12">
+                              <v-autocomplete
+                                :items="[
+                                  'Upper Body',
+                                  'Lower Body',
+                                  'Chest',
+                                  'Back',
+                                  'Abdominals',
+                                  'Cardio',
+                                  'Arms',
+                                  'Biceps',
+                                  'Triceps',
+                                  'Shoulder',
+                                  'Latissimus dorsi (lats)',
+                                  'Legs',
+                                  'Hamstrings',
+                                  'Calves',
+                                  'Quadriceps',
+                                  'Glutes',
+                                  'Forearms',
+                                  'Trapezius (traps)',
+                                ]"
+                                label="Tags*"
+                                multiple
+                              ></v-autocomplete>
+                            </v-col>
+                          </v-row>
+                        </v-container>
+                        <small>*indicates required field</small>
+                      </v-card-text>
+                      <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn
+                          color="primary"
+                          variant="text"
+                          @click="dialog = false"
+                        >
+                          Close
+                        </v-btn>
+                        <v-btn
+                          color="primary"
+                          variant="text"
+                          @click="dialog = false"
+                        >
+                          Save
+                        </v-btn>
+                      </v-card-actions>
+                    </v-card>
+                  </v-dialog>
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-sheet>
+        </v-col>
+      </v-row>
+    </v-container>
+  </div>
 </template>
 
 <style scoped>
