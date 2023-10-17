@@ -59,9 +59,12 @@ export const useSecurityStore = defineStore("security", {
     },
 
     async logout() {
-      await UserApi.logout();
-      this.removeToken();
-      router.push("/login");
+      try {
+        await UserApi.logout();
+      } finally {
+        this.removeToken();
+        router.push("/login");
+      }
     },
 
     async getCurrentUser() {

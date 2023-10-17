@@ -108,7 +108,6 @@ export default {
       try {
         const user = new User(this.username, this.email, this.password);
         await this.$register(user);
-        this.error = null;
       } catch (e) {
         this.error = e;
       }

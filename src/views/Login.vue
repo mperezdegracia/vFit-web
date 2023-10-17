@@ -99,9 +99,5 @@ export default {
       }
     },
   },
-  async created() {
-    const securityStore = useSecurityStore();
-    securityStore.initialize();
-  },
 };
 </script>

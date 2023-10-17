@@ -23,11 +23,21 @@
   </v-app-bar>
 </template>
 
+<style scoped>
+.logo-img {
+  max-height: 120px;
+  max-width: 120px;
+}
+
+.logo-img:hover {
+  cursor: pointer;
+}
+</style>
+
 <script setup>
 import { useRouter } from "vue-router";
 
 const router = useRouter();
-
 const navigate = (route) => {
   router.push({ name: route });
 };
@@ -52,18 +62,9 @@ export default {
       await this.$logout();
     },
   },
+  async created() {
+    const securityStore = useSecurityStore();
+    securityStore.initialize();
+  },
 };
 </script>
-
-<style scoped>
-.logo-img {
-  max-height: 120px;
-  /* Set the maximum height to 80px */
-  max-width: 120px;
-  /* Set the maximum width to 80px */
-}
-
-.logo-img:hover {
-  cursor: pointer;
-}
-</style>

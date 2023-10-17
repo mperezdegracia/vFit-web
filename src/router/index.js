@@ -85,7 +85,6 @@ const routes = [
       {
         path: "exercises",
         name: "Exercises",
-        meta: { requiresAuth: true },
         component: () => import("@/views/Exercises.vue"),
       },
       {
@@ -101,16 +100,17 @@ export const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
 });
-/*
+
 router.beforeEach(async (to) => {
   const publicPages = ["/", "/team", "/login", "/register", "/verify-email"];
   const authRequired = !publicPages.includes(to.path);
   const securityStore = useSecurityStore();
+  securityStore.initialize();
 
   if (authRequired && !securityStore.isLoggedIn) {
     securityStore.returnUrl = to.fullPath;
     return "/login";
   }
 });
-*/
+
 export default router;
