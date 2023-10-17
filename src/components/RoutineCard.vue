@@ -39,7 +39,7 @@
               <v-card-title>{{ routine.name }}</v-card-title>
               <v-card-subtitle class="mt-1">
                 <v-icon color="error" icon="mdi-account" size="small"></v-icon>
-                <span class="ms-1">{{ routine.user }}</span>
+                <span class="ms-1">{{ routine.user.username }}</span>
               </v-card-subtitle>
             </v-card-item>
 
@@ -97,7 +97,7 @@
           </div>
         </template>
         <template v-slot:back>
-          <v-container class="details-container pt-0 pl-1 pr-1" :key="1">
+          <v-container class="details-container pt-0 px-1" :key="1">
             <v-row class="details-row" no-gutters>
               <v-col
                 class="details-col"
@@ -137,29 +137,29 @@
           </v-container>
           <v-card-actions class="info-actions">
             <v-spacer></v-spacer>
-            <div v-if="routine.cycles.length > 4" class="d-flex mt-10 mr-2">
-              <v-spacer></v-spacer>
-              <v-tooltip location="top">
-                <template v-slot:activator="{ props }">
-                  <v-btn
-                    icon
-                    variant="tonal"
-                    color="primary"
-                    v-bind="props"
-                    density="comfortable"
-                  >
-                    {{ routine.cycles.length - 4 }}+
-                  </v-btn>
-                </template>
-                <span>
-                  There {{ routine.cycles.length - 4 === 1 ? "is" : "are" }}
-                  {{ routine.cycles.length - 4 }} more section{{
-                    routine.cycles.length - 4 === 1 ? "" : "s"
-                  }}
-                  in this workout!
-                </span>
-              </v-tooltip>
-            </div>
+            <!-- <div v-if="routine.cycles.length > 4" class="d-flex mt-10 mr-2"> -->
+            <!--   <v-spacer></v-spacer> -->
+            <!--   <v-tooltip location="top"> -->
+            <!--     <template v-slot:activator="{ props }"> -->
+            <!--       <v-btn -->
+            <!--         icon -->
+            <!--         variant="tonal" -->
+            <!--         color="primary" -->
+            <!--         v-bind="props" -->
+            <!--         density="comfortable" -->
+            <!--       > -->
+            <!--         {{ routine.cycles.length - 4 }}+ -->
+            <!--       </v-btn> -->
+            <!--     </template> -->
+            <!--     <span> -->
+            <!--       There {{ routine.cycles.length - 4 === 1 ? "is" : "are" }} -->
+            <!--       {{ routine.cycles.length - 4 }} more section{{ -->
+            <!--         routine.cycles.length - 4 === 1 ? "" : "s" -->
+            <!--       }} -->
+            <!--       in this workout! -->
+            <!--     </span> -->
+            <!--   </v-tooltip> -->
+            <!-- </div> -->
 
             <v-icon
               class="mt-10"
@@ -183,6 +183,8 @@ export default {
     loading: false,
     show: false,
     isLiked: false,
+    difficulty: null,
+    difficulties: ["rookie", "beginner", "intermediate", "advanced", "expert"],
   }),
   props: {
     routine: {
@@ -197,15 +199,15 @@ export default {
   computed: {
     difficultyColor() {
       return (index) => {
-        if (this.routine.dif >= index) {
-          switch (this.routine.dif) {
-            case 1:
-            case 2:
+        if (this.difficultyIndex() >= index) {
+          switch (this.routine.difficulty) {
+            case "rookie":
+            case "beginner":
               return "#2ff18d"; // green
-            case 3:
-              return "#fcbd00"; // yellow
-            default:
+            case "expert":
               return "red";
+            default:
+              return "#fcbd00"; // yellow
           }
         } else {
           return "dimgrey";
@@ -213,20 +215,21 @@ export default {
       };
     },
     cyclesToShow() {
-      return this.routine.cycles.slice(0, 4);
+      // return this.routine.cycles.slice(0, 4);
     },
   },
   methods: {
-    reserve() {
-      this.loading = true;
-
-      setTimeout(() => (this.loading = false), 2000);
-    },
     toggleLike() {
       this.isLiked = !this.isLiked;
     },
-    remove() {},
-    edit() {},
+
+    difficultyIndex() {
+      if (!this.difficulty)
+        this.difficulty = this.difficulties.findIndex(
+          (dif) => dif === this.routine.difficulty,
+        ) + 1;
+      return this.difficulty;
+    },
   },
 };
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-contrast">
+  <div class="bg-contrast pt-4 pb-16">
     <v-container fluid>
       <v-row>
         <v-col md="2">
@@ -27,14 +27,33 @@
 </template>
 
 <script>
-import routines from "@/data/mockRoutines";
 import RoutineCard from "@/components/RoutineCard.vue";
 import SideBar from "@/components/SideBar.vue";
+import { mapActions } from "pinia";
+import { useRoutineStore } from "@/stores/RoutineStore";
 
 export default {
   data: () => ({
-    routines: routines,
+    routines: [],
   }),
+  methods: {
+    ...mapActions(useRoutineStore, {
+      $getAllRoutines: "getAll",
+    }),
+
+    async getAllRoutines() {
+      try {
+        const result = await this.$getAllRoutines();
+        this.routines = result.content;
+        console.log(this.routines);
+      } catch (e) {
+        console.error(e);
+      }
+    },
+  },
+  beforeMount() {
+    this.getAllRoutines();
+  },
   components: {
     RoutineCard,
     SideBar,
