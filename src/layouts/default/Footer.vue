@@ -57,6 +57,7 @@
 
 <script default>
 import { Icon } from "@iconify/vue";
+
 export default {
   data: () => ({
     links: ["Home", "About Us", "Team", "Services", "Contact Us"],

@@ -1,7 +1,7 @@
 <template>
-  <v-sheet>
+  <v-sheet class="elevation-6">
     <v-layout>
-      <v-navigation-drawer class="bg-primary" permanent>
+      <v-navigation-drawer class="bg-primary" permanent width="10000">
         <v-list nav>
           <v-list-item
             prepend-icon="mdi-view-dashboard"

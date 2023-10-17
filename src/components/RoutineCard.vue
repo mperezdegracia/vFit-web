@@ -1,22 +1,17 @@
 <template>
   <div class="routine-card">
-    <div class="d-flex">
-      <v-spacer></v-spacer>
-      <v-btn
-        class="like-icon"
-        variant="text"
-        :color="isLiked ? 'red-lighten-3' : 'grey'"
-        :icon="isLiked ? 'mdi-heart' : 'mdi-heart-outline'"
-        @click="toggleLike"
-      ></v-btn>
-    </div>
+    <!-- <div class="d-flex"> -->
+    <!--   <v-spacer></v-spacer> -->
+    <!--   <v-btn -->
+    <!--     class="like-icon" -->
+    <!--     variant="text" -->
+    <!--     :color="isLiked ? 'red-lighten-3' : 'grey'" -->
+    <!--     :icon="isLiked ? 'mdi-heart' : 'mdi-heart-outline'" -->
+    <!--     @click="toggleLike" -->
+    <!--   ></v-btn> -->
+    <!-- </div> -->
 
-    <v-card
-      :loading="loading"
-      class="mx-auto my-12 mt-0 card"
-      @mouseover="isHovered = true"
-      @mouseout="isHovered = false"
-    >
+    <v-card :loading="loading" class="bg-grey-lighten-4">
       <template v-slot:loader="{ isActive }">
         <v-progress-linear
           :active="isActive"
@@ -26,7 +21,7 @@
         ></v-progress-linear>
       </template>
 
-      <vue-flip class="flip-card" v-model="show">
+      <VueFlip v-model="show">
         <template v-slot:front>
           <div>
             <v-img cover height="160" :src="routine.image">
@@ -42,11 +37,9 @@
 
             <v-card-item>
               <v-card-title>{{ routine.name }}</v-card-title>
-
               <v-card-subtitle class="mt-1">
-                <span class="me-1">{{ routine.user }}</span>
-
                 <v-icon color="error" icon="mdi-account" size="small"></v-icon>
+                <span class="ms-1">{{ routine.user }}</span>
               </v-card-subtitle>
             </v-card-item>
 
@@ -81,6 +74,7 @@
             <div class="px-4 mt-3">
               <v-chip
                 v-for="(tag, index) in routine.tags"
+                :key="index"
                 color="primary"
                 class="mr-1"
                 >{{ tag }}</v-chip
@@ -112,7 +106,11 @@
                 cols="6"
                 no-gutters
               >
-                <v-list dense class="cycle mx-auto pt-0 pb-0 pr-0" no-padding>
+                <v-list
+                  dense
+                  class="cycle mx-auto pt-0 pb-0 pr-0 bg-grey-lighten-4"
+                  no-padding
+                >
                   <v-list-subheader color="primary">{{
                     cycle.name
                   }}</v-list-subheader>
@@ -148,20 +146,18 @@
                     variant="tonal"
                     color="primary"
                     v-bind="props"
-                    height="35px"
-                    width="35px"
+                    density="comfortable"
                   >
                     {{ routine.cycles.length - 4 }}+
                   </v-btn>
                 </template>
-                <span>{{
-                  `There ${routine.cycles.length - 4 === 1 ? "is" : "are"} ${
-                    routine.cycles.length - 4
-                  } more
-                                  section${
-                                    routine.cycles.length - 4 === 1 ? "" : "s"
-                                  } in this workout!`
-                }}</span>
+                <span>
+                  There {{ routine.cycles.length - 4 === 1 ? "is" : "are" }}
+                  {{ routine.cycles.length - 4 }} more section{{
+                    routine.cycles.length - 4 === 1 ? "" : "s"
+                  }}
+                  in this workout!
+                </span>
               </v-tooltip>
             </div>
 
@@ -173,7 +169,7 @@
             >
           </v-card-actions>
         </template>
-      </vue-flip>
+      </VueFlip>
     </v-card>
   </div>
 </template>
@@ -187,7 +183,6 @@ export default {
     loading: false,
     show: false,
     isLiked: false,
-    isHovered: false,
   }),
   props: {
     routine: {
@@ -197,7 +192,7 @@ export default {
   },
   components: {
     Icon,
-    "vue-flip": VueFlip,
+    VueFlip,
   },
   computed: {
     difficultyColor() {
