@@ -46,17 +46,17 @@ export const useExerciseStore = defineStore("exercise", {
       if (index >= 0) this.splice(index);
     },
 
-    async get(exercise) {
+    async get(exercise, params) {
       const index = this.findIndex(exercise);
       if (index >= 0) return this.items[index];
 
-      const result = await ExerciseApi.get(exercise.id);
+      const result = await ExerciseApi.get(exercise.id, params);
       this.push(result);
       return result;
     },
 
-    async getAll(controller) {
-      const result = await ExerciseApi.getAll(controller);
+    async getAll(params, controller) {
+      const result = await ExerciseApi.getAll(params, controller);
       return result;
     },
   },

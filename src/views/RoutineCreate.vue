@@ -2,9 +2,9 @@
   <div class="bg-contrast flex-column pt-4 pb-16">
     <v-sheet class="mx-auto bg-contrast" max-width="800">
       <v-form validate-on="submit lazy" @submit.prevent="submit">
-        <h1 class="text-center mt-4 mb-8">Create your own routine!</h1>
         <v-alert
-          v-if="error"
+          v-if="errors.length"
+          v-for="error in errors"
           color="error"
           class="mb-6 rounded-lg"
           icon="$error"
@@ -18,8 +18,8 @@
         </v-alert>
 
         <v-sheet class="elevation-6 rounded-lg">
-          <v-container class="bg-primary rounded-t-lg">
-            <h3>Describe us your routine</h3>
+          <v-container class="bg-primary rounded-t-lg" fluid>
+            <h2>Create your own routine</h2>
           </v-container>
           <v-container class="px-8">
             <v-text-field
@@ -49,8 +49,8 @@
         </v-sheet>
 
         <v-sheet class="mt-8 elevation-6 rounded-lg">
-          <v-container class="bg-primary rounded-t-lg">
-            <h3>Now add your exercises</h3>
+          <v-container class="bg-primary rounded-t-lg" fluid>
+            <h2>Now add your exercises</h2>
           </v-container>
           <v-container class="px-8">
             <v-expansion-panels
@@ -150,7 +150,7 @@
                               <v-btn
                                 color="primary"
                                 variant="tonal"
-                                @click="dialog = false"
+                                @click="closeDialog(cleanExercise)"
                                 >Cancel</v-btn
                               >
                               <v-btn
@@ -187,7 +187,11 @@
                 </v-text-field>
               </v-col>
               <v-col>
-                <v-text-field v-model="cycleReps" type="number" label="Repetitions">
+                <v-text-field
+                  v-model="cycleReps"
+                  type="number"
+                  label="Repetitions"
+                >
                 </v-text-field>
               </v-col>
             </v-row>
@@ -208,7 +212,6 @@
 </template>
 
 <script>
-import RoutineCard from "@/components/RoutineCard.vue";
 import { Cycle } from "@/api/cycle";
 import { CycleExercise } from "@/api/cycleExercise";
 import { Exercise } from "@/api/exercise";
@@ -222,7 +225,9 @@ import { router } from "@/router";
 
 export default {
   data: () => ({
-    error: null,
+    errors: [],
+    dialog: false,
+
     title: "",
     titleRules: [
       (value) => {
@@ -234,7 +239,7 @@ export default {
         return "Title must be less than 30 characters.";
       },
     ],
-    difficulty: 0,
+    difficulty: 1,
     difficultyLabels: {
       1: "Very easy",
       2: "Easy",
@@ -249,8 +254,6 @@ export default {
       "advanced",
       "expert",
     ],
-
-    dialog: false,
 
     exerciseName: "",
     exerciseReps: "",
@@ -281,10 +284,16 @@ export default {
     }),
     ...mapActions(useExerciseStore, {
       $createExercise: "create",
+      $getExercise: "getAll",
     }),
     ...mapActions(useCycleExerciseStore, {
       $createCycleExercise: "create",
     }),
+
+    closeDialog(fn) {
+      this.dialog = false;
+      fn();
+    },
 
     addCycle() {
       if (this.cycleName == "" || this.cycleReps == "") return;
@@ -293,93 +302,114 @@ export default {
         reps: this.cycleReps,
         exercises: [],
       });
+      this.cleanCycle();
+    },
+
+    cleanCycle() {
       this.cycleName = "";
       this.cycleReps = "";
     },
 
-    deleteCycle(cycle) {
-      this.cycles.splice(cycle, 1);
+    deleteCycle(index) {
+      this.cycles.splice(index, 1);
     },
 
-    addExercise(cycle) {
+    async addExercise(cycle) {
       if (
         this.exerciseName == "" ||
         this.exerciseTime == "" ||
         (this.exerciseReps == "" && this.exerciseOnlyTime == false)
       )
         return;
+
+      if (await this.checkExercise(this.exerciseName)) return;
+
       this.cycles[cycle].exercises.push({
         name: this.exerciseName,
         reps: this.exerciseOnlyTime ? "0" : this.exerciseReps,
         time: this.exerciseTime,
       });
-      this.dialog = false;
+
+      this.closeDialog(this.cleanExercise);
+    },
+
+    cleanExercise() {
       this.exerciseName = "";
       this.exerciseReps = "";
       this.exerciseTime = "";
       this.exerciseOnlyTime = false;
     },
 
-    deleteExercise(cycle, exercise) {
-      this.cycles[cycle].exercises.splice(exercise, 1);
+    deleteExercise(cycleIdx, exerciseIdx) {
+      this.cycles[cycleIdx].exercises.splice(exerciseIdx, 1);
+    },
+
+    async checkExercise(name) {
+      const result = await this.$getExercise({ search: name });
+      return result.totalCount != 0;
     },
 
     async submit(event) {
       const result = await event;
       if (!result.valid) return;
+      this.errors = [];
 
       try {
-        let routine = new Routine(
-          this.title,
-          "",
-          true,
-          this.difficultyEnum[this.difficulty],
+        const routine = await this.$createRoutine(
+          new Routine(
+            this.title,
+            "",
+            true,
+            this.difficultyEnum[this.difficulty - 1]
+          )
         );
-        routine = await this.$createRoutine(routine);
 
-        this.cycles.forEach(async (cycleData, index) => {
-          try {
-            let cycle = new Cycle(
-              cycleData.name,
-              "",
-              "exercise",
-              index + 1,
-              parseInt(cycleData.reps),
-            );
-            cycle = await this.$createCycle(routine.id, cycle);
+        await Promise.all(
+          this.cycles.map(async (cData, cIdx) => {
+            try {
+              const cycle = await this.$createCycle(
+                routine.id,
+                new Cycle(
+                  cData.name,
+                  "",
+                  "exercise",
+                  cIdx + 1,
+                  parseInt(cData.reps)
+                )
+              );
 
-            cycleData.exercises.forEach(async (exerciseData, index) => {
-              try {
-                let exercise = new Exercise(exerciseData.name, "", "exercise");
-                exercise = await this.$createExercise(exercise);
+              await Promise.all(
+                cData.exercises.map(async (eData, eIdx) => {
+                  try {
+                    const exercise = await this.$createExercise(
+                      new Exercise(eData.name, "", "exercise")
+                    );
 
-                let cycleExercise = new CycleExercise(
-                  index + 1,
-                  parseInt(exerciseData.time),
-                  parseInt(exerciseData.reps),
-                );
-                await this.$createCycleExercise(
-                  cycle.id,
-                  exercise.id,
-                  cycleExercise,
-                );
-              } catch (e) {
-                this.error = e;
-                valid = false;
-              }
-            });
-          } catch (e) {
-            this.error = e;
-            valid = false;
-          }
-        });
+                    await this.$createCycleExercise(
+                      cycle.id,
+                      exercise.id,
+                      new CycleExercise(
+                        eIdx + 1,
+                        parseInt(eData.time),
+                        parseInt(eData.reps)
+                      )
+                    );
+                  } catch (e) {
+                    this.errors.push(e);
+                  }
+                })
+              );
+            } catch (e) {
+              this.errors.push(e);
+            }
+          })
+        );
+
+        if (this.errors.length == 0) router.push("/my-routines");
       } catch (e) {
-        this.error = e;
+        this.errors.push(e);
       }
     },
-  },
-  components: {
-    RoutineCard,
   },
 };
 </script>

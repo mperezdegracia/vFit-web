@@ -2,7 +2,7 @@ import { Api } from "./api";
 
 export class ExerciseApi {
   static getUrl(slug) {
-    return `${Api.baseUrl}/exercises/${slug ? `/${slug}` : ""}`;
+    return `${Api.baseUrl}/exercises${slug ? `/${slug}` : ""}`;
   }
 
   static async add(exercise, controller) {
@@ -14,7 +14,7 @@ export class ExerciseApi {
       ExerciseApi.getUrl(exercise.id),
       true,
       exercise,
-      controller,
+      controller
     );
   }
 
@@ -26,8 +26,13 @@ export class ExerciseApi {
     return await Api.get(ExerciseApi.getUrl(id), true, controller);
   }
 
-  static async getAll(controller) {
-    return await Api.get(ExerciseApi.getUrl(), true, controller);
+  static async getAll(params, controller) {
+    const p = new URLSearchParams(params).toString();
+    return await Api.get(
+      ExerciseApi.getUrl(params ? `?${p}` : ""),
+      true,
+      controller
+    );
   }
 }
 
