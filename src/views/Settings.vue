@@ -7,10 +7,10 @@
         </v-toolbar>
         <div class="d-flex flex-row">
           <v-tabs v-model="tab" direction="vertical" color="primary">
-            <v-tab value="general">
+            <!-- <v-tab value="general">
               <v-icon start>mdi-cog</v-icon>
               General
-            </v-tab>
+            </v-tab> -->
 
             <v-tab value="profile">
               <v-icon start>mdi-account</v-icon>
@@ -28,78 +28,26 @@
             </v-tab>
           </v-tabs>
           <v-window v-model="tab">
-            <v-window-item value="general">
+            <!-- <v-window-item value="general">
               <v-sheet flat>
                 <v-card-text>
-                  <p>
-                    Sed aliquam ultrices mauris. Donec posuere vulputate arcu.
-                    Morbi ac felis. Etiam feugiat lorem non metus. Sed a libero.
-                  </p>
+                  <v-col md="6">
+                    <LanguageDropdown class="my-4" />
+                  </v-col>
 
-                  <p>
-                    Nam ipsum risus, rutrum vitae, vestibulum eu, molestie vel,
-                    lacus. Aenean tellus metus, bibendum sed, posuere ac, mattis
-                    non, nunc. Aliquam lobortis. Aliquam lobortis. Suspendisse
-                    non nisl sit amet velit hendrerit rutrum.
-                  </p>
-
-                  <p>
-                    Phasellus dolor. Fusce neque. Fusce fermentum odio nec arcu.
-                    Pellentesque libero tortor, tincidunt et, tincidunt eget,
-                    semper nec, quam. Phasellus blandit leo ut odio.
-                  </p>
-                  <LanguageDropdown class="my-4" />
                 </v-card-text>
               </v-sheet>
-            </v-window-item>
+            </v-window-item> -->
             <v-window-item value="profile">
-              <v-sheet flat>
-                <v-card-text>
-                  <p>
-                    Morbi nec metus. Suspendisse faucibus, nunc et pellentesque
-                    egestas, lacus ante convallis tellus, vitae iaculis lacus
-                    elit id tortor. Sed mollis, eros et ultrices tempus, mauris
-                    ipsum aliquam libero, non adipiscing dolor urna a orci.
-                    Curabitur ligula sapien, tincidunt non, euismod vitae,
-                    posuere imperdiet, leo. Nunc sed turpis.
-                  </p>
-
-                  <p>
-                    Suspendisse feugiat. Suspendisse faucibus, nunc et
-                    pellentesque egestas, lacus ante convallis tellus, vitae
-                    iaculis lacus elit id tortor. Proin viverra, ligula sit amet
-                    ultrices semper, ligula arcu tristique sapien, a accumsan
-                    nisi mauris ac eros. In hac habitasse platea dictumst. Fusce
-                    ac felis sit amet ligula pharetra condimentum.
-                  </p>
-
-                  <p>
-                    Sed consequat, leo eget bibendum sodales, augue velit cursus
-                    nunc, quis gravida magna mi a libero. Nam commodo suscipit
-                    quam. In consectetuer turpis ut velit. Sed cursus turpis
-                    vitae tortor. Aliquam eu nunc.
-                  </p>
-
-                  <p class="mb-0">
-                    Donec venenatis vulputate lorem. Aenean viverra rhoncus
-                    pede. In dui magna, posuere eget, vestibulum et, tempor
-                    auctor, justo. Fusce commodo aliquam arcu. Suspendisse enim
-                    turpis, dictum sed, iaculis a, condimentum nec, nisi.
-                  </p>
-                </v-card-text>
-              </v-sheet>
+              <center>
+                <Profile style="margin-left: 50px;" />
+              </center>
             </v-window-item>
             <v-window-item value="notifications">
               <v-sheet fluid>
                 <v-card-text>
                   <v-row>
-                    <v-col
-                      v-for="notification in notifications"
-                      :key="notification.id"
-                      md="4"
-                      sm="12"
-                      xs="12"
-                    >
+                    <v-col v-for="notification in notifications" :key="notification.id" md="6" sm="12" xs="12">
                       <v-card elevation="2">
                         <v-row>
                           <v-col cols="9">
@@ -112,10 +60,7 @@
                           </v-col>
                           <v-col cols="3">
                             <v-card-actions>
-                              <v-switch
-                                color="primary"
-                                v-model="notification.enabled"
-                              ></v-switch>
+                              <v-switch color="primary" v-model="notification.enabled"></v-switch>
                             </v-card-actions>
                           </v-col>
                         </v-row>
@@ -128,21 +73,52 @@
             <v-window-item value="privacy">
               <v-sheet flat>
                 <v-card-text>
-                  <p>
-                    Fusce a quam. Phasellus nec sem in justo pellentesque
-                    facilisis. Nam eget dui. Proin viverra, ligula sit amet
-                    ultrices semper, ligula arcu tristique sapien, a accumsan
-                    nisi mauris ac eros. In dui magna, posuere eget, vestibulum
-                    et, tempor auctor, justo.
-                  </p>
+                  <h1>Privacy Policy</h1>
 
-                  <p class="mb-0">
-                    Cras sagittis. Phasellus nec sem in justo pellentesque
-                    facilisis. Proin sapien ipsum, porta a, auctor quis, euismod
-                    ut, mi. Donec quam felis, ultricies nec, pellentesque eu,
-                    pretium quis, sem. Nam at tortor in tellus interdum
-                    sagittis.
+                  <p>Thank you for trusting us. At <b>V-Fit</b>, we value and respect your privacy. This
+                    privacy policy explains how we collect, use, and protect the information you share with us.</p>
+                  <br />
+                  <h2>Use of Information:</h2>
+                  <p>We use your information to provide you with access to our services and to enhance your experience.
                   </p>
+                  <p>We do not share your information with third parties without your consent, unless we are legally
+                    required to do so.</p>
+                  <br />
+                  <h2>Protection of Information:</h2>
+                  <p>We take reasonable steps to protect your personal data and keep it secure.</p>
+                  <br />
+                  <h2>Your Rights:</h2>
+                  <p>You have the right to access, rectify, or delete your personal data at any time.</p>
+                  <br />
+                  <h2>Cookies:</h2>
+                  <p>We use cookies to enhance your experience on our website. You can manage your cookie preferences in
+                    your browser settings.</p>
+                  <br />
+                  <h2>Changes to the Privacy Policy:</h2>
+                  <p>This policy may be updated periodically. We will notify you of any significant changes.</p>
+                  <br />
+                  <h2>Contact:</h2>
+                  <p>If you have questions or concerns about our privacy policy, please don't hesitate to contact us at
+                    <i>support@vfit.com </i>
+                  </p>
+                  <br/>
+                  <br/>
+                  <v-card elevation="2" class="bg-primary">
+                    <v-row>
+                      <v-col cols="9">
+                        <v-card-text>
+                          Are you willing to share your personal data to enhance your experience with V-Fit? By doing so,
+                          we can customize and optimize our services to cater to your needs.
+                        </v-card-text>
+                      </v-col>
+                      <v-col cols="3">
+                        <v-card-actions>
+                          <v-switch color="black"></v-switch>
+                        </v-card-actions>
+                      </v-col>
+                    </v-row>
+                  </v-card>
+
                 </v-card-text>
               </v-sheet>
             </v-window-item>
@@ -155,9 +131,11 @@
 
 <script>
 import LanguageDropdown from "@/components/LanguageDropdown.vue";
+import Profile from "./Profile.vue";
 export default {
   components: {
     LanguageDropdown,
+    Profile,
   },
   data: () => ({
     tab: "option-1",

@@ -4,7 +4,7 @@
     :items="languages"
     label="Select Language"
     @change="changeLanguage"
-    :style="{ 'min-width': '200px' }"
+    :style="{ 'min-width': '250px', width: '100%' }"
   ></v-select>
 </template>
 

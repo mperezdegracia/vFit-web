@@ -1,6 +1,6 @@
 <template>
     <center>
-        <div style="max-width: 600px; align-items: center;">
+        <div class="custom-div">
             <!-- Avatar del usuario -->
             <br />
             <div class="d-flex justify-start align-end">
@@ -74,6 +74,19 @@
 .custom-disabled-textfield {
     color: black;
     /* Cambia el color del texto a negro */
+}
+
+.custom-div {
+  max-width: 600px;
+  min-width: 600px;
+  margin-left: 350px;
+  align-items: center;
+}
+
+@media (max-width: 800px) {
+  .custom-div {
+    margin-left: 0;
+  }
 }
 </style>
 
