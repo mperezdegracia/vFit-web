@@ -1,121 +1,116 @@
 <template>
   <div class="bg-contrast justify-center align-center">
-    <h1 class="text-h2 pt-10 text-secondary text-center">Welcome Back!</h1>
-    <div class="search-div">
-      <v-responsive class="search-container" max-width="40%">
-        <v-text-field
-          class="search-field"
-          v-model="search"
-          id="search"
-          label="Search"
-          variant="solo"
-          outlined
-          dense
-          rounded
-          clearable
-          @input="constantSearch"
-          @click:clear="clearSearch"
-          @keydown.enter="searchItems"
-          prepend-inner-icon="mdi-magnify"
-        >
-          <template #append>
-            <v-btn @click="searchItems" icon>
-              <v-icon> mdi-send </v-icon>
-            </v-btn>
-          </template>
-        </v-text-field>
-      </v-responsive>
-    </div>
-    <v-divider class="mx-auto divider mb-2 mt-10"></v-divider>
-    <div v-if="searchResult.length === 0">
-      <v-container fluid>
-        <v-row>
-          <v-col cols="2" md="2" class="d-md-block d-sm-none">
-            <SideBar />
-          </v-col>
-          <v-divider vertical></v-divider>
-          <v-col cols="10" md="10">
-            <v-row align="center" justify="center">
+    <v-container fluid>
+      <v-row>
+        <v-col md="2">
+          <SideBar />
+        </v-col>
+        <v-col md="10">
+          <h1 class="text-h2 pt-10 text-primary text-center font-weight-bold">
+            Welcome Back!
+          </h1>
+          <div class="search-div">
+            <v-responsive class="search-container" max-width="60%">
+              <v-text-field
+                class="search-field"
+                v-model="search"
+                id="search"
+                label="Search"
+                variant="solo"
+                outlined
+                dense
+                rounded
+                clearable
+                @input="constantSearch"
+                @click:clear="clearSearch"
+                @keydown.enter="searchItems"
+                prepend-inner-icon="mdi-magnify"
+              >
+                <template #append>
+                  <v-btn @click="searchItems" icon>
+                    <v-icon> mdi-send </v-icon>
+                  </v-btn>
+                </template>
+              </v-text-field>
+            </v-responsive>
+          </div>
+          <div v-if="searchResult.length === 0">
+            <v-row align="center" justify="center" class="mt-4 mb-10">
               <v-col
-                class="features rounded_card elevation-4"
+                class="bg-white rounded-xl elevation-4 mx-4"
                 cols="3"
                 align="center"
                 justify="center"
               >
-                <router-link class="no_deco" to="/my-routines">
+                <router-link
+                  class="text-decoration-none text-black"
+                  to="/my-routines"
+                >
                   <v-img :width="250" :height="250" cover src="/home0.svg" />
-                  <p class="description">Start working out!</p>
+                  <p class="text-h5">Start working out!</p>
                 </router-link>
               </v-col>
 
               <v-col
-                class="features rounded_card elevation-4"
+                class="bg-white rounded-xl elevation-4 mx-4"
                 cols="3"
                 align="center"
                 justify="center"
               >
-                <router-link class="no_deco" to="/exercises">
+                <router-link
+                  class="text-decoration-none text-black"
+                  to="/exercises"
+                >
                   <v-img :width="250" :height="250" cover src="/home1.svg" />
-                  <p class="description">Create an exercise!</p>
+                  <p class="text-h5">Create an exercise!</p>
                 </router-link>
               </v-col>
 
               <v-col
-                class="features rounded_card elevation-4"
+                class="bg-white rounded-xl elevation-4 mx-4"
                 cols="3"
                 align="center"
                 justify="center"
               >
-                <router-link class="no_deco" to="/routine/create">
+                <router-link
+                  class="text-decoration-none text-black"
+                  to="/routine/create"
+                >
                   <v-img :width="250" :height="250" cover src="/home2.svg" />
-                  <p class="description">Create your routine!</p>
+                  <p class="text-h5">Create your routine!</p>
                 </router-link>
               </v-col>
             </v-row>
+            <v-divider></v-divider>
             <div>
               <h1
-                class="text-center text-h4 text-secondary slide-title pt-5 subtitles"
+                class="text-center text-h3 text-primary slide-title ma-5 subtitles"
               >
                 Recommended
               </h1>
               <div class="d-flex justify-center flex-scroll-container">
-                <div class="scroll-container">
+                <div class="scroll-container ma-0">
                   <RoutineScroll :routines="routines"></RoutineScroll>
                 </div>
               </div>
             </div>
-            <v-divider class="mx-auto divider mb-2 mt-10"></v-divider>
-            <div>
-              <h1
-                class="text-center text-h4 text-secondary slide-title subtitles"
-                id="liked-section"
-              >
-                Liked
-              </h1>
-              <div class="d-flex justify-center flex-scroll-container">
-                <div class="scroll-container">
-                  <RoutineScroll :routines="routines"></RoutineScroll>
-                </div>
-              </div>
-            </div>
-          </v-col>
-        </v-row>
-      </v-container>
-    </div>
-
-    <div v-else>
-      <h1
-        class="w-50 text-center text-h4 text-secondary slide-title pt-5"
-        id="searchResultLabel"
-      >
-        {{ searchResultLabel }}
-      </h1>
-      <!-- <div class="d-flex flex-container mx-auto">
+          </div>
+          <div v-else>
+            <h1
+              class="w-50 text-center text-h4 text-secondary slide-title pt-5"
+              id="searchResultLabel"
+            >
+              {{ searchResultLabel }}
+            </h1>
+            <!-- <div class="d-flex flex-container mx-auto">
         <RoutineCard v-for="routine in searchResult" :routine="routine" class="mx-auto" />
       </div> -->
 
-      <RoutineGrid :routines="searchResult"></RoutineGrid>
-    </div>
+            <RoutineGrid :routines="searchResult"></RoutineGrid>
+          </div>
+        </v-col>
+      </v-row>
+    </v-container>
   </div>
 </template>
 
@@ -261,21 +256,5 @@ const clearSearch = () => {
   right: 25px;
   /* Ajusta la distancia desde el borde derecho del campo de texto */
   transform: translateY(-90%);
-}
-
-.rounded_card {
-  margin: 20px;
-  border-radius: 24px;
-}
-
-.features {
-  background-color: white;
-}
-.no_deco {
-  text-decoration: none;
-  color: black;
-}
-.description {
-  font-size: 25px;
 }
 </style>
