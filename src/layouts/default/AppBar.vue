@@ -21,18 +21,20 @@
 
     <div v-if="!$isLoggedIn">
       <!-- Navigation Buttons -->
-      <v-btn text class="mx-1">About Us</v-btn>
-      <v-btn text class="mx-1">Services</v-btn>
-      <v-btn text class="mx-1">Contact</v-btn>
+      <router-link to="/about-us">
+        <v-btn color="black" class="mx-1"> About Us </v-btn>
+      </router-link>
+      <router-link to="/services">
+        <v-btn color="black" class="mx-1"> Services </v-btn>
+      </router-link>
+      <router-link to="/contact">
+        <v-btn color="black" class="mx-1"> Contact </v-btn>
+      </router-link>
 
       <!-- Login Button -->
-      <v-btn
-        @click="navigate('Login')"
-        variant="outlined"
-        color="primary"
-        class="mr-5 ml-1"
-        >Login</v-btn
-      >
+      <router-link to="/login">
+        <v-btn variant="outlined" color="primary" class="ma-4"> Login </v-btn>
+      </router-link>
     </div>
     <div v-else>
       <!-- Navigation Buttons -->

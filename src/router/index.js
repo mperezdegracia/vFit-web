@@ -13,9 +13,19 @@ const routes = [
         component: () => import("@/views/Landing.vue"),
       },
       {
-        path: "team",
-        name: "Team",
-        component: () => import("@/views/Team.vue"),
+        path: "about-us",
+        name: "aboutus",
+        component: () => import("@/views/AboutUs.vue"),
+      },
+      {
+        path: "contact",
+        name: "contact",
+        component: () => import("@/views/Contact.vue"),
+      },
+      {
+        path: "services",
+        name: "services",
+        component: () => import("@/views/Services.vue"),
       },
       {
         path: "login",
@@ -102,7 +112,15 @@ export const router = createRouter({
 });
 
 router.beforeEach(async (to) => {
-  const publicPages = ["/", "/team", "/login", "/register", "/verify-email"];
+  const publicPages = [
+    "/",
+    "/about-us",
+    "/contact",
+    "/services",
+    "/login",
+    "/register",
+    "/verify-email",
+  ];
   const authRequired = !publicPages.includes(to.path);
   const securityStore = useSecurityStore();
   securityStore.initialize();
