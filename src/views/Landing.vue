@@ -1,47 +1,43 @@
 <template>
   <div class="bg-contrast d-flex flex-column">
-    <container>
-      <div fluid class="ma-8">
+    <v-container fluid>
+      <div class="ma-8">
         <v-row align="center" justify="center">
-          <v-col cols="4" align="center" justify="center">
+          <v-col
+            cols="4"
+            align="center"
+            justify="center"
+            class="d-none d-sm-flex"
+          >
             <v-img :width="350" src="/landing1.svg" />
           </v-col>
-          <v-col cols="4" align="center" justify="center">
+          <v-col md="4" sm="4" align="center" justify="center">
             <div class="mt-4">
-              <h1 class="title text-center">
+              <h1 class="text-primary text-h2 font-weight-bold text-center">
                 V-Fit <br />
                 Build a better you!
               </h1>
-
-              <!--
-            <p class="ma-8">
-              Welcome to the ultimate fitness journey! Whether you're a gym
-              enthusiast or prefer the comfort of your home, our app is your key
-              to unlocking a healthier, happier you. Get ready to sculpt the
-              body you've always dreamed of, with tailored workout routines that
-              suit your lifestyle. With our user-friendly platform, you'll find
-              the perfect blend of motivation and guidance, making every sweat
-              session count. Don't just exercise; make it a lifestyle. Join our
-              community, and let's work together to build a stronger, fitter,
-              and more confident you. Start today and embrace a healthier
-              tomorrow!
-            </p>
-            --></div>
+            </div>
           </v-col>
-          <v-col cols="4" align="center" justify="center">
+          <v-col
+            cols="4"
+            align="center"
+            justify="center"
+            class="d-none d-sm-flex"
+          >
             <v-img :width="350" src="/landing2.svg"></v-img>
           </v-col>
         </v-row>
       </div>
 
-      <v-row class="functionalities rounded_card elevation-8">
+      <v-row class="bg-secondary ma-5 rounded-xl elevation-8 d-none d-md-flex">
         <v-col cols="4" align="center" justify="center">
           <v-img :width="300" cover src="/landing0.svg" />
         </v-col>
 
         <v-col class="mt-8 mb-8" cols="8" align="center" justify="center">
           <v-row align="center" justify="center">
-            <h1 class="fun_title">
+            <h1 class="text-white">
               Train everywhere you like with the equipment you have!
             </h1>
           </v-row>
@@ -69,41 +65,44 @@
 
           <v-row>
             <v-col cols="2">
-              <p class="fun_p">Train at home or at the gym</p>
+              <p class="text-white text-h7">Train at home or at the gym</p>
             </v-col>
             <v-col cols="2">
-              <p class="fun_p">Train however long you can</p>
+              <p class="text-white text-h7">Train however long you can</p>
             </v-col>
             <v-col cols="2">
-              <p class="fun_p">Whether you own equipment or not</p>
+              <p class="text-white text-h7">With or without equipment</p>
             </v-col>
             <v-col cols="2">
-              <p class="fun_p">Burn calories!</p>
+              <p class="text-white text-h7">Burn calories!</p>
             </v-col>
             <v-col cols="2">
-              <p class="fun_p">Increase your mental health</p>
+              <p class="text-white text-h7">Increase your mental health</p>
             </v-col>
             <v-col cols="2">
-              <p class="fun_p">Start building muscle!</p>
+              <p class="text-white text-h7">Start building muscle!</p>
             </v-col>
           </v-row>
         </v-col>
       </v-row>
 
       <br />
-
-      <div class="card fill-width fill-height" fluid>
-        <v-row align="center" justify="center">
+      <div
+        class="elevation-8 rounded-xl bg-white my-3 ml-5 mr-8 d-none d-md-flex"
+        fluid
+      >
+        <v-row align="center">
           <v-col cols="4" sm="8" md="4">
             <div class="text-center">
-              <h1 class="title">V-Fit: The only thing you need to train</h1>
+              <h1 class="text-primary text-h2 font-weight-bold">
+                V-Fit: The only thing you need to train
+              </h1>
             </div>
           </v-col>
-          <v-col class="pa-0" cols="8">
+          <v-col class="pa-0 my-3" cols="8">
             <v-img
-              :width="1000"
               :height="350"
-              class="rounded-e-lg"
+              class="rounded-e-xl"
               aspect-ratio="16/9"
               cover
               src="/gym0.jpg"
@@ -114,28 +113,34 @@
 
       <br />
 
-      <v-row class="bg-primary rounded_card elevation-8">
+      <v-row class="bg-primary ma-5 rounded-xl elevation-8">
         <v-col cols="12">
           <h1 class="text-center">Discover our features!</h1>
         </v-col>
 
         <v-row class="ma-2">
           <v-col cols="4" align="center" justify="center">
-            <a href="#add_routine_id">
+            <a class="text-decoration-none text-white" href="#add_routine_id">
               <v-img :width="100" cover src="/add_routine.svg" />
               <p>Create a Routine</p>
             </a>
           </v-col>
 
           <v-col cols="4" align="center" justify="center">
-            <a href="#search_routine_id">
+            <a
+              class="text-decoration-none text-white"
+              href="#search_routine_id"
+            >
               <v-img :width="100" cover src="/search_routine.svg" />
               <p>Search a Routine</p>
             </a>
           </v-col>
 
           <v-col cols="4" align="center" justify="center">
-            <a href="#execute_routine_id">
+            <a
+              class="text-decoration-none text-white"
+              href="#execute_routine_id"
+            >
               <v-img :width="100" cover src="/execute_routine.svg" />
               <p>Execute a Routine</p>
             </a>
@@ -143,13 +148,15 @@
         </v-row>
       </v-row>
 
-      <v-row>
+      <v-row align="center" justify="center">
         <v-col align="center" justify="center" class="pa-0">
           <v-img :width="550" src="/landing3.svg"></v-img>
         </v-col>
         <v-col class="pa-0">
-          <div id="add_routine_id" class="text-left padTop mr-4">
-            <h1 class="title">Create your own routines</h1>
+          <div id="add_routine_id" class="text-left mr-4">
+            <h1 class="text-primary text-h2 font-weight-bold">
+              Create your own routines
+            </h1>
             <p>
               Our innovative workout routine creator is your personal fitness
               architect. With this feature, you can easily design a customized
@@ -166,10 +173,12 @@
         </v-col>
       </v-row>
 
-      <v-row>
+      <v-row align="center" justify="center">
         <v-col class="pa-0">
-          <div id="search_routine_id" class="text-right padTop ml-4">
-            <h1 class="title">Search for routines</h1>
+          <div id="search_routine_id" class="text-right ml-4">
+            <h1 class="text-primary text-h2 font-weight-bold">
+              Search for routines
+            </h1>
             <p>
               Get inspired and find the perfect workout routine that aligns with
               your goals and preferences. You can search and explore a vast
@@ -185,18 +194,20 @@
             </p>
           </div>
         </v-col>
-        <v-col align="center" class="pa-0">
+        <v-col align="center" justify="center" class="pa-0">
           <v-img :width="550" cover src="/landing4.svg"></v-img>
         </v-col>
       </v-row>
 
-      <v-row>
-        <v-col align="center" class="pa-0">
+      <v-row align="center" justify="center">
+        <v-col align="center" justify="center" class="pa-0">
           <v-img :width="550" cover src="/landing5.svg"></v-img>
         </v-col>
         <v-col class="pa-0">
-          <div id="execute_routine_id" class="text-left padTop mr-4">
-            <h1 class="title">Execute routines</h1>
+          <div id="execute_routine_id" class="text-left mr-4">
+            <h1 class="text-primary text-h2 font-weight-bold">
+              Execute routines
+            </h1>
             <p>
               Turn your fitness plans into reality with a single click. With our
               workout execution feature, you can seamlessly execute the workout
@@ -211,51 +222,12 @@
           </div>
         </v-col>
       </v-row>
-    </container>
+    </v-container>
   </div>
 </template>
 
 <style scoped>
-a {
-  text-decoration: none;
-  color: white;
-}
-
-.fun_p {
-  color: white;
-  font-size: 20px;
-}
-
-.card {
-  margin: 20px;
-  background-color: white;
-  border-radius: 8px;
-}
-
-.rounded_card {
-  margin: 20px;
-  border-radius: 24px;
-}
-
-.functionalities {
-  background-color: #3b3ae0;
-}
-.fun_title {
-  font-size: 30px;
-  color: white;
-}
-.title {
-  font-size: 50px;
-  color: blueviolet;
-}
-
-.padTop {
-  padding-top: 15%;
-}
-
 p {
-  font-size: 20px;
+  font-size: 1.22rem;
 }
 </style>
-
-<script setup></script>

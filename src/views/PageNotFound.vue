@@ -10,8 +10,8 @@
           <h1 class="text-center">
             The page you are looking for does not exist.
           </h1>
-          <router-link to="/">
-            <v-btn color="primary" class="ma-4"> To landing page </v-btn>
+          <router-link to="/home">
+            <v-btn color="primary" class="ma-4"> To home page </v-btn>
           </router-link>
         </div>
       </v-col>

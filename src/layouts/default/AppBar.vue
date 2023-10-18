@@ -1,8 +1,20 @@
 <template>
   <v-app-bar color="white" app>
     <!-- Logo/Branding -->
-    <img v-if="!$isLoggedIn" @click="navigate('Landing')" src="@/assets/logo_omg.png" alt="Logo" class="logo-img mb-4" />
-    <img v-else @click="navigate('Home')" src="@/assets/logo_omg.png" alt="Logo" class="logo-img mb-4" />
+    <img
+      v-if="!$isLoggedIn"
+      @click="navigate('Landing')"
+      src="@/assets/logo_omg.png"
+      alt="Logo"
+      class="logo-img mb-4"
+    />
+    <img
+      v-else
+      @click="navigate('Home')"
+      src="@/assets/logo_omg.png"
+      alt="Logo"
+      class="logo-img mb-4"
+    />
 
     <!-- Spacer to push icons to the right -->
     <v-spacer></v-spacer>
@@ -14,11 +26,27 @@
       <v-btn text class="mx-1">Contact</v-btn>
 
       <!-- Login Button -->
-      <v-btn @click="navigate('Login')" variant="outlined" color="primary" class="mr-5 ml-1">Login</v-btn>
+      <v-btn
+        @click="navigate('Login')"
+        variant="outlined"
+        color="primary"
+        class="mr-5 ml-1"
+        >Login</v-btn
+      >
     </div>
     <div v-else>
+      <!-- Navigation Buttons -->
+      <router-link to="/settings">
+        <v-btn color="black" class="mx-1">Settings</v-btn>
+      </router-link>
       <!-- TODO: Agregar botones de mis rutinas y cosas de logged in -->
-      <v-btn @click="logout()" variant="outlined" color="primary" class="mr-5 ml-1">Logout</v-btn>
+      <v-btn
+        @click="logout()"
+        variant="outlined"
+        color="primary"
+        class="mr-5 ml-1"
+        >Logout</v-btn
+      >
     </div>
   </v-app-bar>
 </template>
