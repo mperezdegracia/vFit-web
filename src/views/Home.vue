@@ -37,8 +37,9 @@
           <div v-if="searchResult.length === 0">
             <v-row align="center" justify="center" class="mt-4 mb-10">
               <v-col
-                class="bg-white rounded-xl elevation-4 mx-4"
-                cols="3"
+                class="bg-white rounded-xl elevation-4 ma-4"
+                md="3"
+                sm="6"
                 align="center"
                 justify="center"
               >
@@ -52,8 +53,9 @@
               </v-col>
 
               <v-col
-                class="bg-white rounded-xl elevation-4 mx-4"
-                cols="3"
+                class="bg-white rounded-xl elevation-4 ma-4"
+                md="3"
+                sm="6"
                 align="center"
                 justify="center"
               >
@@ -67,8 +69,9 @@
               </v-col>
 
               <v-col
-                class="bg-white rounded-xl elevation-4 mx-4"
-                cols="3"
+                class="bg-white rounded-xl elevation-4 ma-4"
+                md="3"
+                sm="6"
                 align="center"
                 justify="center"
               >
