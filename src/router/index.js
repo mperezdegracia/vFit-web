@@ -72,7 +72,7 @@ const routes = [
           {
             path: "create",
             name: "Create-Routine",
-            component: () => import("@/views/RoutineCreate.vue"),
+            component: () => import("@/views/CreateRoutine.vue"),
           },
         ],
       },

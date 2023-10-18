@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-contrast pt-4 pb-16">
+  <div class="bg-contrast pb-16">
     <v-container fluid>
       <v-row>
         <v-col md="2">
@@ -47,7 +47,6 @@ import SideBar from "@/components/SideBar.vue";
 import { mapActions } from "pinia";
 import { useRoutineStore } from "@/stores/RoutineStore";
 import { useCycleStore } from "@/stores/CycleStore";
-import routines from "@/data/mockRoutines";
 import { useCycleExerciseStore } from "@/stores/CycleExerciseStore";
 
 export default {
@@ -65,42 +64,36 @@ export default {
     ...mapActions(useCycleExerciseStore, {
       $getAllExercises: "getAll",
     }),
-
-    async getAllRoutines() {
-      try {
-        const result = await this.$getAllRoutines();
-        this.routines = result.content;
-      } catch (e) {
-        console.error(e);
-      }
-    },
-
-    async getCycles(routine) {
-      try {
-        const result = await this.$getAllCycles(routine.id);
-        routine.cycles = result.content;
-      } catch (e) {
-        console.error(e);
-      }
-    },
-
-    async getExercises(cycle) {
-      try {
-        const result = await this.$getAllExercises(cycle.id);
-        cycle.exercises = result.content;
-      } catch (e) {
-        console.error(e);
-      }
-    },
   },
   async beforeMount() {
-    await this.getAllRoutines();
-    this.routines.forEach(async (routine) => {
-      await this.getCycles(routine);
-      routine.cycles.forEach(async (cycle) => {
-        await this.getExercises(cycle);
-      });
-    });
+    try {
+      const result = await this.$getAllRoutines();
+      this.routines = result.content;
+
+      await Promise.all(
+        this.routines.map(async (routine) => {
+          try {
+            const result = await this.$getAllCycles(routine.id);
+            routine.cycles = result.content;
+
+            await Promise.all(
+              routine.cycles.map(async (cycle) => {
+                try {
+                  const result = await this.$getAllExercises(cycle.id);
+                  cycle.exercises = result.content;
+                } catch (e) {
+                  console.error(e);
+                }
+              })
+            );
+          } catch (e) {
+            console.error(e);
+          }
+        })
+      );
+    } catch (e) {
+      console.error(e);
+    }
   },
   components: {
     RoutineCard,

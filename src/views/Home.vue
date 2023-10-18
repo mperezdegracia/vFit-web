@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-contrast justify-center align-center">
+  <div class="bg-contrast pb-16">
     <v-container fluid>
       <v-row>
         <v-col md="2">
