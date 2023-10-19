@@ -109,6 +109,7 @@ const routes = [
 export const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
+
 });
 
 router.beforeEach(async (to) => {
@@ -129,6 +130,7 @@ router.beforeEach(async (to) => {
     securityStore.returnUrl = to.fullPath;
     return "/login";
   }
+
 });
 
 export default router;

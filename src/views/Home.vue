@@ -11,21 +11,9 @@
           </h1>
           <div class="search-div">
             <v-responsive class="search-container" max-width="60%">
-              <v-text-field
-                class="search-field"
-                v-model="search"
-                id="search"
-                label="Search"
-                variant="solo"
-                outlined
-                dense
-                rounded
-                clearable
-                @input="constantSearch"
-                @click:clear="clearSearch"
-                @keydown.enter="searchItems"
-                prepend-inner-icon="mdi-magnify"
-              >
+              <v-text-field class="search-field" v-model="search" id="search" label="Search" variant="solo" outlined dense
+                rounded clearable @input="constantSearch" @click:clear="clearSearch" @keydown.enter="searchItems"
+                prepend-inner-icon="mdi-magnify">
                 <template #append>
                   <v-btn @click="searchItems" icon>
                     <v-icon> mdi-send </v-icon>
@@ -36,49 +24,23 @@
           </div>
           <div v-if="searchResult.length === 0">
             <v-row align="center" justify="center" class="mt-4 mb-10">
-              <v-col
-                class="bg-white rounded-xl elevation-4 ma-4"
-                md="3"
-                sm="6"
-                align="center"
-                justify="center"
-              >
-                <router-link
-                  class="text-decoration-none text-black"
-                  to="/my-routines"
-                >
+
+
+              <v-col class=" rounded-xl elevation-4 ma-4 action-card" md="3" sm="6" align="center" justify="center">
+                <router-link class="text-decoration-none text-black" to="/my-routines">
                   <v-img :width="250" :height="250" cover src="/home0.svg" />
                   <p class="text-h5">Start working out!</p>
                 </router-link>
               </v-col>
-
-              <v-col
-                class="bg-white rounded-xl elevation-4 ma-4"
-                md="3"
-                sm="6"
-                align="center"
-                justify="center"
-              >
-                <router-link
-                  class="text-decoration-none text-black"
-                  to="/exercises"
-                >
+              <v-col class=" rounded-xl elevation-4 ma-4 action-card" md="3" sm="6" align="center" justify="center">
+                <router-link class="text-decoration-none text-black" to="/exercises">
                   <v-img :width="250" :height="250" cover src="/home1.svg" />
                   <p class="text-h5">Create an exercise!</p>
                 </router-link>
               </v-col>
 
-              <v-col
-                class="bg-white rounded-xl elevation-4 ma-4"
-                md="3"
-                sm="6"
-                align="center"
-                justify="center"
-              >
-                <router-link
-                  class="text-decoration-none text-black"
-                  to="/routine/create"
-                >
+              <v-col class=" rounded-xl elevation-4 ma-4 action-card" md="3" sm="6" align="center" justify="center">
+                <router-link class="text-decoration-none text-black" to="/routine/create">
                   <v-img :width="250" :height="250" cover src="/home2.svg" />
                   <p class="text-h5">Create your routine!</p>
                 </router-link>
@@ -86,9 +48,7 @@
             </v-row>
             <v-divider></v-divider>
             <div>
-              <h1
-                class="text-center text-h3 text-primary slide-title ma-5 subtitles"
-              >
+              <h1 class="text-center text-h3 text-primary slide-title ma-5 subtitles">
                 Recommended
               </h1>
               <div class="d-flex justify-center flex-scroll-container">
@@ -99,10 +59,7 @@
             </div>
           </div>
           <div v-else>
-            <h1
-              class="w-50 text-center text-h4 text-secondary slide-title pt-5"
-              id="searchResultLabel"
-            >
+            <h1 class="w-50 text-center text-h4 text-secondary slide-title pt-5" id="searchResultLabel">
               {{ searchResultLabel }}
             </h1>
             <!-- <div class="d-flex flex-container mx-auto">
@@ -119,10 +76,8 @@
 
 <script setup>
 import RoutineScroll from "@/components/RoutineScroll.vue";
-import RoutineCard from "@/components/RoutineCard.vue";
 import RoutineGrid from "@/components/RoutineGrid.vue";
 import SideBar from "@/components/SideBar.vue";
-
 import { useRouter } from "vue-router";
 
 import routines from "@/data/mockRoutines.js";
@@ -185,6 +140,19 @@ const clearSearch = () => {
   min-height: 45px;
   margin-bottom: 18px;
   opacity: 90%;
+}
+
+.action-card:hover {
+  background-color: #f7f7f7;
+}
+
+.action-card {
+  background-color: white;
+  transition: background-color 0.1s ease-in-out, color 0.2s ease-in-out;
+}
+
+.action-card:active {
+  background-color: white;
 }
 
 .divider {

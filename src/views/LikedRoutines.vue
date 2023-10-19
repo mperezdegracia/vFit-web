@@ -11,13 +11,8 @@
             <v-container class="bg-primary rounded-t-lg" fluid>
               <h2>Liked Routines</h2>
             </v-container>
-
             <v-container fluid>
-              <v-row>
-                <v-col v-for="(routine, index) in routines" :key="index">
-                  <RoutineCard class="pa-2" :routine="routine" />
-                </v-col>
-              </v-row>
+              <RoutineGrid :routines="routines"></RoutineGrid>
             </v-container>
           </v-sheet>
         </v-col>
@@ -28,7 +23,7 @@
 
 <script>
 import routines from "@/data/mockRoutines";
-import RoutineCard from "@/components/RoutineCard.vue";
+import RoutineGrid from "@/components/RoutineGrid.vue";
 import SideBar from "@/components/SideBar.vue";
 
 export default {
@@ -36,8 +31,8 @@ export default {
     routines: routines,
   }),
   components: {
-    RoutineCard,
     SideBar,
+    RoutineGrid
   },
 };
 </script>

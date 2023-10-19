@@ -1,9 +1,10 @@
 <template>
   <v-card
     :loading="loading"
-    class="mx-auto text-left bg-grey-lighten-4"
+    class="mx-auto text-left bg-grey-lighten-4 rounded-lg my-2"
     max-width="374"
-    min-width="250"
+    min-width="270"
+    max-height="400"
     :border="true"
   >
     <template v-slot:loader="{ isActive }">
@@ -17,8 +18,7 @@
 
     <v-img
       cover
-      height="250"
-      class="rounded"
+      class="rounded h-40"
       :src="routine.image || '/push_down.jpg'"
     ></v-img>
 

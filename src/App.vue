@@ -1,16 +1,7 @@
 <template>
-  <router-view />
+      <router-view></router-view>
+</template> 
 
-</template>
 
 
-<script>
-  import Exercise from '@/components/Exercise.vue';
-
-  export default{
-    components: {
-      Exercise,
-    },
-  }
-</script>
 
