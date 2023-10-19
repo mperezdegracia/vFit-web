@@ -62,8 +62,8 @@ export default {
       }
     },
   },
-  beforeMount() {
-    this.getAllExercises();
+  async beforeMount() {
+    await this.getAllExercises();
   },
   components: {
     SideBar,

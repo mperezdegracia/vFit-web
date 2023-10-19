@@ -25,28 +25,18 @@
 
     <div v-if="!$isLoggedIn">
       <!-- Navigation Buttons -->
-      <router-link to="/about-us">
-        <v-btn color="black" class="mx-1"> Equipo </v-btn>
-      </router-link>
-      <router-link to="/services">
-        <v-btn color="black" class="mx-1"> Servicios </v-btn>
-      </router-link>
-      <router-link to="/contact">
-        <v-btn color="black" class="mx-1"> Contacto </v-btn>
-      </router-link>
+      <v-btn color="black" class="mx-1" to="/about-us"> Equipo </v-btn>
+      <v-btn color="black" class="mx-1" to="/services"> Servicios </v-btn>
+      <v-btn color="black" class="mx-1" to="/contact"> Contacto </v-btn>
 
       <!-- Login Button -->
-      <router-link to="/login">
-        <v-btn variant="outlined" color="primary" class="ma-4">
-          Iniciar Sesión
-        </v-btn>
-      </router-link>
+      <v-btn variant="outlined" color="primary" class="ma-4" to="/login">
+        Iniciar Sesión
+      </v-btn>
     </div>
     <div v-else>
       <!-- Navigation Buttons -->
-      <router-link to="/settings">
-        <v-btn color="black" class="mx-1">Ajustes</v-btn>
-      </router-link>
+      <v-btn color="black" class="mx-1" to="/settings">Ajustes</v-btn>
       <!-- TODO: Agregar botones de mis rutinas y cosas de logged in -->
       <v-btn
         @click="logout()"

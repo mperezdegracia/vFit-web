@@ -37,7 +37,7 @@
     <div v-if="expand">
       <v-divider class="mx-2 my-1"></v-divider>
       <v-card-actions>
-        <v-row no-gutters="">
+        <v-row no-gutters>
           <v-col class="mr-1">
             <v-btn
               variant="tonal"
@@ -69,14 +69,14 @@
                       variant="tonal"
                       color="primary"
                       @click="dialog = false"
-                      >CANCELAR</v-btn
+                      >Cancelar</v-btn
                     >
                     <v-btn
                       @click="deleteExercise()"
                       variant="tonal"
                       color="red-lighten-1"
                       prepend-icon="mdi-delete"
-                      >BORRAR</v-btn
+                      >Borrar</v-btn
                     >
                   </v-card-actions>
                 </v-card>
@@ -116,6 +116,7 @@ export default {
       try {
         await this.$deleteExercise(this.exercise);
         this.getAllExercises();
+        this.dialog = false;
       } catch (e) {
         console.error(e);
       }

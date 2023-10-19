@@ -8,9 +8,9 @@
         <div class="mt-4">
           <h1 class="text-primary text-center">Error 404</h1>
           <h1 class="text-center">La página que buscas no existe.</h1>
-          <router-link to="/home">
-            <v-btn color="primary" class="ma-4"> A página de inicio </v-btn>
-          </router-link>
+          <v-btn color="primary" class="ma-4" to="/home">
+            A página de inicio
+          </v-btn>
         </div>
       </v-col>
       <v-col cols="4" align="center" justify="center">

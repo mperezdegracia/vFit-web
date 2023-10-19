@@ -1,47 +1,43 @@
 <template>
-  <v-row justify="center">
-    <v-col sm="10" md="8" lg="6" xl="4">
-      <v-card elevation="6" class="rounded-xl">
-        <div class="text-center">
-          <v-img src="@/assets/logo.png" contain height="250"></v-img>
-        </div>
-        <v-card-text>
-          <v-form validate-on="submit lazy" @submit.prevent="submit">
-            <v-alert v-if="error" color="error" class="mb-6" icon="$error">
-              <v-alert-title>{{ error.description }}</v-alert-title>
-              <ul>
-                <li v-for="detail in error.details">
-                  {{ detail }}
-                </li>
-              </ul>
-            </v-alert>
+  <v-card elevation="6" class="mx-auto rounded-xl" max-width="500">
+    <div class="text-center">
+      <v-img src="@/assets/logo.png" contain height="250"></v-img>
+    </div>
+    <v-card-text>
+      <v-form validate-on="submit lazy" @submit.prevent="submit">
+        <v-alert v-if="error" color="error" class="mb-6" icon="$error">
+          <v-alert-title>{{ error.description }}</v-alert-title>
+          <ul>
+            <li v-for="detail in error.details">
+              {{ detail }}
+            </li>
+          </ul>
+        </v-alert>
 
-            <v-text-field
-              v-model="email"
-              :rules="rules"
-              type="email"
-              label="Introduce tu correo electrónico"
-              prepend-inner-icon="mdi-email"
-            ></v-text-field>
-            <v-text-field
-              v-model="code"
-              :rules="rules"
-              label="Ingrese el código"
-              prepend-inner-icon="mdi-lock"
-            ></v-text-field>
-            <v-btn
-              type="submit"
-              class="rounded-lg"
-              color="primary"
-              variant="tonal"
-              block
-              >Verificar correo electrónico</v-btn
-            >
-          </v-form>
-        </v-card-text>
-      </v-card>
-    </v-col>
-  </v-row>
+        <v-text-field
+          v-model="email"
+          :rules="rules"
+          type="email"
+          label="Ingrese su correo electrónico"
+          prepend-inner-icon="mdi-email"
+        ></v-text-field>
+        <v-text-field
+          v-model="code"
+          :rules="rules"
+          label="Ingrese el código recibido"
+          prepend-inner-icon="mdi-lock"
+        ></v-text-field>
+        <v-btn
+          type="submit"
+          class="rounded-lg"
+          color="primary"
+          variant="tonal"
+          block
+          >Verificar correo electrónico</v-btn
+        >
+      </v-form>
+    </v-card-text>
+  </v-card>
 </template>
 
 <script>

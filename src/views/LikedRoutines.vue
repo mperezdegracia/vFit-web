@@ -4,17 +4,17 @@
       <SideBar />
     </v-col>
 
-        <v-col>
-          <v-sheet class="mx-auto elevation-6 rounded-lg">
-            <v-container class="bg-primary rounded-t-lg" fluid>
-              <h2>Liked Routines</h2>
-            </v-container>
-            <v-container fluid>
-              <RoutineGrid :routines="routines"></RoutineGrid>
-            </v-container>
-          </v-sheet>
-        </v-col>
-      </v-row>
+    <v-col>
+      <v-sheet class="mx-auto elevation-6 rounded-lg">
+        <v-container class="bg-primary rounded-t-lg" fluid>
+          <h2>Liked Routines</h2>
+        </v-container>
+        <v-container fluid>
+          <RoutineGrid :routines="routines"></RoutineGrid>
+        </v-container>
+      </v-sheet>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
@@ -28,7 +28,7 @@ export default {
   }),
   components: {
     SideBar,
-    RoutineGrid
+    RoutineGrid,
   },
 };
 </script>

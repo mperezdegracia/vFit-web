@@ -12,11 +12,9 @@
               <h2>Mis Rutinas</h2>
             </v-col>
             <v-col class="text-right">
-              <router-link to="/routine/create">
-                <v-btn color="white" class="text-primary">
-                  Agregar rutina
-                </v-btn>
-              </router-link>
+              <v-btn color="white" class="text-primary" to="/routine/create">
+                Agregar rutina
+              </v-btn>
             </v-col>
           </v-row>
         </v-container>
