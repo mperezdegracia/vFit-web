@@ -75,9 +75,31 @@
           </v-expansion-panels>
         </v-card-text> -->
         <v-card-actions>
+          <v-col cols="3">
+            <v-btn
+              variant="tonal"
+              color="primary"
+              prepend-icon="mdi-pencil"
+              block
+              >Editar</v-btn
+            ></v-col
+          >
+          <v-col cols="3">
+            <v-btn
+              variant="tonal"
+              color="red-lighten-1"
+              prepend-icon="mdi-delete"
+              block
+            >
+              Borrar
+            </v-btn>
+          </v-col>
           <v-spacer></v-spacer>
-          <v-btn variant="tonal" color="secondary">Edit</v-btn>
-          <v-btn variant="tonal" color="primary" @click="dialog = false">Close</v-btn>
+          <v-col cols="3" align="end" justify="end">
+            <v-btn variant="tonal" color="primary" @click="dialog = false"
+              >Cerrar</v-btn
+            >
+          </v-col>
         </v-card-actions>
       </v-card>
     </v-dialog>

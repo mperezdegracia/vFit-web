@@ -39,7 +39,7 @@
                 v-model="type"
                 label="Tipo de ejercicio"
                 :rules="typeRules"
-                :items="['Ejercicio', 'Descanso']"
+                :items="['Exercise', 'Rest']"
               ></v-select>
             </v-container>
           </v-card-text>
