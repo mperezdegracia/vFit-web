@@ -5,23 +5,29 @@
     </v-col>
 
     <v-col>
+      <h1 class="font-weight-medium text-primary text-center texto">
+        Mis Rutinas
+      </h1>
 
-        <h1 class=" font-weight-medium text-primary text-center texto" > Mis Rutinas</h1>
-        
-        <v-divider class="my-1"></v-divider>
-        <div class="d-flex mr-5 mt-3 mb-0">
-          <v-spacer></v-spacer>
-          <router-link to="/routine/create">
-            <v-btn color="secondary" variant="tonal" >
-              Agregar rutina
-            </v-btn>
-          </router-link>
+      <v-divider class="my-1"></v-divider>
+      <div class="d-flex mr-5 mt-3 mb-0">
+        <v-spacer></v-spacer>
+        <router-link to="/routine/create">
+          <v-btn color="secondary" variant="tonal"> Agregar rutina </v-btn>
+        </router-link>
+      </div>
 
-        </div>
       <v-container fluid>
         <v-row>
-          <v-col v-for="(routine, index) in routines" :key="index" align="center">
-            <RoutineCard  :routine="routine" />
+          <v-col v-if="routines.length == 0" align="center">
+            <v-img class="rounded" src="/empty.svg" height="250"> </v-img>
+          </v-col>
+          <v-col
+            v-for="(routine, index) in routines"
+            :key="index"
+            align="center"
+          >
+            <RoutineCard class="pa-2" :routine="routine" />
           </v-col>
         </v-row>
       </v-container>

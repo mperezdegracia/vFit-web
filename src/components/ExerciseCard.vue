@@ -34,10 +34,10 @@
       }}
     </v-card-text>
 
-    <div v-if="expand">
+    <div v-if="expand && (getAllExercises || addExercise)">
       <v-divider class="mx-2 my-1"></v-divider>
       <v-card-actions>
-        <v-row no-gutters>
+        <v-row no-gutters v-if="getAllExercises">
           <v-col class="mr-1">
             <v-btn
               variant="tonal"
@@ -84,6 +84,19 @@
             </v-btn>
           </v-col>
         </v-row>
+        <v-row v-else-if="addExercise">
+          <v-col>
+            <v-btn
+              @click="addExercise(exercise)"
+              variant="tonal"
+              color="primary"
+              prepend-icon="mdi-plus"
+              block
+            >
+              Añadir al ciclo
+            </v-btn></v-col
+          >
+        </v-row>
       </v-card-actions>
     </div>
   </v-card>
@@ -104,7 +117,10 @@ export default {
       required: true,
     },
     getAllExercises: {
-      required: true,
+      required: false,
+    },
+    addExercise: {
+      required: false,
     },
   },
   methods: {

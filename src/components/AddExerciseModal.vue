@@ -68,7 +68,7 @@ export default {
 
     name: "",
     detail: "",
-    type: "",
+    type: null,
 
     nameRules: [
       (value) => {
@@ -111,12 +111,13 @@ export default {
       this.dialog = false;
       this.name = "";
       this.detail = "";
-      this.type = "";
+      this.type = null;
     },
 
     async submit(event) {
       const result = await event;
       if (!result.valid) return;
+      this.error = null;
 
       try {
         const exercise = new Exercise(

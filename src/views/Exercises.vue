@@ -19,8 +19,7 @@
         <v-container fluid>
           <v-row>
             <v-col v-if="exercises.length == 0" align="center">
-              <v-img class="rounded" src="/empty_list.png" height="250">
-              </v-img>
+              <v-img class="rounded" src="/empty.svg" height="250"> </v-img>
             </v-col>
             <v-col
               v-for="(exercise, index) in exercises"

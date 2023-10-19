@@ -2,7 +2,7 @@
   <v-btn variant="tonal" color="primary" block
     >Details
     <v-dialog v-model="dialog" activator="parent" width="800">
-      <v-card min-width="800" min-height="400" class="rounded-lg">
+      <v-card max-width="800" min-height="400" class="rounded-lg">
         <v-card-title class="text-h5 text-primary mt-4 ml-4"
           >Detalles de la rutina</v-card-title
         >
@@ -11,7 +11,9 @@
             <v-col
               v-for="(cycle, index) in cycles"
               :key="index"
-              cols="4"
+              cols="12"
+              sm="6"
+              md="4"
               no-gutters
             >
               <v-list>
@@ -47,31 +49,39 @@
           </v-row>
         </v-card-text>
         <v-card-actions>
-          <v-col cols="3">
-            <v-btn
-              variant="tonal"
-              color="primary"
-              prepend-icon="mdi-pencil"
-              block
-              >Editar</v-btn
-            ></v-col
-          >
-          <v-col cols="3">
-            <v-btn
-              variant="tonal"
-              color="red-lighten-1"
-              prepend-icon="mdi-delete"
-              block
-            >
-              Borrar
-            </v-btn>
-          </v-col>
-          <v-spacer></v-spacer>
-          <v-col cols="3" align="end" justify="end">
-            <v-btn variant="tonal" color="primary" @click="dialog = false"
-              >Cerrar</v-btn
-            >
-          </v-col>
+          <v-container>
+            <v-row class="pt-4 pb-2" align="end">
+              <v-col cols="12" sm="4" class="py-1">
+                <v-btn
+                  variant="tonal"
+                  color="primary"
+                  prepend-icon="mdi-pencil"
+                  block
+                  >Editar</v-btn
+                ></v-col
+              >
+              <v-col cols="12" sm="4" class="py-1">
+                <v-btn
+                  variant="tonal"
+                  color="red-lighten-1"
+                  prepend-icon="mdi-delete"
+                  block
+                >
+                  Borrar
+                </v-btn>
+              </v-col>
+              <v-col cols="12" sm="4" class="py-1">
+                <v-btn
+                  variant="tonal"
+                  color="secondary"
+                  @click="dialog = false"
+                  prepend-icon="mdi-close"
+                  block
+                  >Cerrar</v-btn
+                >
+              </v-col>
+            </v-row>
+          </v-container>
         </v-card-actions>
       </v-card>
     </v-dialog>
