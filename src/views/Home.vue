@@ -37,7 +37,7 @@
           <v-col md="3" sm="6" align="center" justify="center">
             <v-card class="rounded-xl elevation-4 ma-4 pb-3" to="/my-routines">
               <v-img :width="250" :height="250" cover src="/home0.svg" />
-              <p class="text-h5">¡Empiece a hacer ejercicio!</p>
+              <p class="text-h5">¡Ejecute una rutina!</p>
             </v-card>
           </v-col>
           <v-col md="3" sm="6" align="center" justify="center">

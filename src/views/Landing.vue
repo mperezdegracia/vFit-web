@@ -7,11 +7,11 @@
             cols="4"
             align="center"
             justify="center"
-            class="d-none d-sm-flex"
+            class="d-none d-md-flex"
           >
             <v-img :width="350" src="/landing1.svg" />
           </v-col>
-          <v-col md="4" sm="4" align="center" justify="center">
+          <v-col md="4" sm="6" align="center" justify="center">
             <div class="mt-4">
               <h1 class="text-primary text-h2 font-weight-bold text-center">
                 V-Fit <br />
@@ -23,7 +23,7 @@
             cols="4"
             align="center"
             justify="center"
-            class="d-none d-sm-flex"
+            class="d-none d-md-flex"
           >
             <v-img :width="350" src="/landing2.svg"></v-img>
           </v-col>
