@@ -9,7 +9,7 @@
         <v-container class="bg-primary rounded-t-lg" fluid>
           <v-row>
             <v-col>
-              <h2>My Exercises</h2>
+              <h2>Mis Ejercicios</h2>
             </v-col>
             <v-col class="text-right">
               <AddExerciseModal :getAllExercises="getAllExercises" />

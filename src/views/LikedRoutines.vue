@@ -7,7 +7,7 @@
     <v-col>
       <v-sheet class="mx-auto elevation-6 rounded-lg">
         <v-container class="bg-primary rounded-t-lg" fluid>
-          <h2>Liked Routines</h2>
+          <h2>Rutinas favoritas</h2>
         </v-container>
 
         <v-container fluid>

@@ -1,10 +1,10 @@
 <template>
   <v-btn variant="tonal" color="primary" block
-    >Details
+    >Detalles
     <v-dialog v-model="dialog" activator="parent" width="600">
       <v-card max-width="600">
         <v-card-title class="text-h5 text-primary mt-4 ml-4"
-          >Routine details</v-card-title
+          >Detalles de la rutina</v-card-title
         >
         <v-card-text>
           <v-expansion-panels
@@ -19,15 +19,15 @@
               <v-expansion-panel-title class="bg-grey-lighten-2">
                 {{ cycle.name }} -
                 <span class="font-weight-bold ml-1"
-                  >{{ cycle.repetitions }} reps</span
+                  >{{ cycle.repetitions }} Repeticiones</span
                 >
               </v-expansion-panel-title>
               <v-expansion-panel-text>
                 <v-table v-if="cycle.exercises.length" class="mb-4">
                   <thead>
                     <tr>
-                      <th style="width: 50%">Name</th>
-                      <th style="width: 50%">Reps/time</th>
+                      <th style="width: 50%">Nombre</th>
+                      <th style="width: 50%">Repeticions/Tiempo</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -38,14 +38,14 @@
                       <td>{{ exercise.exercise.name }}</td>
                       <td>
                         <span v-if="exercise.repetitions != 0"
-                          >{{ exercise.repetitions }} reps / </span
-                        >{{ exercise.duration }}s
+                          >{{ exercise.repetitions }} repeticiones / </span
+                        >{{ exercise.duration }}segundos
                       </td>
                     </tr>
                   </tbody>
                 </v-table>
                 <div class="text-center" v-else>
-                  No exercises where registered
+                  No se registro ningun ejercicio
                 </div>
               </v-expansion-panel-text>
             </v-expansion-panel>
@@ -54,7 +54,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn variant="tonal" color="primary" @click="dialog = false"
-            >Close</v-btn
+            >Cerrar</v-btn
           >
         </v-card-actions>
       </v-card>

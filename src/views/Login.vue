@@ -19,14 +19,14 @@
             <v-text-field
               v-model="username"
               :rules="rules"
-              label="Enter your username"
+              label="Ingrese su nombre de usuario"
               prepend-inner-icon="mdi-account"
             ></v-text-field>
             <v-text-field
               v-model="password"
               :rules="rules"
               type="password"
-              label="Enter your password"
+              label="Ingresa su contraseña"
               prepend-inner-icon="mdi-lock"
             ></v-text-field>
             <v-btn
@@ -35,32 +35,34 @@
               color="primary"
               variant="tonal"
               block
-              >Login</v-btn
+              >Inicio de sesión</v-btn
             >
             <v-checkbox
               v-model="rememberMe"
               color="primary"
-              label="Remember me"
+              label="Acuérdate de mí"
             ></v-checkbox>
 
             <div class="mb-4">
-              <p class="text-h6 text-center">No account yet?</p>
+              <p class="text-h6 text-center mb-2">¿No tienes cuenta aún?</p>
               <v-btn
                 @click="navigateToRegister()"
                 color="secondary rounded-lg"
                 variant="tonal"
                 block
-                >Sign Up</v-btn
+                >Inscribirse</v-btn
               >
             </div>
 
-            <p class="text-h6 text-center">Your Email is not yet verified?</p>
+            <p class="text-h6 text-center mb-2">
+              ¿Su correo electrónico aún no está verificado?
+            </p>
             <v-btn
               @click="navigateToVerify()"
               color="secondary rounded-lg"
               variant="tonal"
               block
-              >Verify Email</v-btn
+              >Verificar correo electrónico</v-btn
             >
           </v-form>
         </v-card-text>

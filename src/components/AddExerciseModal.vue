@@ -1,11 +1,11 @@
 <template>
   <v-btn color="white" class="text-primary">
-    Add Exercise
+    Agregar ejercicio
     <v-dialog v-model="dialog" activator="parent" width="600">
       <v-card max-width="600">
         <v-form validate-on="submit lazy" @submit.prevent="submit">
           <v-card-title class="text-h5 text-primary mt-4 ml-4"
-            >Create a new exercise</v-card-title
+            >Crear un ejercicio nuevo</v-card-title
           >
           <v-card-text>
             <v-container>
@@ -25,30 +25,30 @@
 
               <v-text-field
                 v-model="name"
-                label="Exercise name"
+                label="Nombre del ejercicio"
                 :rules="nameRules"
                 :counter="100"
               ></v-text-field>
               <v-textarea
                 v-model="detail"
-                label="Exercise detail"
+                label="Detalle del ejercicio"
                 :rules="detailRules"
                 :counter="200"
               ></v-textarea>
               <v-select
                 v-model="type"
-                label="Exercise type"
+                label="Tipo de ejercicio"
                 :rules="typeRules"
-                :items="['Exercise', 'Rest']"
+                :items="['Ejercicio', 'Descanso']"
               ></v-select>
             </v-container>
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn variant="tonal" color="primary" @click="dialog = false"
-              >Close</v-btn
+              >Cerrar</v-btn
             >
-            <v-btn type="submit" color="primary" variant="tonal">Add</v-btn>
+            <v-btn type="submit" color="primary" variant="tonal">Agregar</v-btn>
           </v-card-actions>
         </v-form>
       </v-card>

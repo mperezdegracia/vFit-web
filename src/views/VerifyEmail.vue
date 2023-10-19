@@ -20,13 +20,13 @@
               v-model="email"
               :rules="rules"
               type="email"
-              label="Enter your email"
+              label="Introduce tu correo electrónico"
               prepend-inner-icon="mdi-email"
             ></v-text-field>
             <v-text-field
               v-model="code"
               :rules="rules"
-              label="Enter the code"
+              label="Ingrese el código"
               prepend-inner-icon="mdi-lock"
             ></v-text-field>
             <v-btn
@@ -35,7 +35,7 @@
               color="primary"
               variant="tonal"
               block
-              >Verify email</v-btn
+              >Verificar correo electrónico</v-btn
             >
           </v-form>
         </v-card-text>

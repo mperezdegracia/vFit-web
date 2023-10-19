@@ -1,33 +1,46 @@
 <template>
-  <div class="bg-contrast min h-screen d-flex flex-column justify-center align-center">
-
+  <div
+    class="bg-contrast min h-screen d-flex flex-column justify-center align-center"
+  >
     <h1>{{ routine }}</h1>
     <v-container class="px-16">
       <v-expansion-panels class="my-4">
-        <v-expansion-panel v-for="(stage, stageIdx) in stages" :key="stageIdx" :expanded="allPanelsExpanded" style="margin-bottom: 5px;">
+        <v-expansion-panel
+          v-for="(stage, stageIdx) in stages"
+          :key="stageIdx"
+          :expanded="allPanelsExpanded"
+          style="margin-bottom: 5px"
+        >
           <v-expansion-panel-title class="bg-primary">
-            <b style="padding-right: 20px;">{{ stage.name }} </b> -   <i style="margin-left: 20px;"> ({{ stage.reps }} reps x {{ stage.exercises.length }} exercises)</i>
+            <b style="padding-right: 20px">{{ stage.name }} </b> -
+            <i style="margin-left: 20px">
+              ({{ stage.reps }} reps x
+              {{ stage.exercises.length }} exercises)</i
+            >
           </v-expansion-panel-title>
           <v-expansion-panel-text>
             <v-table>
               <thead>
                 <tr>
-                  <th class="text-left" style="width: 50%">Name</th>
-                  <th class="text-left" style="width: 45%">Reps/Time</th>
+                  <th class="text-left" style="width: 50%">Nombre</th>
+                  <th class="text-left" style="width: 45%">
+                    Repeticiones/Tiempo
+                  </th>
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(exercise, exerciseIdx) in stage.exercises" :key="exerciseIdx">
+                <tr
+                  v-for="(exercise, exerciseIdx) in stage.exercises"
+                  :key="exerciseIdx"
+                >
                   <td>{{ exercise.name }}</td>
                   <td v-if="exercise.reps && exercise.time">
-                    {{ exercise.reps }} reps/{{ exercise.time }} segs
+                    {{ exercise.reps }} repeticiones/{{ exercise.time }} secs
                   </td>
                   <td v-else-if="exercise.reps">
-                    {{ exercise.reps }} reps
+                    {{ exercise.reps }} repeticiones
                   </td>
-                  <td v-else>
-                    {{ exercise.time }} segs
-                  </td>
+                  <td v-else>{{ exercise.time }} secs</td>
                 </tr>
               </tbody>
             </v-table>
@@ -37,9 +50,8 @@
     </v-container>
   </div>
 </template>
-  
-<script>
 
+<script>
 export default {
   data: () => ({
     allPanelsExpanded: true,
@@ -153,5 +165,3 @@ export default {
   }),
 };
 </script>
-
-

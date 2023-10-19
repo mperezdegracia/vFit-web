@@ -5,23 +5,23 @@
         <v-col>
           <v-sheet class="mx-auto elevation-6 rounded-lg">
             <v-container class="bg-primary rounded-t-lg" fluid>
-              <h2>Contact Us</h2>
+              <h2>Contáctanos</h2>
             </v-container>
 
             <v-container fluid align="center" justify="center">
               <v-row>
                 <v-col cols="12" md="6">
-                  <v-card-title>Get in Touch</v-card-title>
+                  <v-card-title>Ponte en contacto</v-card-title>
                   <v-card-text>
                     <v-form>
-                      <v-text-field label="Name"></v-text-field>
-                      <v-text-field label="Email"></v-text-field>
-                      <v-textarea label="Message"></v-textarea>
+                      <v-text-field label="Nombre"></v-text-field>
+                      <v-text-field label="Correo electrónico"></v-text-field>
+                      <v-textarea label="Mensaje"></v-textarea>
                     </v-form>
                   </v-card-text>
                   <v-card-actions>
                     <v-btn class="mx-2" variant="tonal" color="primary"
-                      >Submit</v-btn
+                      >Enviar</v-btn
                     >
                   </v-card-actions>
                 </v-col>
@@ -30,11 +30,11 @@
                 <v-divider class="d-md-none mx-4"></v-divider>
 
                 <v-col cols="12" md="6">
-                  <v-card-title>Contact Information</v-card-title>
+                  <v-card-title> Información de contacto</v-card-title>
                   <v-card-text>
-                    <p><strong>Address:</strong> Your Momma's house</p>
-                    <p><strong>Email:</strong> yourmomma@gmail.com</p>
-                    <p><strong>Phone:</strong> (FAT) MOMMA</p>
+                    <p><strong>Dirección:</strong> 221B Baker Street</p>
+                    <p><strong>Correo electrónico:</strong> support@vfit.com</p>
+                    <p><strong>Teléfono:</strong> (01) 2345-6789</p>
                   </v-card-text>
                 </v-col>
               </v-row>

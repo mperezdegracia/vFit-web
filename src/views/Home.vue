@@ -5,7 +5,7 @@
     </v-col>
     <v-col md="10">
       <h1 class="text-h2 pt-10 text-primary text-center font-weight-bold">
-        Welcome Back!
+        ¡Bienvenido!
       </h1>
       <div class="search-div">
         <v-responsive class="search-container" max-width="60%">
@@ -46,7 +46,7 @@
               to="/my-routines"
             >
               <v-img :width="250" :height="250" cover src="/home0.svg" />
-              <p class="text-h5">Start working out!</p>
+              <p class="text-h5">¡Empiece a hacer ejercicio!</p>
             </router-link>
           </v-col>
 
@@ -62,7 +62,7 @@
               to="/exercises"
             >
               <v-img :width="250" :height="250" cover src="/home1.svg" />
-              <p class="text-h5">Create an exercise!</p>
+              <p class="text-h5">¡Crea un ejercicio!</p>
             </router-link>
           </v-col>
 
@@ -78,7 +78,7 @@
               to="/routine/create"
             >
               <v-img :width="250" :height="250" cover src="/home2.svg" />
-              <p class="text-h5">Create your routine!</p>
+              <p class="text-h5">¡Crea tu rutina!</p>
             </router-link>
           </v-col>
         </v-row>
@@ -87,7 +87,7 @@
           <h1
             class="text-center text-h3 text-primary slide-title ma-5 subtitles"
           >
-            Recommended
+            Recomendadas
           </h1>
           <div class="d-flex justify-center flex-scroll-container">
             <div class="scroll-container ma-0">

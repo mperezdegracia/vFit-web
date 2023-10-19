@@ -19,21 +19,21 @@
             <v-text-field
               v-model="username"
               :rules="rules"
-              label="Enter your username"
+              label="Ingrese su nombre de usuario"
               prepend-inner-icon="mdi-account"
             ></v-text-field>
             <v-text-field
               v-model="email"
               :rules="rules"
               type="email"
-              label="Enter your email"
+              label="Introduzca su correo electrónico"
               prepend-inner-icon="mdi-email"
             ></v-text-field>
             <v-text-field
               v-model="password"
               :rules="rules"
               type="password"
-              label="Enter your password"
+              label="Ingresa tu contraseña"
               prepend-inner-icon="mdi-lock"
             ></v-text-field>
             <v-btn
@@ -42,32 +42,32 @@
               color="primary"
               variant="tonal"
               block
-              >Sign Up</v-btn
+              >Inscribirse</v-btn
             >
             <v-checkbox
               v-model="termsAndConditions"
               :rules="agreeToTermsAndConditions"
               color="primary"
-              label="I agree to the terms and conditions"
+              label="Estoy de acuerdo con los términos y condiciones"
             ></v-checkbox>
             <div class="text-center mt-2">
               <p>
-                By continuing, you agree to vFit's
+                Al continuar, aceptas las condiciones de V-Fit
                 <br />
-                <a href="#" class="terms-link">Policy</a>
-                and
-                <a href="#" class="terms-link">Terms of Use</a>
+                <a href="#" class="terms-link">Política</a>
+                y
+                <a href="#" class="terms-link">Condiciones de uso</a>
               </p>
             </div>
 
             <div class="my-4">
-              <p class="text-h6 text-center">Already have an account?</p>
+              <p class="text-h6 text-center mb-2">¿Ya tienes una cuenta?</p>
               <v-btn
                 @click="navigateToLogin()"
                 color="secondary rounded-lg"
                 variant="tonal"
                 block
-                >Login</v-btn
+                >Inicio de sesión</v-btn
               >
             </div>
           </v-form>

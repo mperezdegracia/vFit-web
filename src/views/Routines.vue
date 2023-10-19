@@ -9,11 +9,13 @@
         <v-container class="bg-primary rounded-t-lg" fluid>
           <v-row>
             <v-col>
-              <h2>My Routines</h2>
+              <h2>Mis Rutinas</h2>
             </v-col>
             <v-col class="text-right">
               <router-link to="/routine/create">
-                <v-btn color="white" class="text-primary"> Add routine </v-btn>
+                <v-btn color="white" class="text-primary">
+                  Agregar rutina
+                </v-btn>
               </router-link>
             </v-col>
           </v-row>
