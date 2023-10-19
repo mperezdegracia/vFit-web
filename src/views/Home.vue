@@ -26,24 +26,26 @@
             <v-row align="center" justify="center" class="mt-4 mb-10">
 
 
-              <v-col class=" rounded-xl elevation-4 ma-4 action-card" md="3" sm="6" align="center" justify="center">
-                <router-link class="text-decoration-none text-black" to="/my-routines">
+              <v-col md="3" sm="6" align="center" justify="center">
+                <v-card @click="navigate('Routines')" class="rounded-xl elevation-4 ma-4 pb-3">
                   <v-img :width="250" :height="250" cover src="/home0.svg" />
                   <p class="text-h5">Start working out!</p>
-                </router-link>
+                </v-card>
               </v-col>
-              <v-col class=" rounded-xl elevation-4 ma-4 action-card" md="3" sm="6" align="center" justify="center">
-                <router-link class="text-decoration-none text-black" to="/exercises">
-                  <v-img :width="250" :height="250" cover src="/home1.svg" />
-                  <p class="text-h5">Create an exercise!</p>
-                </router-link>
+              <v-col md="3" sm="6" align="center" justify="center">
+                <v-card @click="navigate('Exercises')" class="rounded-xl elevation-4 ma-4 pb-3">
+                    <v-img :width="250" :height="250" cover src="/home1.svg" />
+                    <p class="text-h5">Create an exercise!</p>
+                </v-card>
+
               </v-col>
 
-              <v-col class=" rounded-xl elevation-4 ma-4 action-card" md="3" sm="6" align="center" justify="center">
-                <router-link class="text-decoration-none text-black" to="/routine/create">
+              <v-col md="3" sm="6" align="center" justify="center">
+                <v-card @click="navigate('Create-Routine')" class="rounded-xl elevation-4 ma-4 pb-3">
                   <v-img :width="250" :height="250" cover src="/home2.svg" />
                   <p class="text-h5">Create your routine!</p>
-                </router-link>
+                </v-card>
+
               </v-col>
             </v-row>
             <v-divider></v-divider>
