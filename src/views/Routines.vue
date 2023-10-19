@@ -21,6 +21,10 @@
 
         <v-container fluid>
           <v-row>
+            <v-col v-if="routines.length == 0" align="center">
+              <v-img class="rounded" src="/empty_list.png" height="250">
+              </v-img>
+            </v-col>
             <v-col
               v-for="(routine, index) in routines"
               :key="index"
