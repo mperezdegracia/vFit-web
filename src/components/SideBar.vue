@@ -9,25 +9,25 @@
         <v-list nav>
           <v-list-item
             prepend-icon="mdi-view-dashboard"
-            title="Home"
+            title="Inicio"
             value="home"
             to="/home"
           />
           <v-list-item
             prepend-icon="mdi-weight-lifter"
-            title="My Routines"
+            title="Mis Rutinas"
             value="my_routines"
             to="/my-routines"
           />
           <v-list-item
             prepend-icon="mdi-heart"
-            title="Liked"
+            title="Favoritas"
             value="liked"
             to="/liked-routines"
           />
           <v-list-item
             prepend-icon="mdi-dumbbell"
-            title="Exercises"
+            title="Mis Ejercicios"
             value="exercises"
             to="/exercises"
           />

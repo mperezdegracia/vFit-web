@@ -21,7 +21,7 @@
     </v-card-item>
 
     <v-card-subtitle class="px-2 py-1">
-      <span class="font-weight-bold">Type: </span>{{ exercise.type }}
+      <span class="font-weight-bold">Tipo: </span>{{ exercise.type }}
     </v-card-subtitle>
 
     <v-card-text class="px-2">
@@ -33,18 +33,92 @@
             }`
       }}
     </v-card-text>
+
+    <div v-if="expand">
+      <v-divider class="mx-2 my-1"></v-divider>
+      <v-card-actions>
+        <v-row no-gutters="">
+          <v-col class="mr-1">
+            <v-btn
+              variant="tonal"
+              color="primary"
+              prepend-icon="mdi-pencil"
+              block
+              >Editar</v-btn
+            ></v-col
+          >
+          <v-col class="ml-1">
+            <v-btn
+              variant="tonal"
+              color="red-lighten-1"
+              prepend-icon="mdi-delete"
+              block
+            >
+              Borrar
+              <v-dialog v-model="dialog" activator="parent" width="500">
+                <v-card max-width="600">
+                  <v-card-title class="text-h5 text-primary mt-4 ml-4"
+                    >¿Seguro que quiere borrar?</v-card-title
+                  >
+                  <v-card-text class="ml-3 mt-4">
+                    Esta accion no se puede revertir
+                  </v-card-text>
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn
+                      variant="tonal"
+                      color="primary"
+                      @click="dialog = false"
+                      >CANCELAR</v-btn
+                    >
+                    <v-btn
+                      @click="deleteExercise()"
+                      variant="tonal"
+                      color="red-lighten-1"
+                      prepend-icon="mdi-delete"
+                      >BORRAR</v-btn
+                    >
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
+            </v-btn>
+          </v-col>
+        </v-row>
+      </v-card-actions>
+    </div>
   </v-card>
 </template>
 
 <script>
+import { mapActions } from "pinia";
+import { useExerciseStore } from "@/stores/ExerciseStore";
+
 export default {
   data: () => ({
     loading: false,
     expand: false,
+    dialog: false,
   }),
   props: {
     exercise: {
       required: true,
+    },
+    getAllExercises: {
+      required: true,
+    },
+  },
+  methods: {
+    ...mapActions(useExerciseStore, {
+      $deleteExercise: "delete",
+    }),
+
+    async deleteExercise() {
+      try {
+        await this.$deleteExercise(this.exercise);
+        this.getAllExercises();
+      } catch (e) {
+        console.error(e);
+      }
     },
   },
 };

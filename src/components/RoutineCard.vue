@@ -45,7 +45,7 @@
     </v-card-text>
 
     <v-card-text class="px-2 py-1">
-      Difficulty:
+      Dificultad:
       <template v-for="index in 5">
         <Icon
           icon="icon-park-solid:rectangle"

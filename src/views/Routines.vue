@@ -1,44 +1,40 @@
 <template>
-  <div class="bg-contrast pb-16">
-    <v-container fluid>
-      <v-row>
-        <v-col md="2">
-          <SideBar />
-        </v-col>
+  <v-row>
+    <v-col md="2">
+      <SideBar />
+    </v-col>
 
-        <v-col>
-          <v-sheet class="mx-auto elevation-6 rounded-lg">
-            <v-container class="bg-primary rounded-t-lg" fluid>
-              <v-row>
-                <v-col>
-                  <h2>My Routines</h2>
-                </v-col>
-                <v-col class="text-right">
-                  <router-link to="/routine/create">
-                    <v-btn color="white" class="text-primary">
-                      Add routine
-                    </v-btn>
-                  </router-link>
-                </v-col>
-              </v-row>
-            </v-container>
+    <v-col>
+      <v-sheet class="mx-auto elevation-6 rounded-lg">
+        <v-container class="bg-primary rounded-t-lg" fluid>
+          <v-row>
+            <v-col>
+              <h2>Mis Rutinas</h2>
+            </v-col>
+            <v-col class="text-right">
+              <router-link to="/routine/create">
+                <v-btn color="white" class="text-primary">
+                  Agregar rutina
+                </v-btn>
+              </router-link>
+            </v-col>
+          </v-row>
+        </v-container>
 
-            <v-container fluid>
-              <v-row>
-                <v-col
-                  v-for="(routine, index) in routines"
-                  :key="index"
-                  align="center"
-                >
-                  <RoutineCard class="pa-2" :routine="routine" />
-                </v-col>
-              </v-row>
-            </v-container>
-          </v-sheet>
-        </v-col>
-      </v-row>
-    </v-container>
-  </div>
+        <v-container fluid>
+          <v-row>
+            <v-col
+              v-for="(routine, index) in routines"
+              :key="index"
+              align="center"
+            >
+              <RoutineCard class="pa-2" :routine="routine" />
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-sheet>
+    </v-col>
+  </v-row>
 </template>
 
 <script>

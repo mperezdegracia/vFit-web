@@ -15,7 +15,7 @@
             <div class="mt-4">
               <h1 class="text-primary text-h2 font-weight-bold text-center">
                 V-Fit <br />
-                Build a better you!
+                ¡Construye un mejor tú!
               </h1>
             </div>
           </v-col>
@@ -38,7 +38,7 @@
         <v-col class="mt-8 mb-8" cols="8" align="center" justify="center">
           <v-row align="center" justify="center">
             <h1 class="text-white">
-              Train everywhere you like with the equipment you have!
+              ¡Entrena donde quieras con el equipo que tienes!
             </h1>
           </v-row>
 
@@ -65,22 +65,22 @@
 
           <v-row>
             <v-col cols="2">
-              <p class="text-white text-h7">Train at home or at the gym</p>
+              <p class="text-white text-h7">Entrena en casa o en el gimnasio</p>
             </v-col>
             <v-col cols="2">
-              <p class="text-white text-h7">Train however long you can</p>
+              <p class="text-white text-h7">Entrena todo lo que puedas</p>
             </v-col>
             <v-col cols="2">
-              <p class="text-white text-h7">With or without equipment</p>
+              <p class="text-white text-h7">Con o sin equipo</p>
             </v-col>
             <v-col cols="2">
-              <p class="text-white text-h7">Burn calories!</p>
+              <p class="text-white text-h7">¡Quemar calorías!</p>
             </v-col>
             <v-col cols="2">
-              <p class="text-white text-h7">Increase your mental health</p>
+              <p class="text-white text-h7">Aumenta tu salud mental</p>
             </v-col>
             <v-col cols="2">
-              <p class="text-white text-h7">Start building muscle!</p>
+              <p class="text-white text-h7">¡Empiece a desarrollar músculos!</p>
             </v-col>
           </v-row>
         </v-col>
@@ -95,7 +95,7 @@
           <v-col cols="4" sm="8" md="4">
             <div class="text-center">
               <h1 class="text-primary text-h2 font-weight-bold">
-                V-Fit: The only thing you need to train
+                V-Fit: Lo único que necesitas para entrenar
               </h1>
             </div>
           </v-col>
@@ -115,14 +115,14 @@
 
       <v-row class="bg-primary ma-5 rounded-xl elevation-8">
         <v-col cols="12">
-          <h1 class="text-center">Discover our features!</h1>
+          <h1 class="text-center">¡Descubre nuestras funcionalidades!</h1>
         </v-col>
 
         <v-row class="ma-2">
           <v-col cols="4" align="center" justify="center">
             <a class="text-decoration-none text-white" href="#add_routine_id">
               <v-img :width="100" cover src="/add_routine.svg" />
-              <p>Create a Routine</p>
+              <p>Crear una rutina</p>
             </a>
           </v-col>
 
@@ -132,7 +132,7 @@
               href="#search_routine_id"
             >
               <v-img :width="100" cover src="/search_routine.svg" />
-              <p>Search a Routine</p>
+              <p>Buscar una rutina</p>
             </a>
           </v-col>
 
@@ -142,7 +142,7 @@
               href="#execute_routine_id"
             >
               <v-img :width="100" cover src="/execute_routine.svg" />
-              <p>Execute a Routine</p>
+              <p>Ejecutar una rutina</p>
             </a>
           </v-col>
         </v-row>
@@ -155,19 +155,20 @@
         <v-col class="pa-0">
           <div id="add_routine_id" class="text-left mr-4">
             <h1 class="text-primary text-h2 font-weight-bold">
-              Create your own routines
+              Crea tus propias rutinas
             </h1>
             <p>
-              Our innovative workout routine creator is your personal fitness
-              architect. With this feature, you can easily design a customized
-              exercise plan tailored to your goals, whether it's building
-              muscle, shedding pounds, or improving endurance. Choose from a
-              vast array of exercises, set desired reps, select preferred
-              durations, and even incorporate specific muscle groups. It
-              generates a structured routine that adapts to your fitness level,
-              keeping you motivated and on track. Say goodbye to
-              one-size-fits-all workouts and hello to a personalized fitness
-              journey that will have you achieving your goals faster than ever.
+              Nuestro innovador creador de rutinas es tu arquitecto físico
+              personal. Con esta función, puedes diseñar fácilmente un diseño
+              personalizado y un plan de ejercicios adaptado a sus objetivos, ya
+              sea desarrollar músculos, perder peso o mejorar la resistencia.
+              Elige entre un amplia gama de ejercicios la cual tu puedes crear,
+              establece las repeticiones deseadas, selecciona las duraciones, e
+              incluso incorpora grupos musculares específicos. Genera una rutina
+              estructurada que se adapta a tu nivel de condición física,
+              manteniéndote motivado y encaminado. Di adiós a entrenamientos
+              únicos para todos y hola a un fitness personalizado que le
+              permitirá alcanzar sus objetivos más rápido que nunca.
             </p>
           </div>
         </v-col>
@@ -176,21 +177,20 @@
       <v-row align="center" justify="center">
         <v-col class="pa-0">
           <div id="search_routine_id" class="text-right ml-4">
-            <h1 class="text-primary text-h2 font-weight-bold">
-              Search for routines
-            </h1>
+            <h1 class="text-primary text-h2 font-weight-bold">Busca rutinas</h1>
             <p>
-              Get inspired and find the perfect workout routine that aligns with
-              your goals and preferences. You can search and explore a vast
-              library of routines created by our fitness community. Filter by
-              workout type, duration, fitness level, and equipment availability
-              to discover routines tailored just for you. Whether you're into
-              strength training, cardio, or flexibility, you'll uncover a world
-              of fitness possibilities at your fingertips. Elevate your fitness
-              journey by learning from others and discovering fresh, motivating
-              routines. It's all about finding the right fit for your goals, and
-              our search feature makes it look effortless. Find your next
-              workout adventure today!
+              Inspírate y encuentra la rutina de ejercicios perfecta que se
+              alinee con tus objetivos y preferencias. Puedes buscar y explorar
+              una vasta biblioteca de rutinas creadas por nuestra comunidad de
+              fitness. Filtrado por tipo de entrenamiento, duración, nivel de
+              condición física o disponibilidad de equipo para descubrir rutinas
+              diseñadas exclusivamente para usted. Si te gusta entrenamiento de
+              fuerza, cardio o flexibilidad, descubrirás un mundo de
+              posibilidades de fitness a tu alcance. Eleva tu condición física
+              aprendiendo de los demás y descubriendo nuevas y motivadoras
+              rutinas. Se trata de encontrar la opción adecuada para sus
+              objetivos y nuestra función de búsqueda hace que parezca sencillo.
+              ¡Encuentra tu próxima aventura de entrenamiento hoy!
             </p>
           </div>
         </v-col>
@@ -206,18 +206,19 @@
         <v-col class="pa-0">
           <div id="execute_routine_id" class="text-left mr-4">
             <h1 class="text-primary text-h2 font-weight-bold">
-              Execute routines
+              Ejecuta rutinas
             </h1>
             <p>
-              Turn your fitness plans into reality with a single click. With our
-              workout execution feature, you can seamlessly execute the workout
-              routines you or others have created. Follow step-by-step
-              instructions, view exercise demonstrations, and track your
-              progress in real-time, all from the palm of your hand. Whether
-              you're at the gym or working out at home, this feature ensures you
-              stay on track, maintain proper form, and achieve your fitness
-              goals. It's like having a personal trainer right in your pocket,
-              making every rep and every set count!
+              Haz realidad tus planes de fitness con un solo clic. Con nuestra
+              función de ejecución de entrenamiento, puede ejecutar el
+              entrenamiento sin problemas, que usted u otros han creado. Sigue
+              paso a paso instrucciones, ver demostraciones de ejercicios y
+              realice un seguimiento de su progreso en tiempo real, todo desde
+              la palma de tu mano. Si estás en el gimnasio o haciendo ejercicio
+              en casa, esta funcionalidad te garantiza que te mantengas
+              encaminado, mantengas la forma adecuada y logre su objetivos
+              físico. Es como tener un entrenador personal en tu bolsillo,
+              ¡haciendo que cada repetición y cada serie cuenten!
             </p>
           </div>
         </v-col>

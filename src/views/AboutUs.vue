@@ -5,7 +5,7 @@
         <v-col>
           <v-sheet class="mx-auto elevation-6 rounded-lg">
             <v-container class="bg-primary rounded-t-lg" fluid>
-              <h2>Welcome to the IT Powerhouse: Team V-Fit</h2>
+              <h2>Bienvenido a la potencia de TI: Equipo V-Fit</h2>
             </v-container>
 
             <v-container fluid align="center" justify="center">
@@ -52,35 +52,37 @@
                 </v-col>
               </v-row>
               <p class="mx-16 my-4">
-                A team of passionate IT professionals, fueled by their love for
-                technology and education, collaborated to create a
-                groundbreaking web platform. Our journey began with a shared
-                belief in the transformative power of technology and education.
-                This platform is the result of our dedication to making learning
-                and personal growth accessible to all. Join us on our journey to
-                reshape digital education and make knowledge and
-                self-improvement available to everyone.
+                Un equipo de estudiantes de TI apasionados, impulsados ​​por su
+                amor por la tecnología y la educación, colaboraron para crear
+                una plataforma web innovadora. Nuestro viaje comenzó con la
+                creencia compartida de el poder transformador de la tecnología
+                sobre la salud. Esta plataforma es el resultado de nuestra
+                dedicación a hacer que el aprendizaje y crecimiento personal
+                accesible a todos. Únase a nosotros en nuestro viaje hacia
+                remodelar la salud y ejercitación digital y hacer la superación
+                personal este al alcance de todos.
               </p>
               <p class="mx-16 my-4">
-                At V-Fit, we are on a mission to revolutionize the way you
-                approach fitness and wellness. Our platform is designed with a
-                deep-rooted passion for health and a commitment to helping you
-                achieve your fitness goals. We understand that maintaining a
-                consistent workout routine can be challenging, which is why
-                we've created a one-stop destination for fitness enthusiasts of
-                all levels.
+                En V-Fit, tenemos la misión de revolucionar la forma en que
+                usted acercarse al fitness y al bienestar. Nuestra plataforma
+                está diseñada con un pasión profundamente arraigada por la salud
+                y el compromiso de ayudarle a lograr sus objetivos de
+                acondicionamiento físico. Entendemos que mantener una rutina de
+                ejercicios constante puede ser un desafío, por eso hemos creado
+                un destino único para los entusiastas del fitness de todos los
+                niveles.
               </p>
               <p class="mx-16 my-4">
-                Whether you're a seasoned athlete or just beginning your fitness
-                journey, our platform empowers you to effortlessly create,
-                search for, and execute workout routines that are tailored to
-                your specific needs and goals. We believe that everyone deserves
-                a convenient and effective way to stay in shape, and our
-                user-friendly tools and resources are here to make that a
-                reality. Join our growing community today, and together, we'll
-                embark on a path to improved health, increased fitness, and a
-                better quality of life. Welcome to V-Fit, where your fitness
-                journey begins.
+                Si eres un atleta experimentado o estás empezando a embarcarte
+                en el viaje del fitness, nuestra plataforma le permite crear,
+                buscar y ejecutar rutinas de ejercicios sin esfuerzo, adaptadas
+                a sus necesidades y objetivos específicos. Creemos que todos
+                merecen una forma cómoda y eficaz de mantenerse en forma, y
+                ​​nuestra herramientas y recursos fáciles de usar, están aquí
+                para hacer de esto una realidad. Únase a nuestra creciente
+                comunidad hoy y juntos lograremos emprender un camino hacia una
+                mejor salud, una mayor condición física y una mejor calidad de
+                vida. Bienvenido a V-Fit, donde tu comienza tu viaje en fitness.
               </p>
             </v-container>
           </v-sheet>

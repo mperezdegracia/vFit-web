@@ -33,7 +33,7 @@
                 </v-card>
               </v-col>
               <v-col md="3" sm="6" align="center" justify="center">
-                <v-card @click="navigate('Exercises')" class="rounded-xl elevation-4 ma-4 pb-3">
+                <v-card @click="navigate('Routines')" class="rounded-xl elevation-4 ma-4 pb-3">
                     <v-img :width="250" :height="250" cover src="/home1.svg" />
                     <p class="text-h5">Create an exercise!</p>
                 </v-card>

@@ -1,10 +1,8 @@
 <template>
-  <div class="bg-contrast pb-16">
-    <v-container fluid>
-      <v-row>
-        <v-col md="2">
-          <SideBar />
-        </v-col>
+  <v-row>
+    <v-col md="2">
+      <SideBar />
+    </v-col>
 
         <v-col>
           <v-sheet class="mx-auto elevation-6 rounded-lg">
@@ -17,8 +15,6 @@
           </v-sheet>
         </v-col>
       </v-row>
-    </v-container>
-  </div>
 </template>
 
 <script>

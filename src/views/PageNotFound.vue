@@ -6,12 +6,10 @@
       </v-col>
       <v-col cols="4" align="center" justify="center">
         <div class="mt-4">
-          <h1 class="title text-center">Error 404</h1>
-          <h1 class="text-center">
-            The page you are looking for does not exist.
-          </h1>
+          <h1 class="text-primary text-center">Error 404</h1>
+          <h1 class="text-center">La página que buscas no existe.</h1>
           <router-link to="/home">
-            <v-btn color="primary" class="ma-4"> To home page </v-btn>
+            <v-btn color="primary" class="ma-4"> A página de inicio </v-btn>
           </router-link>
         </div>
       </v-col>
@@ -21,10 +19,3 @@
     </v-row>
   </div>
 </template>
-
-<style scoped>
-.title {
-  font-size: 50px;
-  color: blueviolet;
-}
-</style>

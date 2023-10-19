@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-contrast flex-column pt-4 pb-16">
+  <div class="bg-contrast flex-column pt-4 pb-16 h-100">
     <v-sheet class="mx-auto bg-contrast" max-width="800">
       <v-form validate-on="submit lazy" @submit.prevent="submit">
         <v-alert
@@ -19,20 +19,20 @@
 
         <v-sheet class="elevation-6 rounded-lg">
           <v-container class="bg-primary rounded-t-lg" fluid>
-            <h2>Create your own routine</h2>
+            <h2>Crea tu propia rutina</h2>
           </v-container>
           <v-container class="px-8">
             <v-text-field
               v-model="title"
               :rules="titleRules"
-              label="Routine Title"
+              label="Título de rutina"
               required
               class="my-4"
             >
             </v-text-field>
 
             <div class="mt-4">
-              <div class="text-caption">Select the expected difficulty</div>
+              <div class="text-caption">Selecciona la dificultad esperada</div>
               <v-slider
                 v-model="difficulty"
                 :ticks="difficultyLabels"
@@ -50,7 +50,7 @@
 
         <v-sheet class="mt-8 elevation-6 rounded-lg">
           <v-container class="bg-primary rounded-t-lg" fluid>
-            <h2>Now add your exercises</h2>
+            <h2>Ahora agrega tus ejercicios</h2>
           </v-container>
           <v-container class="px-8">
             <v-expansion-panels
@@ -72,8 +72,10 @@
                   <v-table v-if="cycle.exercises.length" class="mb-4">
                     <thead>
                       <tr>
-                        <th class="text-left" style="width: 50%">Name</th>
-                        <th class="text-left" style="width: 45%">Reps/time</th>
+                        <th class="text-left" style="width: 50%">Nombre</th>
+                        <th class="text-left" style="width: 45%">
+                          Repeticiones/Tiempo
+                        </th>
                         <th class="text-right" style="width: 5%"></th>
                       </tr>
                     </thead>
@@ -85,7 +87,7 @@
                         <td>{{ exercise.name }}</td>
                         <td>
                           <span v-if="exercise.reps"
-                            >{{ exercise.reps }} reps / </span
+                            >{{ exercise.reps }} repeticiones / </span
                           >{{ exercise.time }}s
                         </td>
                         <td class="text-right">
@@ -104,18 +106,18 @@
                   <v-row class="mt-2" no-gutters>
                     <v-col class="mr-1">
                       <v-btn color="primary" variant="tonal" block
-                        >Add an exercise
+                        >Agregar un ejercicio
                         <v-dialog
                           v-model="dialog"
                           activator="parent"
                           width="600"
                         >
-                          <v-card title="Add an exercise" max-width="600">
+                          <v-card title="Añade un ejercicio" max-width="600">
                             <v-card-text>
                               <v-container>
                                 <v-text-field
                                   v-model="exerciseName"
-                                  label="Exercise name"
+                                  label="Nombre del ejercicio"
                                   :rules="titleRules"
                                 ></v-text-field>
                                 <v-row>
@@ -123,7 +125,7 @@
                                     <v-text-field
                                       v-model="exerciseReps"
                                       type="number"
-                                      label="Repetitions"
+                                      label="Repeticiones"
                                       :rules="exerciseRules"
                                       class="mt-4"
                                     ></v-text-field>
@@ -132,7 +134,7 @@
                                     <v-text-field
                                       v-model="exerciseTime"
                                       type="number"
-                                      label="Time (in seconds)"
+                                      label="Tiempo (en segundos)"
                                       :rules="exerciseRules"
                                       class="mt-4"
                                     ></v-text-field>
@@ -141,7 +143,7 @@
                                 <v-checkbox
                                   v-model="exerciseOnlyTime"
                                   color="primary"
-                                  label="Only time specified"
+                                  label="Sólo tiempo especificado"
                                 ></v-checkbox>
                               </v-container>
                             </v-card-text>
@@ -151,13 +153,13 @@
                                 color="primary"
                                 variant="tonal"
                                 @click="closeDialog(cleanExercise)"
-                                >Cancel</v-btn
+                                >Cancelar</v-btn
                               >
                               <v-btn
                                 color="primary"
                                 variant="tonal"
                                 @click="addExercise(cycleIdx)"
-                                >Add</v-btn
+                                >Agregar</v-btn
                               >
                             </v-card-actions>
                           </v-card>
@@ -166,7 +168,7 @@
                     </v-col>
                     <v-col class="ml-1">
                       <v-btn variant="tonal" color="primary" block
-                        >Search an exercise</v-btn
+                        >Buscar un ejercicio</v-btn
                       >
                     </v-col>
                   </v-row>
@@ -176,34 +178,34 @@
                     color="red-lighten-1"
                     class="mt-2"
                     @click="deleteCycle(cycleIdx)"
-                    >Remove cycle</v-btn
+                    >Quitar ciclo</v-btn
                   >
                 </v-expansion-panel-text>
               </v-expansion-panel>
             </v-expansion-panels>
             <v-row>
               <v-col>
-                <v-text-field v-model="cycleName" label="Cycle name">
+                <v-text-field v-model="cycleName" label="Nombre del ciclo">
                 </v-text-field>
               </v-col>
               <v-col>
                 <v-text-field
                   v-model="cycleReps"
                   type="number"
-                  label="Repetitions"
+                  label="Repeticiones"
                 >
                 </v-text-field>
               </v-col>
             </v-row>
             <v-btn block color="primary" variant="tonal" @click="addCycle"
-              >Add cycle</v-btn
+              >Agregar ciclo</v-btn
             >
           </v-container>
         </v-sheet>
 
         <v-sheet class="mt-8 bg-contrast">
           <v-btn type="submit" color="primary" class="rounded-xl" block
-            >Save your changes</v-btn
+            >Guarda tus cambios</v-btn
           >
         </v-sheet>
       </v-form>
@@ -232,20 +234,20 @@ export default {
     titleRules: [
       (value) => {
         if (value) return true;
-        return "This field is required.";
+        return "Este campo es obligatorio.";
       },
       (value) => {
         if (value?.length <= 30) return true;
-        return "Title must be less than 30 characters.";
+        return "El título debe tener menos de 30 caracteres.";
       },
     ],
     difficulty: 1,
     difficultyLabels: {
-      1: "Very easy",
-      2: "Easy",
-      3: "Moderate",
-      4: "Hard",
-      5: "Really hard",
+      1: "Muy fácil",
+      2: "Fácil",
+      3: "Moderada",
+      4: "Difícil",
+      5: "Muy difícil",
     },
     difficultyEnum: [
       "rookie",
@@ -263,11 +265,11 @@ export default {
     exerciseRules: [
       (value) => {
         if (value) return true;
-        return "This field is required.";
+        return "Este campo es obligatorio.";
       },
       (value) => {
         if (value > 0) return true;
-        return "This field cannot be less or equal than 0.";
+        return "Este campo no puede ser menor o igual que 0.";
       },
     ],
 
