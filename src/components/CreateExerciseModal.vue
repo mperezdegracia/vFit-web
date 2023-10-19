@@ -44,21 +44,30 @@
             </v-container>
           </v-card-text>
           <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn
-              variant="tonal"
-              color="primary"
-              @click="dialog = false"
-              prepend-icon="mdi-close"
-              >Cerrar</v-btn
-            >
-            <v-btn
-              type="submit"
-              color="green"
-              variant="tonal"
-              :loading="loading"
-              prepend-icon="mdi-content-save"
-              >Guardar</v-btn
+            <v-container>
+              <v-row class="pt-4 pb-2" align="center">
+                <v-col cols="12" sm="6" class="py-1">
+                  <v-btn
+                    type="submit"
+                    color="green"
+                    variant="tonal"
+                    :loading="loading"
+                    prepend-icon="mdi-content-save"
+                    block
+                    >Guardar</v-btn
+                  >
+                </v-col>
+                <v-col cols="12" sm="6" class="py-1">
+                  <v-btn
+                    variant="tonal"
+                    color="primary"
+                    @click="dialog = false"
+                    prepend-icon="mdi-close"
+                    block
+                    >Cerrar</v-btn
+                  >
+                </v-col>
+              </v-row></v-container
             >
           </v-card-actions>
         </v-form>

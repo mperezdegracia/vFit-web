@@ -2,7 +2,7 @@
   <v-card
     :loading="loading"
     class="mx-auto text-left bg-grey-lighten-4"
-    width="270"
+    width="210"
     :border="true"
     @click="expand = !expand"
   >
@@ -27,8 +27,8 @@
       {{
         expand
           ? exercise.detail
-          : `${exercise.detail.substring(0, 30)}${
-              exercise.detail.length > 30 ? "..." : ""
+          : `${exercise.detail.substring(0, 20)}${
+              exercise.detail.length > 20 ? "..." : ""
             }`
       }}
     </v-card-text>
@@ -36,8 +36,8 @@
     <div v-if="expand && (getAllExercises || addExercise)">
       <v-divider class="mx-2 my-1"></v-divider>
       <v-card-actions>
-        <v-row no-gutters v-if="getAllExercises">
-          <v-col class="mr-1">
+        <v-row class="pt-2" v-if="getAllExercises">
+          <v-col class="py-1">
             <v-btn
               variant="tonal"
               color="primary"
@@ -46,7 +46,7 @@
               >Editar</v-btn
             ></v-col
           >
-          <v-col class="ml-1">
+          <v-col class="py-1">
             <DeleteModal
               :object="exercise"
               :deleteAction="$deleteExercise"

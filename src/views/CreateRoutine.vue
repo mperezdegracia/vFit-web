@@ -76,7 +76,7 @@
               v-for="(cycle, cycleIdx) in cycles"
               :key="cycleIdx"
             >
-              <v-expansion-panel-title class="bg-grey-lighten-2"
+              <v-expansion-panel-title class="bg-grey-lighten-3"
                 >{{ cycle.name }} ({{ cycle.type }}) -
                 <span class="font-weight-bold ml-1"
                   >{{ cycle.reps }} reps</span

@@ -10,7 +10,7 @@
           <v-container>
             <v-row>
               <v-col v-if="exercises.length == 0" align="center">
-                <v-img src="/empty_list.png" height="250"> </v-img>
+                <v-img src="/empty.svg" height="250"> </v-img>
               </v-col>
               <v-col
                 v-for="(exercise, index) in exercises"
@@ -25,14 +25,28 @@
               </v-col> </v-row
           ></v-container>
         </v-card-text>
+
         <v-card-actions>
-          <v-spacer></v-spacer>
-          <AddExerciseModal
-            variant="tonal"
-            :getAllExercises="getAllExercises"
-          />
-          <v-btn variant="tonal" color="primary" @click="dialog = false"
-            >Cerrar</v-btn
+          <v-container>
+            <v-row class="pt-4 pb-2" align="center">
+              <v-col cols="12" sm="6" class="py-1">
+                <CreateExerciseModal
+                  variant="tonal"
+                  :getAllExercises="getAllExercises"
+                  block
+                />
+              </v-col>
+              <v-col cols="12" sm="6" class="py-1">
+                <v-btn
+                  variant="tonal"
+                  color="primary"
+                  @click="dialog = false"
+                  prepend-icon="mdi-close"
+                  block
+                  >Cerrar</v-btn
+                >
+              </v-col>
+            </v-row></v-container
           >
         </v-card-actions>
       </v-card>
@@ -44,7 +58,7 @@
 import { mapActions } from "pinia";
 import { useExerciseStore } from "@/stores/ExerciseStore";
 import ExerciseCard from "./ExerciseCard.vue";
-import AddExerciseModal from "./AddExerciseModal.vue";
+import CreateExerciseModal from "./CreateExerciseModal.vue";
 
 export default {
   data: () => ({
@@ -73,6 +87,10 @@ export default {
   async beforeMount() {
     await this.getAllExercises();
   },
-  components: { ExerciseCard, ExerciseCard, AddExerciseModal },
+  components: {
+    ExerciseCard,
+    ExerciseCard,
+    CreateExerciseModal,
+  },
 };
 </script>

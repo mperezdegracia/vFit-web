@@ -28,10 +28,10 @@
                 :addExercise="addExercise"
               />
               <v-row v-else align="center">
-                <v-col cols="10">
+                <v-col cols="9">
                   <ExerciseCard :exercise="exercise" />
                 </v-col>
-                <v-col cols="2"
+                <v-col cols="3"
                   ><v-btn
                     @click="exercise = null"
                     icon="mdi-delete"
@@ -48,23 +48,21 @@
                 flat
               ></v-text-field>
 
-              <v-row>
-                <v-col v-if="!onlyTime">
+              <v-row class="pt-4 pb-2">
+                <v-col cols="12" sm="6" class="py-1" v-if="!onlyTime">
                   <v-text-field
                     v-model="reps"
                     type="number"
                     label="Repeticiones"
                     :rules="rules"
-                    class="mt-4"
                   ></v-text-field>
                 </v-col>
-                <v-col>
+                <v-col cols="12" :sm="onlyTime ? 12 : 6" class="py-1">
                   <v-text-field
                     v-model="duration"
                     type="number"
                     label="Tiempo (en segundos)"
                     :rules="rules"
-                    class="mt-4"
                   ></v-text-field>
                 </v-col>
               </v-row>
@@ -76,11 +74,30 @@
             </v-container>
           </v-card-text>
           <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn variant="tonal" color="primary" @click="closeDialog()"
-              >Cerrar</v-btn
+            <v-container>
+              <v-row class="pt-4 pb-2" align="center">
+                <v-col cols="12" sm="6" class="py-1">
+                  <v-btn
+                    type="submit"
+                    color="secondary"
+                    variant="tonal"
+                    prepend-icon="mdi-plus"
+                    block
+                    >Agregar</v-btn
+                  >
+                </v-col>
+                <v-col cols="12" sm="6" class="py-1">
+                  <v-btn
+                    variant="tonal"
+                    color="primary"
+                    @click="closeDialog()"
+                    prepend-icon="mdi-close"
+                    block
+                    >Cerrar</v-btn
+                  >
+                </v-col>
+              </v-row></v-container
             >
-            <v-btn type="submit" color="primary" variant="tonal">Agregar</v-btn>
           </v-card-actions>
         </v-form>
       </v-card>
