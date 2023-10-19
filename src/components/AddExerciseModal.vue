@@ -1,5 +1,5 @@
 <template>
-  <v-btn color="secondary" variant="tonal">
+  <v-btn color="secondary" variant="tonal" prepend-icon="mdi-plus">
     Agregar ejercicio
     <v-dialog v-model="dialog" activator="parent" width="600">
       <v-card max-width="600">
@@ -45,10 +45,21 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn variant="tonal" color="primary" @click="dialog = false"
+            <v-btn
+              variant="tonal"
+              color="primary"
+              @click="dialog = false"
+              prepend-icon="mdi-close"
               >Cerrar</v-btn
             >
-            <v-btn type="submit" color="primary" variant="tonal">Agregar</v-btn>
+            <v-btn
+              type="submit"
+              color="green"
+              variant="tonal"
+              :loading="loading"
+              prepend-icon="mdi-content-save"
+              >Guardar</v-btn
+            >
           </v-card-actions>
         </v-form>
       </v-card>
@@ -65,6 +76,7 @@ export default {
   data: () => ({
     dialog: false,
     error: null,
+    loading: false,
 
     name: "",
     detail: "",
@@ -118,6 +130,7 @@ export default {
       const result = await event;
       if (!result.valid) return;
       this.error = null;
+      this.loading = true;
 
       try {
         const exercise = new Exercise(
@@ -132,6 +145,7 @@ export default {
       } catch (e) {
         this.error = e;
       }
+      this.loading = false;
     },
   },
 };

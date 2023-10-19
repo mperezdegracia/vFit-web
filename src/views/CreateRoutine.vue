@@ -196,9 +196,10 @@
 
       <v-btn
         type="submit"
-        color="primary"
+        color="green-lighten-1"
         class="rounded-xl mt-6"
         :disabled="cycles.length < 3"
+        :loading="loading"
         prepend-icon="mdi-content-save"
         block
         >Guardar rutina</v-btn
@@ -223,6 +224,7 @@ import AddCycleExerciseModal from "@/components/AddCycleExerciseModal.vue";
 export default {
   data: () => ({
     errors: [],
+    loading: false,
 
     name: "",
     detail: "",
@@ -339,6 +341,7 @@ export default {
       if (!result.valid) return;
       if (this.cycles.length < 3) return;
       this.errors = [];
+      this.loading = true;
 
       try {
         const routine = await this.$createRoutine(
@@ -388,6 +391,7 @@ export default {
       } catch (e) {
         this.errors.push(e);
       }
+      this.loading = false;
     },
   },
   components: { AddCycleExerciseModal },

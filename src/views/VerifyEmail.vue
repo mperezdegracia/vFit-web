@@ -33,6 +33,7 @@
           color="primary"
           variant="tonal"
           block
+          :loading="loading"
           >Verificar correo electrónico</v-btn
         >
       </v-form>
@@ -47,6 +48,7 @@ import { VerificationCode } from "@/api/user";
 
 export default {
   data: () => ({
+    loading: false,
     email: "",
     code: "",
     error: null,
@@ -69,6 +71,7 @@ export default {
     async submit(event) {
       const results = await event;
       if (!results.valid) return;
+      this.loading = true;
 
       try {
         const verificationCode = new VerificationCode(this.email, this.code);
@@ -76,6 +79,8 @@ export default {
       } catch (e) {
         this.error = e;
       }
+
+      this.loading = false;
     },
   },
 };
