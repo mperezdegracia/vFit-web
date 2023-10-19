@@ -254,7 +254,7 @@ export default {
       },
       (value) => {
         if (value?.length <= 100) return true;
-        return "El nombre puede tener hasta 100 caracteres.";
+        return "El campo tiene que tener menos de 100 caracteres.";
       },
     ],
     detailRules: [
@@ -264,7 +264,7 @@ export default {
       },
       (value) => {
         if (value?.length <= 200) return true;
-        return "El nombre puede tener hasta 100 caracteres.";
+        return "El campo tiene que tener menos de 200 caracteres.";
       },
     ],
     repsRules: [

@@ -16,14 +16,14 @@
 
         <v-text-field
           v-model="username"
-          :rules="[mandatory, maxLength50]"
+          :rules="[requiredRule, maxLength50Rule]"
           label="Nombre de usuario"
           prepend-inner-icon="mdi-account"
           :counter="50"
         ></v-text-field>
         <v-text-field
           v-model="email"
-          :rules="[mandatory, maxLength100]"
+          :rules="[requiredRule, maxLength100Rule]"
           type="email"
           label="Correo electrónico"
           prepend-inner-icon="mdi-email"
@@ -31,7 +31,7 @@
         ></v-text-field>
         <v-text-field
           v-model="password"
-          :rules="[mandatory, maxLength50]"
+          :rules="[requiredRule, maxLength50Rule]"
           type="password"
           label="Contraseña"
           prepend-inner-icon="mdi-lock"
@@ -42,7 +42,7 @@
           <v-col cols="6">
             <v-text-field
               v-model="firstName"
-              :rules="maxLength50"
+              :rules="maxLength50Rule"
               label="Nombre"
               :counter="50"
             ></v-text-field>
@@ -50,7 +50,7 @@
           <v-col cols="6">
             <v-text-field
               v-model="lastName"
-              :rules="maxLength50"
+              :rules="maxLength50Rule"
               label="Apellido"
               :counter="50"
             ></v-text-field>
@@ -62,7 +62,7 @@
             <v-select
               v-model="gender"
               label="Genero"
-              :rules="mandatory"
+              :rules="requiredRule"
               prepend-inner-icon="mdi-gender-male-female"
               :items="['male', 'female', 'other']"
             ></v-select>
@@ -107,7 +107,7 @@
         >
         <v-checkbox
           v-model="termsAndConditions"
-          :rules="agreeToTermsAndConditions"
+          :rules="termAndConditionsRule"
           color="primary"
           label="Estoy de acuerdo con los términos y condiciones"
         ></v-checkbox>
@@ -175,25 +175,25 @@ export default {
     termsAndConditions: false,
     error: null,
 
-    mandatory: [
+    requiredRule: [
       (value) => {
         if (value) return true;
-        return "Este campo es requerido.";
+        return "Este campo es obligatorio.";
       },
     ],
-    maxLength50: [
+    maxLength50Rule: [
       (value) => {
         if (value?.length <= 50) return true;
         return "El campo tiene que tener menos de 50 caracteres.";
       },
     ],
-    maxLength100: [
+    maxLength100Rule: [
       (value) => {
         if (value?.length <= 100) return true;
         return "El campo tiene que tener menos de 100 caracteres.";
       },
     ],
-    maxLength255: [
+    maxLength255Rule: [
       (value) => {
         if (value?.length <= 255) return true;
         return "El campo tiene que tener menos de 255 caracteres.";
@@ -208,10 +208,10 @@ export default {
     //     // return "Este campo debe ser una fecha valida.";
     //   },
     // ],
-    agreeToTermsAndConditions: [
+    termAndConditionsRule: [
       (value) => {
         if (value) return true;
-        return "You have to agree to the terms & conditions.";
+        return "Tiene que aceptar los términos y condiciones.";
       },
     ],
   }),

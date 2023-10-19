@@ -73,27 +73,27 @@ export default {
     nameRules: [
       (value) => {
         if (value) return true;
-        return "This field is required.";
+        return "Este campo de obligatorio.";
       },
       (value) => {
         if (value?.length <= 100) return true;
-        return "Name has to be less than 100 characters long.";
+        return "El campo tiene que tener menos de 100 caracteres.";
       },
     ],
     detailRules: [
       (value) => {
         if (value) return true;
-        return "This field is required.";
+        return "Este campo es obligatorio.";
       },
       (value) => {
         if (value?.length <= 200) return true;
-        return "Detail has to be less than 200 characters long.";
+        return "El campo tiene que tener menos de 200 caracteres.";
       },
     ],
     typeRules: [
       (value) => {
         if (value) return true;
-        return "This field is required.";
+        return "Este campo es obligatorio.";
       },
     ],
   }),
