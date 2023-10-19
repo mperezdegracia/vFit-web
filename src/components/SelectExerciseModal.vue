@@ -39,7 +39,7 @@
               <v-col cols="12" sm="6" class="py-1">
                 <v-btn
                   variant="tonal"
-                  color="primary"
+                  color="black"
                   @click="dialog = false"
                   prepend-icon="mdi-close"
                   block

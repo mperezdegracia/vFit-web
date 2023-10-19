@@ -40,7 +40,7 @@
           <v-col class="py-1">
             <v-btn
               variant="tonal"
-              color="primary"
+              color="secondary"
               prepend-icon="mdi-pencil"
               block
               >Editar</v-btn

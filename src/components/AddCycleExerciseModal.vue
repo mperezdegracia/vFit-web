@@ -79,7 +79,7 @@
                 <v-col cols="12" sm="6" class="py-1">
                   <v-btn
                     type="submit"
-                    color="secondary"
+                    color="orange"
                     variant="tonal"
                     prepend-icon="mdi-plus"
                     block
@@ -89,7 +89,7 @@
                 <v-col cols="12" sm="6" class="py-1">
                   <v-btn
                     variant="tonal"
-                    color="primary"
+                    color="black"
                     @click="closeDialog()"
                     prepend-icon="mdi-close"
                     block

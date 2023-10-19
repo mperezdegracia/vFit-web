@@ -1,5 +1,5 @@
 <template>
-  <v-btn color="secondary" variant="tonal" prepend-icon="mdi-plus">
+  <v-btn color="primary" variant="tonal" prepend-icon="mdi-plus">
     Agregar ejercicio
     <v-dialog v-model="dialog" activator="parent" width="600">
       <v-card max-width="600">
@@ -60,7 +60,7 @@
                 <v-col cols="12" sm="6" class="py-1">
                   <v-btn
                     variant="tonal"
-                    color="primary"
+                    color="black"
                     @click="dialog = false"
                     prepend-icon="mdi-close"
                     block

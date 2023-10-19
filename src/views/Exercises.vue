@@ -26,7 +26,7 @@
             align="center"
           >
             <ExerciseCard
-              class="pa-2"
+              class="pa-2 elevation-4"
               :exercise="exercise"
               :getAllExercises="getAllExercises"
             />

@@ -54,7 +54,7 @@
               <v-col cols="12" sm="4" class="py-1">
                 <v-btn
                   variant="tonal"
-                  color="primary"
+                  color="secondary"
                   prepend-icon="mdi-pencil"
                   block
                   >Editar</v-btn
@@ -71,7 +71,7 @@
               <v-col cols="12" sm="4" class="py-1">
                 <v-btn
                   variant="tonal"
-                  color="secondary"
+                  color="black"
                   @click="dialog = false"
                   prepend-icon="mdi-close"
                   block

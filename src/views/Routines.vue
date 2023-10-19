@@ -13,8 +13,8 @@
       <div class="d-flex mr-5 mt-3 mb-0">
         <v-spacer></v-spacer>
         <v-btn
-          color="secondary"
           variant="tonal"
+          color="primary"
           to="/routine/create"
           prependIcon="mdi-plus"
         >

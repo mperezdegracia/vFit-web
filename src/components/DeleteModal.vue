@@ -6,24 +6,33 @@
         <v-card-title class="text-h5 text-primary mt-4 ml-4"
           >¿Seguro que quiere borrar?</v-card-title
         >
-        <v-card-text class="ml-3 mt-4">
+        <v-card-text class="mx-2">
           Esta accion no se puede revertir
         </v-card-text>
         <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn
-            variant="tonal"
-            color="primary"
-            @click="dialog = false"
-            prepend-icon="mdi-close"
-            >Cancelar</v-btn
-          >
-          <v-btn
-            @click="submit()"
-            variant="tonal"
-            color="red-lighten-1"
-            prepend-icon="mdi-delete"
-            >Borrar</v-btn
+          <v-container>
+            <v-row class="pt-4 pb-2" align="center">
+              <v-col cols="12" sm="6" class="py-1">
+                <v-btn
+                  @click="submit()"
+                  variant="tonal"
+                  color="red-lighten-1"
+                  prepend-icon="mdi-delete"
+                  block
+                  >Borrar</v-btn
+                >
+              </v-col>
+              <v-col cols="12" sm="6" class="py-1">
+                <v-btn
+                  variant="tonal"
+                  color="black"
+                  @click="dialog = false"
+                  prepend-icon="mdi-close"
+                  block
+                  >Cancelar</v-btn
+                >
+              </v-col>
+            </v-row></v-container
           >
         </v-card-actions>
       </v-card>
