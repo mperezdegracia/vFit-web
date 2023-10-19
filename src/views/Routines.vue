@@ -12,7 +12,12 @@
       <v-divider class="my-1"></v-divider>
       <div class="d-flex mr-5 mt-3 mb-0">
         <v-spacer></v-spacer>
-        <v-btn color="secondary" variant="tonal" to="/routine/create">
+        <v-btn
+          color="secondary"
+          variant="tonal"
+          to="/routine/create"
+          prependIcon="mdi-plus"
+        >
           Agregar rutina
         </v-btn>
       </div>

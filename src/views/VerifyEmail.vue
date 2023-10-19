@@ -18,13 +18,13 @@
           v-model="email"
           :rules="rules"
           type="email"
-          label="Ingrese su correo electrónico"
+          label="Correo electrónico"
           prepend-inner-icon="mdi-email"
         ></v-text-field>
         <v-text-field
           v-model="code"
           :rules="rules"
-          label="Ingrese el código recibido"
+          label="Código recibido"
           prepend-inner-icon="mdi-lock"
         ></v-text-field>
         <v-btn

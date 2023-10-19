@@ -37,37 +37,41 @@
           prepend-inner-icon="mdi-lock"
           :counter="50"
         ></v-text-field>
-        <v-card-text class="text-h5"> Más información </v-card-text>
-        <v-row>
-          <v-col cols="6">
+
+        <v-divider class="mb-4"></v-divider>
+        <p class="text-h5 font-weight-bold text-center mb-4">Más información</p>
+        <v-row class="pt-4">
+          <v-col cols="12" md="6" class="py-1">
             <v-text-field
               v-model="firstName"
               :rules="maxLength50Rule"
               label="Nombre"
               :counter="50"
+              prepend-inner-icon="mdi-text"
             ></v-text-field>
           </v-col>
-          <v-col cols="6">
+          <v-col cols="12" md="6" class="py-1">
             <v-text-field
               v-model="lastName"
               :rules="maxLength50Rule"
               label="Apellido"
               :counter="50"
+              prepend-inner-icon="mdi-text"
             ></v-text-field>
           </v-col>
         </v-row>
 
         <v-row>
-          <v-col cols="6">
+          <v-col cols="12" md="6" class="py-1">
             <v-select
               v-model="gender"
               label="Genero"
               :rules="requiredRule"
               prepend-inner-icon="mdi-gender-male-female"
-              :items="['male', 'female', 'other']"
+              :items="['Male', 'Female', 'Other']"
             ></v-select>
           </v-col>
-          <v-col cols="6">
+          <v-col cols="12" md="6" class="py-1">
             <v-text-field
               v-model="birthdate"
               type="date"
@@ -77,8 +81,8 @@
           </v-col>
         </v-row>
 
-        <v-row>
-          <v-col cols="6">
+        <v-row class="pb-2">
+          <v-col cols="12" md="6" class="py-1">
             <v-text-field
               v-model="phone"
               type="number"
@@ -87,7 +91,7 @@
               :counter="50"
             ></v-text-field>
           </v-col>
-          <v-col cols="6">
+          <v-col cols="12" md="6" class="py-1">
             <v-text-field
               v-model="avatarUrl"
               label="URL de avatar"
@@ -109,8 +113,9 @@
           v-model="termsAndConditions"
           :rules="termAndConditionsRule"
           color="primary"
-          label="Estoy de acuerdo con los términos y condiciones"
+          label="Acepto los términos y condiciones"
         ></v-checkbox>
+
         <div class="text-center mt-2">
           <p>
             Al continuar, aceptas las condiciones de V-Fit
@@ -123,11 +128,7 @@
 
         <div class="mt-4">
           <p class="text-h6 text-center mb-2">¿Ya tienes una cuenta?</p>
-          <v-btn
-            @click="navigateToLogin()"
-            color="secondary rounded-lg"
-            variant="tonal"
-            block
+          <v-btn to="/login" color="secondary rounded-lg" variant="tonal" block
             >Iniciar sesión</v-btn
           >
         </div>
@@ -147,15 +148,6 @@
 }
 </style>
 
-<script setup>
-import { useRouter } from "vue-router";
-
-const router = useRouter();
-const navigateToLogin = () => {
-  router.push({ name: "Login" }); // Navigate to the login page
-};
-</script>
-
 <script>
 import { mapActions } from "pinia";
 import { useSecurityStore } from "@/stores/SecurityStore";
@@ -163,17 +155,18 @@ import { User } from "@/api/user";
 
 export default {
   data: () => ({
+    error: null,
+
     username: "",
     email: "",
     password: "",
     firstName: "",
     lastName: "",
-    gender: "",
+    gender: null,
     birthdate: "",
     phone: "",
     avatarUrl: "",
     termsAndConditions: false,
-    error: null,
 
     requiredRule: [
       (value) => {

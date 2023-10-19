@@ -16,6 +16,15 @@
         </ul>
       </v-alert>
 
+      <v-btn
+        @click="$router.go(-1)"
+        variant="text"
+        color="primary"
+        prepend-icon="mdi-arrow-left"
+        class="mb-4"
+        >Volver a la página previa</v-btn
+      >
+
       <v-sheet class="elevation-6 rounded-lg">
         <v-container class="bg-primary rounded-t-lg" fluid>
           <h2>Crea tu propia rutina</h2>
@@ -41,8 +50,8 @@
             <v-slider
               v-model="difficulty"
               :ticks="difficultyLabels"
-              :min="1"
-              :max="5"
+              :min="0"
+              :max="4"
               step="1"
               show-ticks="always"
               tick-size="4"
@@ -228,13 +237,13 @@ export default {
 
     name: "",
     detail: "",
-    difficulty: 1,
+    difficulty: 0,
     difficultyLabels: {
-      1: "Muy fácil",
-      2: "Fácil",
-      3: "Moderada",
-      4: "Difícil",
-      5: "Muy difícil",
+      0: "Muy fácil",
+      1: "Fácil",
+      2: "Moderada",
+      3: "Difícil",
+      4: "Muy difícil",
     },
     difficultyEnum: [
       "rookie",
@@ -349,7 +358,7 @@ export default {
             this.name,
             this.detail,
             true,
-            this.difficultyEnum[this.difficulty - 1]
+            this.difficultyEnum[this.difficulty]
           )
         );
         await Promise.all(
