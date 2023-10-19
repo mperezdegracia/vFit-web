@@ -27,7 +27,7 @@
           />
           <v-list-item
             prepend-icon="mdi-dumbbell"
-            title="Exercises"
+            title="My Exercises"
             value="exercises"
             to="/exercises"
           />

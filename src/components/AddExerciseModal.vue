@@ -27,11 +27,13 @@
                 v-model="name"
                 label="Exercise name"
                 :rules="nameRules"
+                :counter="100"
               ></v-text-field>
               <v-textarea
                 v-model="detail"
                 label="Exercise detail"
                 :rules="detailRules"
+                :counter="200"
               ></v-textarea>
               <v-select
                 v-model="type"

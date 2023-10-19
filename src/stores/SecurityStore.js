@@ -71,6 +71,7 @@ export const useSecurityStore = defineStore("security", {
       if (this.user) return this.user;
       const result = await UserApi.get();
       this.setUser(result);
+      return result;
     },
   },
 });

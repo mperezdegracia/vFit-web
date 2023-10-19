@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-contrast flex-column pt-4 pb-16">
+  <div class="bg-contrast flex-column pt-4 pb-16 h-100">
     <v-sheet class="mx-auto bg-contrast" max-width="800">
       <v-form validate-on="submit lazy" @submit.prevent="submit">
         <v-alert

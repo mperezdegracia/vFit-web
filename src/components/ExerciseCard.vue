@@ -33,10 +33,40 @@
             }`
       }}
     </v-card-text>
+
+    <div v-if="expand">
+      <v-divider class="mx-2 my-1"></v-divider>
+      <v-card-actions>
+        <v-row no-gutters="">
+          <v-col class="mr-1">
+            <v-btn
+              variant="tonal"
+              color="primary"
+              prepend-icon="mdi-pencil"
+              block
+              >Edit</v-btn
+            ></v-col
+          >
+          <v-col class="ml-1">
+            <v-btn
+              @click="deleteExercise()"
+              variant="tonal"
+              color="red-lighten-1"
+              prepend-icon="mdi-delete"
+              block
+              >Delete</v-btn
+            >
+          </v-col>
+        </v-row>
+      </v-card-actions>
+    </div>
   </v-card>
 </template>
 
 <script>
+import { mapActions } from "pinia";
+import { useExerciseStore } from "@/stores/ExerciseStore";
+
 export default {
   data: () => ({
     loading: false,
@@ -45,6 +75,23 @@ export default {
   props: {
     exercise: {
       required: true,
+    },
+    getAllExercises: {
+      required: true,
+    },
+  },
+  methods: {
+    ...mapActions(useExerciseStore, {
+      $deleteExercise: "delete",
+    }),
+
+    async deleteExercise() {
+      try {
+        await this.$deleteExercise(this.exercise);
+        this.getAllExercises();
+      } catch (e) {
+        console.error(e);
+      }
     },
   },
 };

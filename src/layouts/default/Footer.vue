@@ -6,7 +6,7 @@
         :key="link"
         color="white"
         variant="text"
-        class="mx-2"
+        class="mx-2 txt-btn"
         rounded="xl"
       >
         <h3 class="txt-btn">
@@ -38,20 +38,15 @@
 <style>
 .icon-lg {
   font-size: 30px;
-  transition: color 0.5s;
   color: aliceblue;
 }
 
 .icon-lg:hover {
-  color: darkblue;
-}
-
-.txt-btn {
-  transition: color 0.1s;
+  color: lightcoral;
 }
 
 .txt-btn:hover {
-  color: darkblue;
+  color: lightcoral;
 }
 </style>
 

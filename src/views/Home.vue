@@ -1,120 +1,116 @@
 <template>
-  <div class="bg-contrast pb-16">
-    <v-container fluid>
-      <v-row>
-        <v-col md="2">
-          <SideBar />
-        </v-col>
-        <v-col md="10">
-          <h1 class="text-h2 pt-10 text-primary text-center font-weight-bold">
-            Welcome Back!
+  <v-row>
+    <v-col md="2">
+      <SideBar />
+    </v-col>
+    <v-col md="10">
+      <h1 class="text-h2 pt-10 text-primary text-center font-weight-bold">
+        Welcome Back!
+      </h1>
+      <div class="search-div">
+        <v-responsive class="search-container" max-width="60%">
+          <v-text-field
+            class="search-field"
+            v-model="search"
+            id="search"
+            label="Search"
+            variant="solo"
+            outlined
+            dense
+            rounded
+            clearable
+            @input="constantSearch"
+            @click:clear="clearSearch"
+            @keydown.enter="searchItems"
+            prepend-inner-icon="mdi-magnify"
+          >
+            <template #append>
+              <v-btn @click="searchItems" icon>
+                <v-icon> mdi-send </v-icon>
+              </v-btn>
+            </template>
+          </v-text-field>
+        </v-responsive>
+      </div>
+      <div v-if="searchResult.length === 0">
+        <v-row align="center" justify="center" class="mt-4 mb-10">
+          <v-col
+            class="bg-white rounded-xl elevation-4 ma-4"
+            md="3"
+            sm="6"
+            align="center"
+            justify="center"
+          >
+            <router-link
+              class="text-decoration-none text-black"
+              to="/my-routines"
+            >
+              <v-img :width="250" :height="250" cover src="/home0.svg" />
+              <p class="text-h5">Start working out!</p>
+            </router-link>
+          </v-col>
+
+          <v-col
+            class="bg-white rounded-xl elevation-4 ma-4"
+            md="3"
+            sm="6"
+            align="center"
+            justify="center"
+          >
+            <router-link
+              class="text-decoration-none text-black"
+              to="/exercises"
+            >
+              <v-img :width="250" :height="250" cover src="/home1.svg" />
+              <p class="text-h5">Create an exercise!</p>
+            </router-link>
+          </v-col>
+
+          <v-col
+            class="bg-white rounded-xl elevation-4 ma-4"
+            md="3"
+            sm="6"
+            align="center"
+            justify="center"
+          >
+            <router-link
+              class="text-decoration-none text-black"
+              to="/routine/create"
+            >
+              <v-img :width="250" :height="250" cover src="/home2.svg" />
+              <p class="text-h5">Create your routine!</p>
+            </router-link>
+          </v-col>
+        </v-row>
+        <v-divider></v-divider>
+        <div>
+          <h1
+            class="text-center text-h3 text-primary slide-title ma-5 subtitles"
+          >
+            Recommended
           </h1>
-          <div class="search-div">
-            <v-responsive class="search-container" max-width="60%">
-              <v-text-field
-                class="search-field"
-                v-model="search"
-                id="search"
-                label="Search"
-                variant="solo"
-                outlined
-                dense
-                rounded
-                clearable
-                @input="constantSearch"
-                @click:clear="clearSearch"
-                @keydown.enter="searchItems"
-                prepend-inner-icon="mdi-magnify"
-              >
-                <template #append>
-                  <v-btn @click="searchItems" icon>
-                    <v-icon> mdi-send </v-icon>
-                  </v-btn>
-                </template>
-              </v-text-field>
-            </v-responsive>
-          </div>
-          <div v-if="searchResult.length === 0">
-            <v-row align="center" justify="center" class="mt-4 mb-10">
-              <v-col
-                class="bg-white rounded-xl elevation-4 ma-4"
-                md="3"
-                sm="6"
-                align="center"
-                justify="center"
-              >
-                <router-link
-                  class="text-decoration-none text-black"
-                  to="/my-routines"
-                >
-                  <v-img :width="250" :height="250" cover src="/home0.svg" />
-                  <p class="text-h5">Start working out!</p>
-                </router-link>
-              </v-col>
-
-              <v-col
-                class="bg-white rounded-xl elevation-4 ma-4"
-                md="3"
-                sm="6"
-                align="center"
-                justify="center"
-              >
-                <router-link
-                  class="text-decoration-none text-black"
-                  to="/exercises"
-                >
-                  <v-img :width="250" :height="250" cover src="/home1.svg" />
-                  <p class="text-h5">Create an exercise!</p>
-                </router-link>
-              </v-col>
-
-              <v-col
-                class="bg-white rounded-xl elevation-4 ma-4"
-                md="3"
-                sm="6"
-                align="center"
-                justify="center"
-              >
-                <router-link
-                  class="text-decoration-none text-black"
-                  to="/routine/create"
-                >
-                  <v-img :width="250" :height="250" cover src="/home2.svg" />
-                  <p class="text-h5">Create your routine!</p>
-                </router-link>
-              </v-col>
-            </v-row>
-            <v-divider></v-divider>
-            <div>
-              <h1
-                class="text-center text-h3 text-primary slide-title ma-5 subtitles"
-              >
-                Recommended
-              </h1>
-              <div class="d-flex justify-center flex-scroll-container">
-                <div class="scroll-container ma-0">
-                  <RoutineScroll :routines="routines"></RoutineScroll>
-                </div>
-              </div>
+          <div class="d-flex justify-center flex-scroll-container">
+            <div class="scroll-container ma-0">
+              <RoutineScroll :routines="routines" />
             </div>
           </div>
-          <div v-else>
-            <h1
-              class="w-50 text-center text-h4 text-secondary slide-title pt-5"
-              id="searchResultLabel"
-            >
-              {{ searchResultLabel }}
-            </h1>
-            <!-- <div class="d-flex flex-container mx-auto">
+        </div>
+      </div>
+      <div v-else>
+        <h1
+          class="w-50 text-center text-h4 text-secondary slide-title pt-5"
+          id="searchResultLabel"
+        >
+          {{ searchResultLabel }}
+        </h1>
+        <!-- <div class="d-flex flex-container mx-auto">
         <RoutineCard v-for="routine in searchResult" :routine="routine" class="mx-auto" />
       </div> -->
 
-            <RoutineGrid :routines="searchResult"></RoutineGrid>
-          </div>
-        </v-col>
-      </v-row>
-    </v-container>
-  </div>
+        <RoutineGrid :routines="searchResult"></RoutineGrid>
+      </div>
+    </v-col>
+  </v-row>
 </template>
 
 <script setup>
@@ -122,17 +118,9 @@ import RoutineScroll from "@/components/RoutineScroll.vue";
 import RoutineCard from "@/components/RoutineCard.vue";
 import RoutineGrid from "@/components/RoutineGrid.vue";
 import SideBar from "@/components/SideBar.vue";
-
-import { useRouter } from "vue-router";
-
 import routines from "@/data/mockRoutines.js";
 import { ref } from "vue";
-let tab = "home";
-const router = useRouter();
 
-const navigate = (routeName) => {
-  router.push({ name: routeName }); // Navigate to the register page
-};
 const name = "SearchBar"; // Asigna el nombre de componente a una constante
 let search = ""; // Cambia "data" a "let" para definir una variable local
 let searchResult = ref("");

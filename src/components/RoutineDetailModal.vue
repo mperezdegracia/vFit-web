@@ -3,7 +3,7 @@
     >Details
     <v-dialog v-model="dialog" activator="parent" width="600">
       <v-card max-width="600">
-        <v-card-title class="text-h5 text-primary"
+        <v-card-title class="text-h5 text-primary mt-4 ml-4"
           >Routine details</v-card-title
         >
         <v-card-text>

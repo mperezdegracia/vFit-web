@@ -60,6 +60,11 @@ const routes = [
         component: () => import("@/views/LikedRoutines.vue"),
       },
       {
+        path: "exercises",
+        name: "Exercises",
+        component: () => import("@/views/Exercises.vue"),
+      },
+      {
         path: "routine",
         name: "Routine",
         children: [
@@ -77,11 +82,6 @@ const routes = [
         ],
       },
       {
-        path: "profile",
-        name: "Profile",
-        component: () => import("@/views/Profile.vue"),
-      },
-      {
         path: "change-password",
         name: "Change Password",
         component: () => import("@/views/ChangePassword.vue"),
@@ -90,12 +90,6 @@ const routes = [
         path: "settings",
         name: "Settings",
         component: () => import("@/views/Settings.vue"),
-      },
-
-      {
-        path: "exercises",
-        name: "Exercises",
-        component: () => import("@/views/Exercises.vue"),
       },
       {
         path: "/:notFound",
