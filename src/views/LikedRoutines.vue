@@ -27,7 +27,7 @@ export default {
   }),
   components: {
     SideBar,
-    RoutineGrid
+    RoutineGrid,
   },
 };
 </script>

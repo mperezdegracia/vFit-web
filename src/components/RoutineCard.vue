@@ -18,7 +18,7 @@
 
     <v-img
       cover
-      class="rounded h-40"
+      class="rounded"
       :src="routine.image || '/push_down.jpg'"
     ></v-img>
 

@@ -18,6 +18,10 @@
 
         <v-container fluid>
           <v-row>
+            <v-col v-if="exercises.length == 0" align="center">
+              <v-img class="rounded" src="/empty_list.png" height="250">
+              </v-img>
+            </v-col>
             <v-col
               v-for="(exercise, index) in exercises"
               :key="index"
@@ -60,8 +64,8 @@ export default {
       }
     },
   },
-  beforeMount() {
-    this.getAllExercises();
+  async beforeMount() {
+    await this.getAllExercises();
   },
   components: {
     SideBar,
