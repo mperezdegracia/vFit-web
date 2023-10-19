@@ -75,7 +75,9 @@
         </v-card-text> -->
         <v-card-actions>
           <v-spacer></v-spacer>
+          <v-btn variant="tonal" color="secondary" >Edit</v-btn>
           <v-btn variant="tonal" color="primary" @click="dialog = false">Close</v-btn>
+          
         </v-card-actions>
       </v-card>
     </v-dialog>
