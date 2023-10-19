@@ -2,8 +2,7 @@
   <v-card
     :loading="loading"
     class="mx-auto text-left bg-grey-lighten-4"
-    max-width="374"
-    min-width="250"
+    width="270"
     :border="true"
     @click="expand = !expand"
   >
@@ -48,40 +47,11 @@
             ></v-col
           >
           <v-col class="ml-1">
-            <v-btn
-              variant="tonal"
-              color="red-lighten-1"
-              prepend-icon="mdi-delete"
-              block
-            >
-              Borrar
-              <v-dialog v-model="dialog" activator="parent" width="500">
-                <v-card max-width="600">
-                  <v-card-title class="text-h5 text-primary mt-4 ml-4"
-                    >¿Seguro que quiere borrar?</v-card-title
-                  >
-                  <v-card-text class="ml-3 mt-4">
-                    Esta accion no se puede revertir
-                  </v-card-text>
-                  <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn
-                      variant="tonal"
-                      color="primary"
-                      @click="dialog = false"
-                      >Cancelar</v-btn
-                    >
-                    <v-btn
-                      @click="deleteExercise()"
-                      variant="tonal"
-                      color="red-lighten-1"
-                      prepend-icon="mdi-delete"
-                      >Borrar</v-btn
-                    >
-                  </v-card-actions>
-                </v-card>
-              </v-dialog>
-            </v-btn>
+            <DeleteModal
+              :object="exercise"
+              :deleteAction="$deleteExercise"
+              :postDeleteAction="getAllExercises"
+            />
           </v-col>
         </v-row>
         <v-row v-else-if="addExercise">
@@ -105,6 +75,7 @@
 <script>
 import { mapActions } from "pinia";
 import { useExerciseStore } from "@/stores/ExerciseStore";
+import DeleteModal from "./DeleteModal.vue";
 
 export default {
   data: () => ({
@@ -127,16 +98,7 @@ export default {
     ...mapActions(useExerciseStore, {
       $deleteExercise: "delete",
     }),
-
-    async deleteExercise() {
-      try {
-        await this.$deleteExercise(this.exercise);
-        this.getAllExercises();
-        this.dialog = false;
-      } catch (e) {
-        console.error(e);
-      }
-    },
   },
+  components: { DeleteModal },
 };
 </script>

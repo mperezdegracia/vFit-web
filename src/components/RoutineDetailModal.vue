@@ -9,7 +9,7 @@
         <v-card-text>
           <v-row>
             <v-col
-              v-for="(cycle, index) in cycles"
+              v-for="(cycle, index) in routine.cycles"
               :key="index"
               cols="12"
               sm="6"
@@ -61,14 +61,12 @@
                 ></v-col
               >
               <v-col cols="12" sm="4" class="py-1">
-                <v-btn
-                  variant="tonal"
-                  color="red-lighten-1"
-                  prepend-icon="mdi-delete"
+                <DeleteModal
                   block
-                >
-                  Borrar
-                </v-btn>
+                  :object="routine"
+                  :deleteAction="$deleteRoutine"
+                  :postDeleteAction="closeAndGetAllRoutines"
+                />
               </v-col>
               <v-col cols="12" sm="4" class="py-1">
                 <v-btn
@@ -89,14 +87,38 @@
 </template>
 
 <script>
+import { useRoutineStore } from "@/stores/RoutineStore";
+import DeleteModal from "./DeleteModal.vue";
+import { mapActions } from "pinia";
+
 export default {
   data: () => ({
     dialog: false,
   }),
   props: {
-    cycles: {
+    routine: {
       required: true,
     },
+    getAllRoutines: {
+      required: true,
+    },
+  },
+  methods: {
+    ...mapActions(useRoutineStore, {
+      $deleteRoutine: "delete",
+    }),
+
+    async closeAndGetAllRoutines() {
+      try {
+        await this.getAllRoutines();
+        this.dialog = false;
+      } catch (e) {
+        console.error(e);
+      }
+    },
+  },
+  components: {
+    DeleteModal,
   },
 };
 </script>
