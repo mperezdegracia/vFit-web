@@ -5,17 +5,16 @@
     </v-col>
 
     <v-col>
-      <v-sheet class="mx-auto elevation-6 rounded-lg">
-        <v-container class="bg-primary rounded-t-lg" fluid>
-          <v-row>
-            <v-col>
-              <h2>Mis Ejercicios</h2>
-            </v-col>
-            <v-col class="text-right">
-              <AddExerciseModal :getAllExercises="getAllExercises" />
-            </v-col>
-          </v-row>
-        </v-container>
+
+      <h1 class=" font-weight-medium text-primary text-center texto" > Mis Ejercicios</h1>
+        
+        <v-divider class="my-1"></v-divider>
+        <div class="d-flex mr-5 mt-3 mb-0">
+          <v-spacer></v-spacer>
+          <AddExerciseModal :getAllExercises="getAllExercises" />
+
+        </div>
+      
 
         <v-container fluid>
           <v-row>
@@ -32,7 +31,6 @@
             </v-col>
           </v-row>
         </v-container>
-      </v-sheet>
     </v-col>
   </v-row>
 </template>

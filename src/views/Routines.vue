@@ -5,34 +5,26 @@
     </v-col>
 
     <v-col>
-      <v-sheet class="mx-auto elevation-6 rounded-lg">
-        <v-container class="bg-primary rounded-t-lg" fluid>
-          <v-row>
-            <v-col>
-              <h2>Mis Rutinas</h2>
-            </v-col>
-            <v-col class="text-right">
-              <router-link to="/routine/create">
-                <v-btn color="white" class="text-primary">
-                  Agregar rutina
-                </v-btn>
-              </router-link>
-            </v-col>
-          </v-row>
-        </v-container>
 
-        <v-container fluid>
-          <v-row>
-            <v-col
-              v-for="(routine, index) in routines"
-              :key="index"
-              align="center"
-            >
-              <RoutineCard class="pa-2" :routine="routine" />
-            </v-col>
-          </v-row>
-        </v-container>
-      </v-sheet>
+        <h1 class=" font-weight-medium text-primary text-center texto" > Mis Rutinas</h1>
+        
+        <v-divider class="my-1"></v-divider>
+        <div class="d-flex mr-5 mt-3 mb-0">
+          <v-spacer></v-spacer>
+          <router-link to="/routine/create">
+            <v-btn color="secondary" variant="tonal" >
+              Agregar rutina
+            </v-btn>
+          </router-link>
+
+        </div>
+      <v-container fluid>
+        <v-row>
+          <v-col v-for="(routine, index) in routines" :key="index" align="center">
+            <RoutineCard  :routine="routine" />
+          </v-col>
+        </v-row>
+      </v-container>
     </v-col>
   </v-row>
 </template>

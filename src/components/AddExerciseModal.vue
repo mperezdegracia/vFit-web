@@ -1,5 +1,5 @@
 <template>
-  <v-btn color="white" class="text-primary">
+  <v-btn color="secondary" variant="tonal">
     Agregar ejercicio
     <v-dialog v-model="dialog" activator="parent" width="600">
       <v-card max-width="600">
