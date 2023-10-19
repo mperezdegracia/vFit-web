@@ -14,7 +14,7 @@ export class UserApi {
       UserApi.getUrl("verify_email"),
       false,
       verificationCode,
-      controller,
+      controller
     );
   }
 
@@ -23,7 +23,7 @@ export class UserApi {
       UserApi.getUrl("login"),
       false,
       credentials,
-      controller,
+      controller
     );
   }
 
@@ -44,10 +44,26 @@ export class Credentials {
 }
 
 export class User {
-  constructor(username, email, password) {
+  constructor(
+    username,
+    email,
+    password,
+    firstName,
+    lastName,
+    gender,
+    birthdate,
+    phone,
+    avatarUrl
+  ) {
     this.username = username;
     this.email = email;
     this.password = password;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.gender = gender;
+    this.birthdate = birthdate;
+    this.phone = phone;
+    this.avatarUrl = avatarUrl;
   }
 }
 

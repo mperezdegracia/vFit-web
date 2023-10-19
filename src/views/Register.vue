@@ -16,27 +16,90 @@
 
         <v-text-field
           v-model="username"
-          :rules="rules"
-          label="Ingrese su nombre de usuario"
+          :rules="[mandatory, maxLength50]"
+          label="Nombre de usuario"
           prepend-inner-icon="mdi-account"
+          :counter="50"
         ></v-text-field>
         <v-text-field
           v-model="email"
-          :rules="rules"
+          :rules="[mandatory, maxLength100]"
           type="email"
-          label="Ingrese su correo electrónico"
+          label="Correo electrónico"
           prepend-inner-icon="mdi-email"
+          :counter="100"
         ></v-text-field>
         <v-text-field
           v-model="password"
-          :rules="rules"
+          :rules="[mandatory, maxLength50]"
           type="password"
-          label="Ingrese su contraseña"
+          label="Contraseña"
           prepend-inner-icon="mdi-lock"
+          :counter="50"
         ></v-text-field>
+        <v-card-text class="text-h5"> Más información </v-card-text>
+        <v-row>
+          <v-col cols="6">
+            <v-text-field
+              v-model="firstName"
+              :rules="maxLength50"
+              label="Nombre"
+              :counter="50"
+            ></v-text-field>
+          </v-col>
+          <v-col cols="6">
+            <v-text-field
+              v-model="lastName"
+              :rules="maxLength50"
+              label="Apellido"
+              :counter="50"
+            ></v-text-field>
+          </v-col>
+        </v-row>
+
+        <v-row>
+          <v-col cols="6">
+            <v-select
+              v-model="gender"
+              label="Genero"
+              :rules="mandatory"
+              prepend-inner-icon="mdi-gender-male-female"
+              :items="['male', 'female', 'other']"
+            ></v-select>
+          </v-col>
+          <v-col cols="6">
+            <v-text-field
+              v-model="birthdate"
+              type="date"
+              label="Fecha de nacimiento"
+              prepend-inner-icon="mdi-cake"
+            ></v-text-field>
+          </v-col>
+        </v-row>
+
+        <v-row>
+          <v-col cols="6">
+            <v-text-field
+              v-model="phone"
+              type="number"
+              label="Telefono"
+              prepend-inner-icon="mdi-phone"
+              :counter="50"
+            ></v-text-field>
+          </v-col>
+          <v-col cols="6">
+            <v-text-field
+              v-model="avatarUrl"
+              label="URL de avatar"
+              prepend-inner-icon="mdi-image-outline"
+              :counter="255"
+            ></v-text-field>
+          </v-col>
+        </v-row>
+
         <v-btn
           type="submit"
-          class="rounded-lg"
+          class="rounded-lg mt-2"
           color="primary"
           variant="tonal"
           block
@@ -103,15 +166,48 @@ export default {
     username: "",
     email: "",
     password: "",
+    firstName: "",
+    lastName: "",
+    gender: "",
+    birthdate: "",
+    phone: "",
+    avatarUrl: "",
     termsAndConditions: false,
     error: null,
 
-    rules: [
+    mandatory: [
       (value) => {
         if (value) return true;
-        return "This field is required.";
+        return "Este campo es requerido.";
       },
     ],
+    maxLength50: [
+      (value) => {
+        if (value?.length <= 50) return true;
+        return "El campo tiene que tener menos de 50 caracteres.";
+      },
+    ],
+    maxLength100: [
+      (value) => {
+        if (value?.length <= 100) return true;
+        return "El campo tiene que tener menos de 100 caracteres.";
+      },
+    ],
+    maxLength255: [
+      (value) => {
+        if (value?.length <= 255) return true;
+        return "El campo tiene que tener menos de 255 caracteres.";
+      },
+    ],
+    // birthdate: [
+    //   (value) => {
+    //     // const date = new Date(value);
+    //     // const today = new Date();
+    //     // const jesus = new Date("1900/1/1");
+    //     return true;
+    //     // return "Este campo debe ser una fecha valida.";
+    //   },
+    // ],
     agreeToTermsAndConditions: [
       (value) => {
         if (value) return true;
@@ -129,7 +225,17 @@ export default {
       if (!results.valid) return;
 
       try {
-        const user = new User(this.username, this.email, this.password);
+        const user = new User(
+          this.username,
+          this.email,
+          this.password,
+          this.firstName,
+          this.lastName,
+          this.gender,
+          Math.floor(new Date(this.birthdate).getTime() / 1000),
+          this.phone,
+          this.avatarUrl
+        );
         await this.$register(user);
       } catch (e) {
         this.error = e;
