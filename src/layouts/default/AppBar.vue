@@ -73,8 +73,8 @@
         </v-btn>
       </v-row>
     </v-col>
-    <v-col cols="8" align="end" justify="end" v-else>
-      <v-row align="center" justify="end">
+    <v-col align="end" justify="end" v-else>
+      <v-row align="end" justify="end">
         <div class="d-none d-sm-flex">
           <!-- Navigation Buttons -->
           <v-btn
