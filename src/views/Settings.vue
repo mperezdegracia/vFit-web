@@ -1,5 +1,14 @@
 <template>
   <v-container>
+    <v-btn
+      @click="$router.go(-1)"
+      variant="text"
+      color="primary"
+      prepend-icon="mdi-arrow-left"
+      class="mb-4"
+      >Volver a la página previa</v-btn
+    >
+
     <v-card class="rounded-lg mx-auto" elevation="4">
       <v-toolbar color="primary">
         <v-toolbar-title>Ajustes de usuario</v-toolbar-title>

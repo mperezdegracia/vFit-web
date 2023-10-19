@@ -49,35 +49,26 @@
       ></v-select>
     </v-col>
   </v-row>
-  <v-row>
-    <v-col cols="12" md="6">
-      <v-btn
-        block
-        color="primary"
-        class="ml-0"
-        @click="edit = true"
-        v-if="!edit"
-        prepend-icon="mdi-pencil"
-      >
-        Editar perfil
-      </v-btn>
-      <v-btn
-        block
-        color="primary"
-        class="ml-0"
-        @click="edit = false"
-        prepend-icon="mdi-content-save"
-        v-else
-      >
-        Guardar cambios
-      </v-btn>
-    </v-col>
-    <v-col cols="12" md="6">
-      <v-btn block color="primary" prepend-icon="mdi-password">
-        Cambiar contraseña
-      </v-btn>
-    </v-col>
-  </v-row>
+  <v-btn
+    block
+    color="primary"
+    class="ml-0"
+    @click="edit = true"
+    v-if="!edit"
+    prepend-icon="mdi-pencil"
+  >
+    Editar perfil
+  </v-btn>
+  <v-btn
+    block
+    color="primary"
+    class="ml-0"
+    @click="edit = false"
+    prepend-icon="mdi-content-save"
+    v-else
+  >
+    Guardar cambios
+  </v-btn>
 
   <v-dialog v-model="dialog" max-width="400">
     <div class="bg-white">
