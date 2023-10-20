@@ -9,12 +9,21 @@ export class UserApi {
     return await Api.post(UserApi.getUrl(), false, user, controller);
   }
 
+  static async sendVerification(data, controller) {
+    return await Api.post(
+      UserApi.getUrl("resend_verification"),
+      true,
+      data,
+      controller
+    );
+  }
+
   static async verify(verificationCode, controller) {
     return await Api.post(
       UserApi.getUrl("verify_email"),
       false,
       verificationCode,
-      controller,
+      controller
     );
   }
 
@@ -23,12 +32,16 @@ export class UserApi {
       UserApi.getUrl("login"),
       false,
       credentials,
-      controller,
+      controller
     );
   }
 
   static async logout(controller) {
     await Api.post(UserApi.getUrl("logout"), true, controller);
+  }
+
+  static async modify(user, controller) {
+    return Api.put(UserApi.getUrl("current"), true, user, controller);
   }
 
   static async get(controller) {
@@ -44,10 +57,26 @@ export class Credentials {
 }
 
 export class User {
-  constructor(username, email, password) {
+  constructor(
+    username,
+    email,
+    password,
+    firstName,
+    lastName,
+    gender,
+    birthdate,
+    phone,
+    avatarUrl
+  ) {
     this.username = username;
     this.email = email;
     this.password = password;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.gender = gender;
+    this.birthdate = birthdate;
+    this.phone = phone;
+    this.avatarUrl = avatarUrl;
   }
 }
 

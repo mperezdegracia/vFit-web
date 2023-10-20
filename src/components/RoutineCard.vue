@@ -1,9 +1,9 @@
 <template>
   <v-card
     :loading="loading"
-    class="mx-auto text-left bg-grey-lighten-4 rounded-lg my-2"
-    max-width="270"
-    min-width="270"
+    class="mx-auto text-left rounded-lg my-2"
+    elevation="4"
+    width="240"
     max-height="400"
     :border="true"
   >
@@ -67,7 +67,7 @@
     <v-divider class="mx-2 my-1"></v-divider>
 
     <v-card-actions>
-      <RoutineDetailModal :cycles="routine.cycles" />
+      <RoutineDetailModal :routine="routine" :getAllRoutines="getAllRoutines" />
     </v-card-actions>
   </v-card>
 </template>
@@ -86,6 +86,9 @@ export default {
   props: {
     routine: {
       type: Object,
+      required: true,
+    },
+    getAllRoutines: {
       required: true,
     },
   },

@@ -18,13 +18,13 @@
           v-model="email"
           :rules="rules"
           type="email"
-          label="Ingrese su correo electrónico"
+          label="Correo electrónico"
           prepend-inner-icon="mdi-email"
         ></v-text-field>
         <v-text-field
           v-model="code"
           :rules="rules"
-          label="Ingrese el código recibido"
+          label="Código recibido"
           prepend-inner-icon="mdi-lock"
         ></v-text-field>
         <v-btn
@@ -33,6 +33,7 @@
           color="primary"
           variant="tonal"
           block
+          :loading="loading"
           >Verificar correo electrónico</v-btn
         >
       </v-form>
@@ -47,6 +48,7 @@ import { VerificationCode } from "@/api/user";
 
 export default {
   data: () => ({
+    loading: false,
     email: "",
     code: "",
     error: null,
@@ -54,7 +56,7 @@ export default {
     rules: [
       (value) => {
         if (value) return true;
-        return "This field is required.";
+        return "Este campo es obligatorio.";
       },
     ],
   }),
@@ -69,6 +71,7 @@ export default {
     async submit(event) {
       const results = await event;
       if (!results.valid) return;
+      this.loading = true;
 
       try {
         const verificationCode = new VerificationCode(this.email, this.code);
@@ -76,6 +79,8 @@ export default {
       } catch (e) {
         this.error = e;
       }
+
+      this.loading = false;
     },
   },
 };

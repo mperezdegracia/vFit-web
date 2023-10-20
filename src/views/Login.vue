@@ -17,14 +17,14 @@
         <v-text-field
           v-model="username"
           :rules="rules"
-          label="Ingrese su nombre de usuario"
+          label="Nombre de usuario"
           prepend-inner-icon="mdi-account"
         ></v-text-field>
         <v-text-field
           v-model="password"
           :rules="rules"
           type="password"
-          label="Ingrese su contraseña"
+          label="Contraseña"
           prepend-inner-icon="mdi-lock"
         ></v-text-field>
         <v-btn
@@ -33,6 +33,7 @@
           color="primary"
           variant="tonal"
           block
+          :loading="loading"
           >Iniciar sesión</v-btn
         >
         <v-checkbox
@@ -44,7 +45,7 @@
         <div class="mb-4">
           <p class="text-h6 text-center mb-2">¿No tienes cuenta aún?</p>
           <v-btn
-            @click="navigateToRegister()"
+            to="/register"
             color="secondary rounded-lg"
             variant="tonal"
             block
@@ -56,7 +57,7 @@
           ¿Su correo electrónico aún no está verificado?
         </p>
         <v-btn
-          @click="navigateToVerify()"
+          to="/verify-email"
           color="secondary rounded-lg"
           variant="tonal"
           block
@@ -67,18 +68,6 @@
   </v-card>
 </template>
 
-<script setup>
-import { useRouter } from "vue-router";
-
-const router = useRouter();
-const navigateToRegister = () => {
-  router.push({ name: "Register" }); // Navigate to the register page
-};
-const navigateToVerify = () => {
-  router.push({ name: "Verify Email" }); // Navigate to the verify email page
-};
-</script>
-
 <script>
 import { mapActions } from "pinia";
 import { useSecurityStore } from "@/stores/SecurityStore";
@@ -86,6 +75,7 @@ import { Credentials } from "@/api/user";
 
 export default {
   data: () => ({
+    loading: false,
     username: "",
     password: "",
     rememberMe: false,
@@ -94,7 +84,7 @@ export default {
     rules: [
       (value) => {
         if (value) return true;
-        return "This field is required.";
+        return "Este campo es obligatorio.";
       },
     ],
   }),
@@ -106,6 +96,7 @@ export default {
     async submit(event) {
       const result = await event;
       if (!result.valid) return;
+      this.loading = true;
 
       try {
         const credentials = new Credentials(this.username, this.password);
@@ -113,6 +104,8 @@ export default {
       } catch (e) {
         this.error = e;
       }
+
+      this.loading = false;
     },
   },
 };

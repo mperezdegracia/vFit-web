@@ -2,16 +2,29 @@
   <v-btn variant="tonal" color="primary" block
     >Details
     <v-dialog v-model="dialog" activator="parent" width="800">
-      <v-card min-width="800" min-height="400" class="rounded-lg">
-        <v-card-title class="text-h5 text-primary mt-4 ml-4"
-          >Detalles de la rutina</v-card-title
-        >
+      <v-card max-width="800" min-height="400" class="rounded-lg">
+        <v-card-title class="text-h5 text-primary mt-4 ml-4">
+          <div class="d-flex align-items-center item">
+            Detalles de la rutina
+            <v-spacer></v-spacer>
+            <v-btn
+              :icon="
+                routine.metadata?.liked ? 'mdi-heart' : 'mdi-heart-outline'
+              "
+              :color="routine.metadata?.liked ? 'pink' : 'grey'"
+              variant="tonal"
+              @click="toggleFavorite()"
+            ></v-btn>
+          </div>
+        </v-card-title>
         <v-card-text>
           <v-row>
             <v-col
-              v-for="(cycle, index) in cycles"
+              v-for="(cycle, index) in routine.cycles"
               :key="index"
-              cols="4"
+              cols="12"
+              sm="6"
+              md="4"
               no-gutters
             >
               <v-list>
@@ -22,9 +35,9 @@
                 <v-list-item
                   min-height="20"
                   class="list-item px-0"
+                  color="primary"
                   v-for="(exercise, exerciseIdx) in cycle.exercises"
                   :key="exerciseIdx"
-                  color="primary"
                   :selectable="false"
                 >
                   <div class="d-flex align-items-center item">
@@ -47,31 +60,37 @@
           </v-row>
         </v-card-text>
         <v-card-actions>
-          <v-col cols="3">
-            <v-btn
-              variant="tonal"
-              color="primary"
-              prepend-icon="mdi-pencil"
-              block
-              >Editar</v-btn
-            ></v-col
-          >
-          <v-col cols="3">
-            <v-btn
-              variant="tonal"
-              color="red-lighten-1"
-              prepend-icon="mdi-delete"
-              block
-            >
-              Borrar
-            </v-btn>
-          </v-col>
-          <v-spacer></v-spacer>
-          <v-col cols="3" align="end" justify="end">
-            <v-btn variant="tonal" color="primary" @click="dialog = false"
-              >Cerrar</v-btn
-            >
-          </v-col>
+          <v-container>
+            <v-row class="pt-4 pb-2" align="end">
+              <v-col cols="12" sm="4" class="py-1">
+                <v-btn
+                  variant="tonal"
+                  color="secondary"
+                  prepend-icon="mdi-pencil"
+                  block
+                  >Editar</v-btn
+                ></v-col
+              >
+              <v-col cols="12" sm="4" class="py-1">
+                <DeleteModal
+                  block
+                  :object="routine"
+                  :deleteAction="$deleteRoutine"
+                  :postDeleteAction="closeAndGetAllRoutines"
+                />
+              </v-col>
+              <v-col cols="12" sm="4" class="py-1">
+                <v-btn
+                  variant="tonal"
+                  color="black"
+                  @click="dialog = false"
+                  prepend-icon="mdi-close"
+                  block
+                  >Cerrar</v-btn
+                >
+              </v-col>
+            </v-row>
+          </v-container>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -79,14 +98,53 @@
 </template>
 
 <script>
+import { useRoutineStore } from "@/stores/RoutineStore";
+import { useFavoriteStore } from "@/stores/FavoriteStore";
+import DeleteModal from "./DeleteModal.vue";
+import { mapActions } from "pinia";
+
 export default {
   data: () => ({
     dialog: false,
   }),
   props: {
-    cycles: {
+    routine: {
       required: true,
     },
+    getAllRoutines: {
+      required: true,
+    },
+  },
+  methods: {
+    ...mapActions(useRoutineStore, {
+      $deleteRoutine: "delete",
+    }),
+    ...mapActions(useFavoriteStore, {
+      $addFavorite: "create",
+      $removeFavorite: "delete",
+    }),
+
+    async toggleFavorite() {
+      try {
+        if (this.routine.metadata?.liked)
+          await this.$removeFavorite(this.routine);
+        else await this.$addFavorite(this.routine);
+      } catch (e) {
+        console.error(e);
+      }
+    },
+
+    async closeAndGetAllRoutines() {
+      try {
+        await this.getAllRoutines();
+        this.dialog = false;
+      } catch (e) {
+        console.error(e);
+      }
+    },
+  },
+  components: {
+    DeleteModal,
   },
 };
 </script>

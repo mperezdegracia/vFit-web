@@ -1,30 +1,76 @@
 <template>
   <v-row>
-    <v-col md="2">
+    <v-col cols="12" md="2">
       <SideBar />
     </v-col>
 
-        <v-col>
-          <h1 class=" font-weight-medium text-primary text-center texto" >Favoritas</h1>
-            <v-divider></v-divider>
-            <v-container fluid>
-              <RoutineGrid :routines="routines"></RoutineGrid>
-            </v-container>
-        </v-col>
-      </v-row>
+    <v-col>
+      <h1 class="font-weight-medium text-primary text-center texto">
+        Favoritas
+      </h1>
+      <v-divider class="my-1"></v-divider>
+      <RoutineGrid :routines="routines" :getAllRoutines="getAllFavorites" />
+    </v-col>
+  </v-row>
 </template>
 
-<style>
-</style>
 <script>
-import routines from "@/data/mockRoutines";
+import { mapActions } from "pinia";
+import { useFavoriteStore } from "@/stores/FavoriteStore";
+import { useCycleStore } from "@/stores/CycleStore";
+import { useCycleExerciseStore } from "@/stores/CycleExerciseStore";
 import RoutineGrid from "@/components/RoutineGrid.vue";
 import SideBar from "@/components/SideBar.vue";
 
 export default {
   data: () => ({
-    routines: routines,
+    routines: [],
   }),
+  methods: {
+    ...mapActions(useFavoriteStore, {
+      $getAllFavorites: "getAll",
+    }),
+    ...mapActions(useCycleStore, {
+      $getAllCycles: "getAll",
+    }),
+    ...mapActions(useCycleExerciseStore, {
+      $getAllExercises: "getAll",
+    }),
+
+    async getAllFavorites() {
+      try {
+        const result = await this.$getAllFavorites();
+        this.routines = result.content;
+
+        await Promise.all(
+          this.routines.map(async (routine) => {
+            try {
+              const result = await this.$getAllCycles(routine.id);
+              routine.cycles = result.content;
+
+              await Promise.all(
+                routine.cycles.map(async (cycle) => {
+                  try {
+                    const result = await this.$getAllExercises(cycle.id);
+                    cycle.exercises = result.content;
+                  } catch (e) {
+                    console.error(e);
+                  }
+                })
+              );
+            } catch (e) {
+              console.error(e);
+            }
+          })
+        );
+      } catch (e) {
+        console.error(e);
+      }
+    },
+  },
+  async beforeMount() {
+    await this.getAllFavorites();
+  },
   components: {
     SideBar,
     RoutineGrid,
