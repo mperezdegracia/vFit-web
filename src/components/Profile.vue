@@ -1,10 +1,7 @@
 <template>
-
-
-  <!-- Avatar del usuario -->
   <v-form validate-on="submit lazy" @submit.prevent="submit">
     <v-row justify="center" align="center">
-      <v-avatar size="150">
+      <v-avatar size="150" class="elevation-1">
         <img
           :src="user.avatarUrl || '/no_user_photo.svg'"
           height="150"
@@ -14,10 +11,8 @@
       </v-avatar>
     </v-row>
 
-    <!-- Datos del usuario -->
-
-    <v-row class="pt-4">
-      <v-col md="6" sm="12" class="py-1">
+    <v-row class="pt-8">
+      <v-col md="6" cols="12" class="py-1">
         <v-text-field
           label="Nombre de Usuario"
           v-model="user.username"
@@ -25,7 +20,7 @@
           :readonly="true"
         ></v-text-field>
       </v-col>
-      <v-col md="6" sm="12" class="py-1">
+      <v-col md="6" cols="12" class="py-1">
         <v-text-field
           label="Correo Electrónico"
           v-model="user.email"
@@ -36,7 +31,7 @@
     </v-row>
 
     <v-row>
-      <v-col md="6" sm="12" class="py-1">
+      <v-col md="6" cols="12" class="py-1">
         <v-text-field
           label="Nombre"
           v-model="user.firstName"
@@ -46,7 +41,7 @@
           :readonly="!edit"
         ></v-text-field>
       </v-col>
-      <v-col md="6" sm="12" class="py-1">
+      <v-col md="6" cols="12" class="py-1">
         <v-text-field
           label="Apellido"
           v-model="user.lastName"
@@ -59,7 +54,7 @@
     </v-row>
 
     <v-row>
-      <v-col md="6" sm="12" class="py-1">
+      <v-col md="6" cols="12" class="py-1">
         <v-select
           label="Genero"
           v-model="user.gender"
@@ -69,7 +64,7 @@
           :readonly="!edit"
         ></v-select>
       </v-col>
-      <v-col md="6" sm="12" class="py-1">
+      <v-col md="6" cols="12" class="py-1">
         <v-text-field
           label="Fecha de nacimiento"
           type="date"
@@ -81,7 +76,7 @@
     </v-row>
 
     <v-row>
-      <v-col md="6" sm="12" class="py-1">
+      <v-col md="6" cols="12" class="py-1">
         <v-text-field
           label="Telefono"
           type="number"
@@ -91,7 +86,7 @@
           :readonly="!edit"
         ></v-text-field>
       </v-col>
-      <v-col md="6" sm="12" class="py-1">
+      <v-col md="6" cols="12" class="py-1">
         <v-text-field
           label="URL de avatar"
           v-model="user.avatarUrl"
@@ -149,7 +144,6 @@ import { mapActions } from "pinia";
 
 export default {
   data: () => ({
-   
     loading: false,
     edit: false,
 
@@ -182,9 +176,7 @@ export default {
       },
     ],
   }),
-  computed: {
-
-  },
+  computed: {},
   methods: {
     ...mapActions(useSecurityStore, {
       $getCurrentUser: "getCurrentUser",
@@ -192,7 +184,6 @@ export default {
     ...mapActions(useSecurityStore, {
       $modifyUser: "modify",
     }),
-
 
     async submit(event) {
       const results = await event;
@@ -215,7 +206,7 @@ export default {
     reset() {
       this.user = { ...this.backupUser };
       this.edit = false;
-// >>>>>>> c9e8f4c2699cd2c5eabe27a026d96d87057ee002
+      // >>>>>>> c9e8f4c2699cd2c5eabe27a026d96d87057ee002
     },
   },
   async beforeMount() {
@@ -229,6 +220,6 @@ export default {
     } catch (e) {
       console.error(e);
     }
-  }
+  },
 };
 </script>
