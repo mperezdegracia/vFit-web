@@ -69,22 +69,11 @@ const routes = [
         name: "Routine",
         children: [
           {
-            //path: ":id",
-            path: "detailed", // cambio de path para testear
-            name: "Detailed-Routine",
-            component: () => import("@/views/DetailedRoutine.vue"),
-          },
-          {
             path: "create",
             name: "Create-Routine",
             component: () => import("@/views/CreateRoutine.vue"),
           },
         ],
-      },
-      {
-        path: "change-password",
-        name: "Change Password",
-        component: () => import("@/views/ChangePassword.vue"),
       },
       {
         path: "settings",
@@ -103,7 +92,6 @@ const routes = [
 export const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
-
 });
 
 router.beforeEach(async (to) => {
@@ -124,7 +112,6 @@ router.beforeEach(async (to) => {
     securityStore.returnUrl = to.fullPath;
     return "/login";
   }
-
 });
 
 export default router;
