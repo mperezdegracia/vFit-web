@@ -1,26 +1,18 @@
 <template>
-  <div class="d-flex justify-center">
-    <v-col cols="12">
-      <!-- Cambia el valor de "cols" según tus necesidades -->
-
-      <v-row class="justify-center mx-10">
-        <v-col
-          v-for="(routine_, index) in routines"
-          :key="index"
-          lg="3"
-          md="4"
-          sm="6"
-          xs="12"
-          class=""
-        >
-          <!-- Ajusta el valor de "cols" según tus necesidades -->
-          <div class="d-flex justify-center">
-            <RoutineCard :routine="routine_" />
-          </div>
-        </v-col>
-      </v-row>
-    </v-col>
-  </div>
+  <v-container fluid>
+    <v-row>
+      <v-col v-if="routines.length == 0" align="center">
+        <v-img class="rounded" src="/empty.svg" height="250"> </v-img>
+      </v-col>
+      <v-col v-for="(routine, index) in routines" :key="index" align="center">
+        <RoutineCard
+          class="pa-2"
+          :routine="routine"
+          :getAllRoutines="getAllRoutines"
+        />
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -34,6 +26,9 @@ export default {
   props: {
     routines: {
       type: Array,
+      required: true,
+    },
+    getAllRoutines: {
       required: true,
     },
   },

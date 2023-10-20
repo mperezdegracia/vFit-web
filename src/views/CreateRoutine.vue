@@ -220,7 +220,6 @@
 <script>
 import { Cycle } from "@/api/cycle";
 import { CycleExercise } from "@/api/cycleExercise";
-import { Exercise } from "@/api/exercise";
 import { Routine } from "@/api/routine";
 import { mapActions } from "pinia";
 import { useCycleExerciseStore } from "@/stores/CycleExerciseStore";

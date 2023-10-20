@@ -7,7 +7,7 @@
           >Selecciona un ejercicio</v-card-title
         >
         <v-card-text>
-          <v-container>
+          <v-container fluid>
             <v-row>
               <v-col v-if="exercises.length == 0" align="center">
                 <v-img src="/empty.svg" height="250"> </v-img>
@@ -75,6 +75,7 @@ export default {
     ...mapActions(useExerciseStore, {
       $getAllExercises: "getAll",
     }),
+
     async getAllExercises() {
       try {
         const result = await this.$getAllExercises();

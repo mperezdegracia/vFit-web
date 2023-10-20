@@ -3,9 +3,20 @@
     >Details
     <v-dialog v-model="dialog" activator="parent" width="800">
       <v-card max-width="800" min-height="400" class="rounded-lg">
-        <v-card-title class="text-h5 text-primary mt-4 ml-4"
-          >Detalles de la rutina</v-card-title
-        >
+        <v-card-title class="text-h5 text-primary mt-4 ml-4">
+          <div class="d-flex align-items-center item">
+            Detalles de la rutina
+            <v-spacer></v-spacer>
+            <v-btn
+              :icon="
+                routine.metadata?.liked ? 'mdi-heart' : 'mdi-heart-outline'
+              "
+              :color="routine.metadata?.liked ? 'pink' : 'grey'"
+              variant="tonal"
+              @click="toggleFavorite()"
+            ></v-btn>
+          </div>
+        </v-card-title>
         <v-card-text>
           <v-row>
             <v-col
@@ -24,9 +35,9 @@
                 <v-list-item
                   min-height="20"
                   class="list-item px-0"
+                  color="primary"
                   v-for="(exercise, exerciseIdx) in cycle.exercises"
                   :key="exerciseIdx"
-                  color="primary"
                   :selectable="false"
                 >
                   <div class="d-flex align-items-center item">
@@ -88,6 +99,7 @@
 
 <script>
 import { useRoutineStore } from "@/stores/RoutineStore";
+import { useFavoriteStore } from "@/stores/FavoriteStore";
 import DeleteModal from "./DeleteModal.vue";
 import { mapActions } from "pinia";
 
@@ -107,6 +119,20 @@ export default {
     ...mapActions(useRoutineStore, {
       $deleteRoutine: "delete",
     }),
+    ...mapActions(useFavoriteStore, {
+      $addFavorite: "create",
+      $removeFavorite: "delete",
+    }),
+
+    async toggleFavorite() {
+      try {
+        if (this.routine.metadata?.liked)
+          await this.$removeFavorite(this.routine);
+        else await this.$addFavorite(this.routine);
+      } catch (e) {
+        console.error(e);
+      }
+    },
 
     async closeAndGetAllRoutines() {
       try {

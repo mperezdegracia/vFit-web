@@ -22,40 +22,22 @@
         </v-btn>
       </div>
 
-      <v-container fluid>
-        <v-row>
-          <v-col v-if="routines.length == 0" align="center">
-            <v-img class="rounded" src="/empty.svg" height="250"> </v-img>
-          </v-col>
-          <v-col
-            v-for="(routine, index) in routines"
-            :key="index"
-            align="center"
-          >
-            <RoutineCard
-              class="pa-2"
-              :routine="routine"
-              :getAllRoutines="getAllRoutines"
-            />
-          </v-col>
-        </v-row>
-      </v-container>
+      <RoutineGrid :routines="routines" :getAllRoutines="getAllRoutines" />
     </v-col>
   </v-row>
 </template>
 
 <script>
-import RoutineCard from "@/components/RoutineCard.vue";
 import SideBar from "@/components/SideBar.vue";
 import { mapActions } from "pinia";
 import { useRoutineStore } from "@/stores/RoutineStore";
 import { useCycleStore } from "@/stores/CycleStore";
 import { useCycleExerciseStore } from "@/stores/CycleExerciseStore";
+import RoutineGrid from "@/components/RoutineGrid.vue";
 
 export default {
   data: () => ({
     routines: [],
-    dataReady: false,
   }),
   methods: {
     ...mapActions(useRoutineStore, {
@@ -103,8 +85,8 @@ export default {
     await this.getAllRoutines();
   },
   components: {
-    RoutineCard,
     SideBar,
+    RoutineGrid,
   },
 };
 </script>

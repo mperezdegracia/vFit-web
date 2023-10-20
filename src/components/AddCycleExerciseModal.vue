@@ -48,7 +48,7 @@
                 flat
               ></v-text-field>
 
-              <v-row class="pt-4 pb-2">
+              <v-row class="py-2">
                 <v-col cols="12" sm="6" class="py-1" v-if="!onlyTime">
                   <v-text-field
                     v-model="reps"
@@ -75,11 +75,11 @@
           </v-card-text>
           <v-card-actions>
             <v-container>
-              <v-row class="pt-4 pb-2" align="center">
+              <v-row class="pb-2" align="center">
                 <v-col cols="12" sm="6" class="py-1">
                   <v-btn
                     type="submit"
-                    color="orange"
+                    color="primary"
                     variant="tonal"
                     prepend-icon="mdi-plus"
                     block
