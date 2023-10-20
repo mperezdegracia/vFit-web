@@ -69,6 +69,11 @@ const routes = [
         name: "Routine",
         children: [
           {
+            path: ":id",
+            name: "Edit-Routine",
+            component: () => import("@/views/CreateRoutine.vue"),
+          },
+          {
             path: "create",
             name: "Create-Routine",
             component: () => import("@/views/CreateRoutine.vue"),

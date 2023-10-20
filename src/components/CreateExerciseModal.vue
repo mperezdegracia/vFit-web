@@ -4,9 +4,9 @@
     <v-dialog v-model="dialog" activator="parent" width="600">
       <v-card max-width="600">
         <v-form validate-on="submit lazy" @submit.prevent="submit">
-          <v-card-title class="text-h5 text-primary mt-4 ml-4"
-            >Crear un ejercicio nuevo</v-card-title
-          >
+          <v-card-title class="text-h5 text-primary mt-4 ml-4">{{
+            !exercise ? "Crear un ejercicio nuevo" : "Editar ejercicio"
+          }}</v-card-title>
           <v-card-text>
             <v-container>
               <v-alert

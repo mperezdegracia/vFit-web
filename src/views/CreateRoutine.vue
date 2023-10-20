@@ -27,7 +27,8 @@
 
       <v-sheet class="elevation-6 rounded-lg">
         <v-container class="bg-primary rounded-t-lg" fluid>
-          <h2>Crea tu propia rutina</h2>
+          <h2 v-if="!$route.params.id">Creá tu propia rutina</h2>
+          <h2 v-else>Editá tu rutina</h2>
         </v-container>
         <v-container class="px-8">
           <v-text-field
@@ -64,7 +65,8 @@
 
       <v-sheet class="mt-8 elevation-6 rounded-lg">
         <v-container class="bg-primary rounded-t-lg" fluid>
-          <h2>Ahora agregá tus ciclos</h2>
+          <h2 v-if="!$route.params.id">Ahora agregá tus ciclos</h2>
+          <h2 v-else>Y modificá tus ciclos</h2>
         </v-container>
         <v-container class="px-8">
           <v-expansion-panels
@@ -167,7 +169,7 @@
               <v-col class="py-1">
                 <v-select
                   v-model="cycleType"
-                  :items="['WarmUp', 'Exercise', 'CoolDown']"
+                  :items="['warmup', 'exercise', 'cooldown']"
                   :rules="typeRules"
                   label="Tipo"
                 >
@@ -295,20 +297,29 @@ export default {
     ],
 
     cycles: [],
+    toDeleteCyles: [],
+    toDeleteCycleExercise: [],
   }),
   methods: {
     ...mapActions(useRoutineStore, {
+      $getRoutine: "get",
       $createRoutine: "create",
+      $modifyRoutine: "modify",
     }),
     ...mapActions(useCycleStore, {
+      $getAllCycles: "getAll",
       $createCycle: "create",
+      $modifyCycle: "modify",
+      $deleteCycle: "delete",
     }),
     ...mapActions(useExerciseStore, {
-      $createExercise: "create",
       $getExercise: "getAll",
+      $createExercise: "create",
     }),
     ...mapActions(useCycleExerciseStore, {
+      $getAllExercises: "getAll",
       $createCycleExercise: "create",
+      $deleteCycleExercise: "delete",
     }),
 
     async cycleSubmit(event) {
@@ -329,7 +340,9 @@ export default {
     },
 
     deleteCycle(index) {
-      this.cycles.splice(index, 1);
+      const cycle = this.cycles.splice(index, 1);
+      if (this.$route.params.id && cycle[0].id)
+        this.toDeleteCyles.push(cycle[0]);
     },
 
     addCycleExercise(cycleIdx, exercise, duration, reps) {
@@ -341,38 +354,79 @@ export default {
     },
 
     deleteExercise(cycleIdx, exerciseIdx) {
-      this.cycles[cycleIdx].exercises.splice(exerciseIdx, 1);
+      const exercise = this.cycles[cycleIdx].exercises.splice(exerciseIdx, 1);
+      if (this.$route.params.id && this.cycles[cycleIdx].id) {
+        exercise[0].cycleId = this.cycles[cycleIdx].id;
+        this.toDeleteCycleExercise.push(exercise[0]);
+      }
     },
 
     async submit(event) {
       const result = await event;
       if (!result.valid) return;
       if (this.cycles.length < 3) return;
+
       this.errors = [];
       this.loading = true;
 
       try {
-        const routine = await this.$createRoutine(
-          new Routine(
-            this.name,
-            this.detail,
-            true,
-            this.difficultyEnum[this.difficulty]
-          )
+        let routine = new Routine(
+          this.name,
+          this.detail,
+          true,
+          this.difficultyEnum[this.difficulty]
         );
+        if (!this.$route.params.id) {
+          routine = await this.$createRoutine(routine);
+        } else {
+          routine.id = this.$route.params.id;
+          routine = await this.$modifyRoutine(routine);
+        }
+
+        if (this.$route.params.id) {
+          await Promise.all(
+            this.toDeleteCycleExercise.map(async (eData) => {
+              try {
+                await this.$deleteCycleExercise(eData.cycleId, eData);
+              } catch (e) {
+                console.error(e);
+              }
+            })
+          );
+
+          await Promise.all(
+            this.toDeleteCyles.map(async (cData) => {
+              if (!cData.id) return;
+              try {
+                await this.$deleteCycle(this.$route.params.id, cData);
+              } catch (e) {
+                console.error(e);
+              }
+            })
+          );
+        }
+
         await Promise.all(
           this.cycles.map(async (cData, cIdx) => {
             try {
-              const cycle = await this.$createCycle(
-                routine.id,
-                new Cycle(
-                  cData.name,
-                  cData.detail,
-                  cData.type.toLowerCase(),
-                  cIdx + 1,
-                  parseInt(cData.reps)
-                )
-              );
+              let cycle = cData;
+              console.log(cycle);
+              if (!cData.id) {
+                cycle = await this.$createCycle(
+                  routine.id,
+                  new Cycle(
+                    cData.name,
+                    cData.detail,
+                    cData.type,
+                    cIdx + 1,
+                    parseInt(cData.reps)
+                  )
+                );
+              } else {
+                cycle.order = cIdx + 1;
+                cycle = await this.$modifyCycle(routine.id, cycle);
+              }
+
               await Promise.all(
                 cData.exercises.map(async (eData, eIdx) => {
                   try {
@@ -395,12 +449,40 @@ export default {
             }
           })
         );
+
         if (this.errors.length == 0) router.push("/my-routines");
       } catch (e) {
         this.errors.push(e);
       }
       this.loading = false;
     },
+  },
+  async beforeMount() {
+    if (!this.$route.params.id) return;
+    try {
+      let result = await this.$getRoutine(this.$route.params);
+      this.name = result.name;
+      this.detail = result.detail;
+      this.difficulty = this.difficultyEnum.findIndex(
+        (dif) => result.difficulty === dif
+      );
+
+      result = await this.$getAllCycles(result.id);
+      this.cycles = result.content;
+
+      await Promise.all(
+        this.cycles.map(async (cycle) => {
+          try {
+            result = await this.$getAllExercises(cycle.id);
+            cycle.exercises = result.content;
+          } catch (e) {
+            console.error(e);
+          }
+        })
+      );
+    } catch (e) {
+      console.error(e);
+    }
   },
   components: { AddCycleExerciseModal },
 };

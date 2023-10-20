@@ -1,6 +1,6 @@
 <template>
-  <v-btn variant="tonal" color="primary" block
-    >Details
+  <v-btn variant="tonal" color="primary" prepend-icon="mdi-open-in-new" block
+    >Detalles
     <v-dialog v-model="dialog" activator="parent" width="800">
       <v-card max-width="800" min-height="400" class="rounded-lg">
         <v-card-title class="text-h5 text-primary mt-4 ml-4">
@@ -64,6 +64,7 @@
             <v-row class="pt-4 pb-2" align="end">
               <v-col cols="12" sm="4" class="py-1">
                 <v-btn
+                  :to="`/routine/${routine.id}`"
                   variant="tonal"
                   color="secondary"
                   prepend-icon="mdi-pencil"
