@@ -1,96 +1,61 @@
 <template>
-  <!-- Avatar del usuario -->
-  <div class="d-flex justify-start align-end">
-    <v-avatar size="150" style="align: center">
-      <img
-        :src="user.avatarUrl"
-        height="150"
-        width="150"
-        alt="Foto del usuario"
-      />
-    </v-avatar>
-  </div>
-
-  <!-- Datos del usuario -->
-  <v-row align="center" justify="center">
-    <v-col cols="12">
-      <v-text-field
-        label="Nombre"
-        v-model="user.username"
-        :readonly="!edit"
-      ></v-text-field>
-    </v-col>
-    <v-col cols="12">
-      <!-- Campo de entrada de texto deshabilitado para el correo electrónico -->
-      <v-text-field
-        label="Correo Electrónico"
-        v-model="user.email"
-        :readonly="!edit"
-      ></v-text-field>
-    </v-col>
-    <v-col cols="12" md="6">
-      <!-- Campo de entrada de texto deshabilitado para la edad -->
-      <!-- <v-text-field
-        label="Edad"
-        v-model="usuario.edad"
-        :disabled="!edicionHabilitada"
-        :readonly="!edicionHabilitada"
-        :rules="ageRules"
-      ></v-text-field> -->
-    </v-col>
-    <v-col cols="12" md="6">
-      <!-- Campo de entrada de texto deshabilitado para el sexo -->
-      <!-- <v-text-field label="Sexo" v-model="usuario.sexo" readonly></v-text-field> -->
-      <v-select
-        label="Sexo"
-        v-model="user.gender"
-        :items="['Masculine', 'Femenine', 'Other']"
-        :readonly="!edit"
-      ></v-select>
-    </v-col>
-  </v-row>
-  <v-row>
-    <v-col cols="12" md="6">
-      <v-btn
-        block
-        color="primary"
-        class="ml-0"
-        @click="edit = true"
-        v-if="!edit"
-        prepend-icon="mdi-pencil"
-      >
-        Editar perfil
-      </v-btn>
-      <v-btn
-        block
-        color="primary"
-        class="ml-0"
-        @click="edit = false"
-        prepend-icon="mdi-content-save"
-        v-else
-      >
-        Guardar cambios
-      </v-btn>
-    </v-col>
-    <v-col cols="12" md="6">
-      <v-btn block color="primary" prepend-icon="mdi-password">
-        Cambiar contraseña
-      </v-btn>
-    </v-col>
-  </v-row>
-
-  <v-dialog v-model="dialog" max-width="400">
-    <div class="bg-white">
-      <v-card-title class="headline">Confirmación</v-card-title>
-      <v-card-text>
-        ¿Estás seguro de que deseas guardar los cambios?
-      </v-card-text>
-      <v-card-actions>
-        <v-btn color="primary" text @click="guardarCambios()">Guardar</v-btn>
-        <v-btn color="primary" text @click="deshacerCambios()">Cancelar</v-btn>
-      </v-card-actions>
+  <div class="bg-contrast p-0">
+    <!-- Avatar del usuario -->
+    <div class="d-flex justify-start align-end">
+      <v-avatar size="100" style="align: center">
+        <img :src="user.avatarUrl" height="150" width="150" alt="Foto del usuario" />
+      </v-avatar>
     </div>
-  </v-dialog>
+
+    <!-- Información del usuario -->
+    <div class="d-flex flex-column align-start ml-10 mt-2">
+      <h2 class="text-body-1 text-grey">Nombre de Usuario:</h2>
+      <div class="d-flex align-end ml-5 w-50 p-0 m-0">
+        <p class="text-body-1">{{ user.username }}</p>
+        <v-spacer></v-spacer>
+        <v-btn class="mb-0 mr-5" size="40" variant="tonal" color="primary" icon="mdi-pencil" @click="editField('username')"></v-btn>
+      </div>
+      <v-divider class="w-50 mt-1"></v-divider>
+      <h2 class="text-body-1 text-grey mt-3">Mail:</h2>
+      <div class="d-flex align-center ml-5  w-50">
+        <p class="text-body-1">{{ user.email }}</p>
+        <v-spacer ></v-spacer>
+        <v-btn class="mb-0 mr-5" size="40" variant="tonal" color="primary" icon="mdi-pencil"  @click="editField('email')"></v-btn>
+
+      </div>
+      <v-divider class="w-50"></v-divider>
+      <h2 class="text-body-1 text-grey mb-2 mt-3">Sexo:</h2>
+
+      <div class="d-flex align-center ml-5 w-50">
+        <!-- <p class="text-h6">{{ user.sex }}</p> -->
+        <p class="text-body-1"> Masculino</p> 
+        <v-spacer ></v-spacer>
+        <v-btn class="mb-0 mr-5" size="40" variant="tonal" color="primary" icon="mdi-pencil"  @click="editField('sex')"></v-btn>
+      </div>
+      <v-divider class="w-50"></v-divider>
+
+    </div>
+
+    <!-- Diálogo de edición -->
+    <v-dialog v-model="editing[editFieldKey]" max-width="400">
+      <div class="bg-contrast">
+        <v-card-title class="headline">{{ editFieldTitle }}</v-card-title>
+        <v-card-text>
+          <v-text-field v-if="editFieldKey === 'username'" v-model="editedUser.username" label="Nombre de usuario"
+            :rules="nameRules"></v-text-field>
+          <v-text-field v-if="editFieldKey === 'email'" v-model="editedUser.email"
+            label="Correo electrónico"></v-text-field>
+          <v-text-field v-if="editFieldKey === 'age'" v-model="editedUser.age" label="Edad"
+            :rules="ageRules"></v-text-field>
+          <v-select v-if="editFieldKey === 'sex'" v-model="editedUser.sex" :items="sexOptions" label="Sexo"></v-select>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn color="primary" text @click="guardarCambios()">Guardar</v-btn>
+          <v-btn color="primary" text @click="cancelarCambios()">Cancelar</v-btn>
+        </v-card-actions>
+      </div>
+    </v-dialog>
+  </div>
 </template>
 
 <script>
@@ -99,54 +64,56 @@ import { mapActions } from "pinia";
 
 export default {
   data: () => ({
+    editing: {
+      username: false,
+      email: false,
+      sex: false,
+    },
     user: {},
-    edit: false,
-    dialog: false,
+    editFieldKey: "",
+    editFieldTitle: "",
+    editedUser: {
+      username: "",
+      email: "",
+      age: "",
+      sex: "",
+    },
+    sexOptions: ["Masculino", "Femenino", "Otro"],
+    nameRules: [
+      (v) => !!v || "El nombre es requerido",
+      (v) => v.length <= 20 || "El nombre debe tener menos de 20 caracteres",
+    ],
+    ageRules: [
+      (v) => !!v || "La edad es requerida",
+      (v) => v >= 18 || "Debes ser mayor de edad",
+    ],
   }),
+  computed: {
+
+  },
   methods: {
     ...mapActions(useSecurityStore, {
       $getCurrentUser: "getCurrentUser",
     }),
 
-    toggleModoEdicion() {
-      // Verifica si el usuario está cancelando los cambios
-      let isValid = true;
-      for (const rule of this.nameRules) {
-        const result = rule(this.usuario.nombre);
-        if (result !== true) {
-          isValid = false;
-          console.error(result);
-          return; // No guardar si no cumple con las reglas
-        }
-      }
-
-      // Validar las reglas de edad
-      for (const rule of this.ageRules) {
-        const result = rule(this.usuario.edad);
-        if (result !== true) {
-          isValid = false;
-          console.error(result);
-          return; // No guardar si no cumple con las reglas
-        }
-      }
-      if (isValid) {
-        if (!this.edit) {
-          this.dialog = false;
-        } else {
-          this.dialog = true;
-        }
-        this.edit = !this.edit;
-      }
+    editField(key) {
+      this.editFieldKey = key;
+      this.editFieldTitle = `Editar ${key}`;
+      this.editedUser[key] = this.user[key];
+      this.editing[key] = true;
     },
     guardarCambios() {
-      // Agregar la lógica para guardar los cambios
-      // aca hacer la logica de la api
-      this.dialog = false;
+      this.updateUser(this.editedUser);
+      this.editing[this.editFieldKey] = false;
     },
-    deshacerCambios() {
-      //this.usuario = datos traido de la api
-      this.dialog = false;
-      // logica para deshacer cambios
+    cancelarCambios() {
+      this.editing[this.editFieldKey] = false;
+      this.editedUser = {
+        username: "",
+        email: "",
+        age: "",
+        sex: "",
+      };
     },
   },
   async beforeMount() {
@@ -155,6 +122,6 @@ export default {
     } catch (e) {
       console.error(e);
     }
-  },
+  }
 };
 </script>
