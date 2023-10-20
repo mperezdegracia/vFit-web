@@ -14,7 +14,7 @@ export class RoutineApi {
       RoutineApi.getUrl(routine.id),
       true,
       routine,
-      controller,
+      controller
     );
   }
 
@@ -26,8 +26,13 @@ export class RoutineApi {
     return await Api.get(RoutineApi.getUrl(id), true, controller);
   }
 
-  static async getAll(controller) {
-    return await Api.get(RoutineApi.getUrl(), true, controller);
+  static async getAll(params, controller) {
+    const p = new URLSearchParams(params).toString();
+    return await Api.get(
+      RoutineApi.getUrl(params ? `?${p}` : ""),
+      true,
+      controller
+    );
   }
 }
 

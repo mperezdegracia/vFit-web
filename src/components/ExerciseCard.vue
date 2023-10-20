@@ -64,7 +64,7 @@
               prepend-icon="mdi-plus"
               block
             >
-              Añadir al ciclo
+              Agregar al ciclo
             </v-btn></v-col
           >
         </v-row>
