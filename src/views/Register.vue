@@ -23,7 +23,7 @@
         ></v-text-field>
         <v-text-field
           v-model="email"
-          :rules="[requiredRule, maxLength100Rule]"
+          :rules="[requiredRule, maxLength100Rule].flat()"
           type="email"
           label="Correo electrónico"
           prepend-inner-icon="mdi-email"
@@ -31,7 +31,7 @@
         ></v-text-field>
         <v-text-field
           v-model="password"
-          :rules="[requiredRule, maxLength50Rule]"
+          :rules="[requiredRule, maxLength50Rule].flat()"
           type="password"
           label="Contraseña"
           prepend-inner-icon="mdi-lock"
@@ -94,6 +94,7 @@
           <v-col cols="12" md="6" class="py-1">
             <v-text-field
               v-model="avatarUrl"
+              :rules="maxLength255Rule"
               label="URL de avatar"
               prepend-inner-icon="mdi-image-outline"
               :counter="255"
