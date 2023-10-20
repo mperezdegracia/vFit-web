@@ -1,6 +1,6 @@
 <template>
   <v-row>
-    <v-col md="2">
+    <v-col cols="12" md="2">
       <SideBar />
     </v-col>
 

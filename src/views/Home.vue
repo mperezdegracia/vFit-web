@@ -1,8 +1,9 @@
 <template>
   <v-row>
-    <v-col md="2">
+    <v-col cols="12" md="2">
       <SideBar />
     </v-col>
+
     <v-col md="10">
       <h1 class="text-h2 pt-10 text-primary text-center font-weight-bold">
         ¡Bienvenido!

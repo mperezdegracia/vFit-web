@@ -47,6 +47,10 @@ export const useSecurityStore = defineStore("security", {
       router.push(`/verify-email?email=${user.email}`);
     },
 
+    async sendVerification(email) {
+      await UserApi.sendVerification({ email });
+    },
+
     async verify(verificationCode) {
       await UserApi.verify(verificationCode);
       router.push("/login");
@@ -65,6 +69,12 @@ export const useSecurityStore = defineStore("security", {
         this.removeToken();
         router.push("/login");
       }
+    },
+
+    async modify(user) {
+      const result = await UserApi.modify(user);
+      this.user = result;
+      return result;
     },
 
     async getCurrentUser() {

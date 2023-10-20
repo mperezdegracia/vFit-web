@@ -9,6 +9,15 @@ export class UserApi {
     return await Api.post(UserApi.getUrl(), false, user, controller);
   }
 
+  static async sendVerification(data, controller) {
+    return await Api.post(
+      UserApi.getUrl("resend_verification"),
+      true,
+      data,
+      controller
+    );
+  }
+
   static async verify(verificationCode, controller) {
     return await Api.post(
       UserApi.getUrl("verify_email"),
@@ -29,6 +38,10 @@ export class UserApi {
 
   static async logout(controller) {
     await Api.post(UserApi.getUrl("logout"), true, controller);
+  }
+
+  static async modify(user, controller) {
+    return Api.put(UserApi.getUrl("current"), true, user, controller);
   }
 
   static async get(controller) {
