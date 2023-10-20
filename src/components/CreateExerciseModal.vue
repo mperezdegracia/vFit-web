@@ -1,6 +1,6 @@
 <template>
-  <v-btn color="primary" variant="tonal" prepend-icon="mdi-plus">
-    Agregar ejercicio
+  <v-btn color="primary" variant="tonal" prepend-icon="mdi-plus"
+    >{{ label || "Agregar ejercicio" }}
     <v-dialog v-model="dialog" activator="parent" width="600">
       <v-card max-width="600">
         <v-form validate-on="submit lazy" @submit.prevent="submit">
@@ -39,7 +39,7 @@
                 v-model="type"
                 label="Tipo de ejercicio"
                 :rules="typeRules"
-                :items="['Exercise', 'Rest']"
+                :items="['exercise', 'rest']"
               ></v-select>
             </v-container>
           </v-card-text>
@@ -119,6 +119,12 @@ export default {
     ],
   }),
   props: {
+    label: {
+      required: false,
+    },
+    exercise: {
+      required: false,
+    },
     getAllExercises: {
       required: true,
     },
@@ -126,10 +132,16 @@ export default {
   methods: {
     ...mapActions(useExerciseStore, {
       $createExercise: "create",
+      $modifyExercise: "modify",
     }),
 
     cleanFields() {
       this.dialog = false;
+      this.resetFields();
+    },
+
+    resetFields() {
+      if (this.exercise) return;
       this.name = "";
       this.detail = "";
       this.type = null;
@@ -142,12 +154,13 @@ export default {
       this.loading = true;
 
       try {
-        const exercise = new Exercise(
-          this.name,
-          this.detail,
-          this.type.toLowerCase()
-        );
-        await this.$createExercise(exercise);
+        const exercise = new Exercise(this.name, this.detail, this.type);
+        if (!this.exercise) {
+          await this.$createExercise(exercise);
+        } else {
+          exercise.id = this.exercise.id;
+          await this.$modifyExercise(exercise);
+        }
 
         this.cleanFields();
         this.getAllExercises();
@@ -156,6 +169,12 @@ export default {
       }
       this.loading = false;
     },
+  },
+  beforeMount() {
+    if (!this.exercise) return;
+    this.name = this.exercise.name;
+    this.detail = this.exercise.detail;
+    this.type = this.exercise.type;
   },
 };
 </script>

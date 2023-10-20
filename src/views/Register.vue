@@ -16,7 +16,7 @@
 
         <v-text-field
           v-model="username"
-          :rules="[requiredRule, maxLength50Rule]"
+          :rules="[requiredRule, maxLength50Rule].flat()"
           label="Nombre de usuario"
           prepend-inner-icon="mdi-account"
           :counter="50"
@@ -77,6 +77,8 @@
               type="date"
               label="Fecha de nacimiento"
               prepend-inner-icon="mdi-cake"
+              min="1900-01-01"
+              :max="new Date().toISOString().split('T')[0]"
             ></v-text-field>
           </v-col>
         </v-row>
@@ -193,15 +195,6 @@ export default {
         return "El campo tiene que tener menos de 255 caracteres.";
       },
     ],
-    // birthdate: [
-    //   (value) => {
-    //     // const date = new Date(value);
-    //     // const today = new Date();
-    //     // const jesus = new Date("1900/1/1");
-    //     return true;
-    //     // return "Este campo debe ser una fecha valida.";
-    //   },
-    // ],
     termAndConditionsRule: [
       (value) => {
         if (value) return true;
@@ -225,7 +218,7 @@ export default {
           this.password,
           this.firstName,
           this.lastName,
-          this.gender,
+          this.gender.toLowerCase(),
           Math.floor(new Date(this.birthdate).getTime() / 1000),
           this.phone,
           this.avatarUrl

@@ -38,14 +38,15 @@
       <v-card-actions>
         <v-row class="pt-2" v-if="getAllExercises">
           <v-col class="py-1">
-            <v-btn
-              variant="tonal"
+            <CreateExerciseModal
+              label="Editar"
+              :exercise="exercise"
+              :getAllExercises="getAllExercises"
               color="secondary"
               prepend-icon="mdi-pencil"
               block
-              >Editar</v-btn
-            ></v-col
-          >
+            />
+          </v-col>
           <v-col class="py-1">
             <DeleteModal
               :object="exercise"
@@ -76,6 +77,7 @@
 import { mapActions } from "pinia";
 import { useExerciseStore } from "@/stores/ExerciseStore";
 import DeleteModal from "./DeleteModal.vue";
+import CreateExerciseModal from "./CreateExerciseModal.vue";
 
 export default {
   data: () => ({
@@ -99,6 +101,6 @@ export default {
       $deleteExercise: "delete",
     }),
   },
-  components: { DeleteModal },
+  components: { DeleteModal, CreateExerciseModal },
 };
 </script>
