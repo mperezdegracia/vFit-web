@@ -1,87 +1,135 @@
 <template>
   <!-- Avatar del usuario -->
-  <div class="d-flex justify-start align-end">
-    <v-avatar size="150" style="align: center">
+  <v-row justify="center" align="center">
+    <v-avatar size="150">
       <img
-        :src="user.avatarUrl"
+        :src="user.avatarUrl || '/no_user_photo.svg'"
         height="150"
         width="150"
         alt="Foto del usuario"
       />
     </v-avatar>
-  </div>
+  </v-row>
 
   <!-- Datos del usuario -->
-  <v-row align="center" justify="center">
-    <v-col cols="12">
+
+  <v-row class="pt-4">
+    <v-col md="6" sm="12" class="py-1">
       <v-text-field
-        label="Nombre"
+        label="Nombre de Usuario"
         v-model="user.username"
+        prepend-inner-icon="mdi-account"
         :readonly="!edit"
       ></v-text-field>
     </v-col>
-    <v-col cols="12">
-      <!-- Campo de entrada de texto deshabilitado para el correo electrónico -->
+    <v-col md="6" sm="12" class="py-1">
       <v-text-field
         label="Correo Electrónico"
         v-model="user.email"
+        prepend-inner-icon="mdi-email"
         :readonly="!edit"
       ></v-text-field>
     </v-col>
-    <v-col cols="12" md="6">
-      <!-- Campo de entrada de texto deshabilitado para la edad -->
-      <!-- <v-text-field
-        label="Edad"
-        v-model="usuario.edad"
-        :disabled="!edicionHabilitada"
-        :readonly="!edicionHabilitada"
-        :rules="ageRules"
-      ></v-text-field> -->
+  </v-row>
+
+  <v-row>
+    <v-col md="6" sm="12" class="py-1">
+      <v-text-field
+        label="Nombre"
+        v-model="user.firstName"
+        prepend-inner-icon="mdi-text"
+        :readonly="!edit"
+      ></v-text-field>
     </v-col>
-    <v-col cols="12" md="6">
-      <!-- Campo de entrada de texto deshabilitado para el sexo -->
-      <!-- <v-text-field label="Sexo" v-model="usuario.sexo" readonly></v-text-field> -->
+    <v-col md="6" sm="12" class="py-1">
+      <v-text-field
+        label="Apellido"
+        v-model="user.lastName"
+        prepend-inner-icon="mdi-text"
+        :readonly="!edit"
+      ></v-text-field>
+    </v-col>
+  </v-row>
+
+  <v-row>
+    <v-col md="6" sm="12" class="py-1">
       <v-select
-        label="Sexo"
+        label="Genero"
         v-model="user.gender"
-        :items="['Masculine', 'Femenine', 'Other']"
+        prepend-inner-icon="mdi-gender-male-female"
+        :items="['male', 'female', 'other']"
         :readonly="!edit"
       ></v-select>
     </v-col>
+    <v-col md="6" sm="12" class="py-1">
+      <v-text-field
+        label="Fecha de nacimiento"
+        type="date"
+        v-model="user.birthdate"
+        prepend-inner-icon="mdi-cake"
+        :readonly="!edit"
+      ></v-text-field>
+    </v-col>
   </v-row>
-  <v-btn
-    block
-    color="primary"
-    class="ml-0"
-    @click="edit = true"
-    v-if="!edit"
-    prepend-icon="mdi-pencil"
-  >
-    Editar perfil
-  </v-btn>
-  <v-btn
-    block
-    color="primary"
-    class="ml-0"
-    @click="edit = false"
-    prepend-icon="mdi-content-save"
-    v-else
-  >
-    Guardar cambios
-  </v-btn>
 
-  <v-dialog v-model="dialog" max-width="400">
-    <div class="bg-white">
-      <v-card-title class="headline">Confirmación</v-card-title>
-      <v-card-text>
-        ¿Estás seguro de que deseas guardar los cambios?
-      </v-card-text>
-      <v-card-actions>
-        <v-btn color="primary" text @click="guardarCambios()">Guardar</v-btn>
-        <v-btn color="primary" text @click="deshacerCambios()">Cancelar</v-btn>
-      </v-card-actions>
-    </div>
-  </v-dialog>
+  <v-row>
+    <v-col md="6" sm="12" class="py-1">
+      <v-text-field
+        label="Telefono"
+        type="number"
+        v-model="user.phone"
+        prepend-inner-icon="mdi-phone"
+        :readonly="!edit"
+      ></v-text-field>
+    </v-col>
+    <v-col md="6" sm="12" class="py-1">
+      <v-text-field
+        label="URL de avatar"
+        v-model="user.avatarUrl"
+        prepend-inner-icon="mdi-image-outline"
+        :readonly="!edit"
+      ></v-text-field>
+    </v-col>
+  </v-row>
+
+  <v-row v-if="!edit">
+    <v-col class="py-1">
+      <v-btn
+        block
+        color="primary"
+        @click="edit = true"
+        prepend-icon="mdi-pencil"
+      >
+        Editar perfil
+      </v-btn>
+    </v-col>
+  </v-row>
+  <v-row v-else>
+    <v-col md="6" sm="12" class="py-1">
+      <v-btn
+        block
+        variant="tonal"
+        color="green"
+        class="ml-0"
+        @click="edit = false"
+        prepend-icon="mdi-content-save"
+      >
+        Guardar cambios
+      </v-btn>
+    </v-col>
+    <v-col md="6" sm="12" class="py-1">
+      <v-btn
+        block
+        variant="tonal"
+        color="black"
+        class="ml-0"
+        @click="edit = false"
+        prepend-icon="mdi-close"
+      >
+        Cancelar cambios
+      </v-btn>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
@@ -92,53 +140,11 @@ export default {
   data: () => ({
     user: {},
     edit: false,
-    dialog: false,
   }),
   methods: {
     ...mapActions(useSecurityStore, {
       $getCurrentUser: "getCurrentUser",
     }),
-
-    toggleModoEdicion() {
-      // Verifica si el usuario está cancelando los cambios
-      let isValid = true;
-      for (const rule of this.nameRules) {
-        const result = rule(this.usuario.nombre);
-        if (result !== true) {
-          isValid = false;
-          console.error(result);
-          return; // No guardar si no cumple con las reglas
-        }
-      }
-
-      // Validar las reglas de edad
-      for (const rule of this.ageRules) {
-        const result = rule(this.usuario.edad);
-        if (result !== true) {
-          isValid = false;
-          console.error(result);
-          return; // No guardar si no cumple con las reglas
-        }
-      }
-      if (isValid) {
-        if (!this.edit) {
-          this.dialog = false;
-        } else {
-          this.dialog = true;
-        }
-        this.edit = !this.edit;
-      }
-    },
-    guardarCambios() {
-      // Agregar la lógica para guardar los cambios
-      // aca hacer la logica de la api
-      this.dialog = false;
-    },
-    deshacerCambios() {
-      //this.usuario = datos traido de la api
-      this.dialog = false;
-      // logica para deshacer cambios
-    },
   },
   async beforeMount() {
     try {

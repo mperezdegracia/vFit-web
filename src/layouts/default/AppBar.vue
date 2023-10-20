@@ -75,7 +75,7 @@
     </v-col>
     <v-col align="end" justify="end" v-else>
       <v-row align="end" justify="end">
-        <div class="d-none d-sm-flex">
+        <div class="d-none d-md-flex">
           <!-- Navigation Buttons -->
           <v-btn
             color="black"
