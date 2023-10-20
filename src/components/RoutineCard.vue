@@ -3,7 +3,7 @@
     :loading="loading"
     class="mx-auto text-left rounded-lg my-2"
     elevation="4"
-    width="250"
+    width="240"
     max-height="400"
     :border="true"
   >

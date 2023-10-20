@@ -4,7 +4,15 @@
       <v-col v-if="routines.length == 0" align="center">
         <v-img class="rounded" src="/empty.svg" height="250"> </v-img>
       </v-col>
-      <v-col v-for="(routine, index) in routines" :key="index" align="center">
+      <v-col
+        sm="6"
+        md="4"
+        lg="3"
+        v-for="(routine, index) in routines"
+        :key="index"
+        align="start"
+        justify="start"
+      >
         <RoutineCard
           class="pa-2"
           :routine="routine"

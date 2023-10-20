@@ -21,9 +21,13 @@
             <v-img class="rounded" src="/empty.svg" height="250"> </v-img>
           </v-col>
           <v-col
+            sm="6"
+            md="4"
+            lg="3"
             v-for="(exercise, index) in exercises"
             :key="index"
-            align="center"
+            align="start"
+            justify="start"
           >
             <ExerciseCard
               class="pa-2 elevation-4"
