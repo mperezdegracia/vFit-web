@@ -8,7 +8,7 @@
       <h1 class="font-weight-medium text-primary text-center texto">
         Favoritas
       </h1>
-      <v-divider class="my-1"></v-divider>
+      <v-divider class="mb-4 mx-6"></v-divider>
       <RoutineGrid :routines="routines" :getAllRoutines="getAllFavorites" />
     </v-col>
   </v-row>

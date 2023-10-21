@@ -9,7 +9,7 @@
         Mis Rutinas
       </h1>
 
-      <v-divider class="my-1"></v-divider>
+      <v-divider class="mb-4 mx-6"></v-divider>
       <div class="d-flex mr-5 mt-3 mb-0">
         <v-spacer></v-spacer>
         <v-btn

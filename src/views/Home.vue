@@ -158,7 +158,7 @@
               Todas las rutinas
             </h1>
           </v-col>
-          <v-divider class="my-1"></v-divider>
+          <v-divider class="mb-4 mx-6"></v-divider>
         </v-row>
         <RoutineGrid :routines="routines" :getAllRoutines="getRoutinesSearch" />
       </div>

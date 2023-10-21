@@ -1,7 +1,7 @@
 <template>
   <v-card
     :loading="loading"
-    class="mx-auto text-left bg-grey-lighten-4"
+    class="mx-auto text-left rounded-lg"
     min-width="240"
     max-width="350"
     max-height="400"

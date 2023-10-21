@@ -22,7 +22,7 @@
                 justify="start"
               >
                 <ExerciseCard
-                  class="pa-2"
+                  class="pa-2 bg-contrast"
                   :exercise="exercise"
                   :addExercise="addExercise"
                 />

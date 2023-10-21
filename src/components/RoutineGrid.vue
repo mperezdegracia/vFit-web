@@ -24,13 +24,11 @@
 </template>
 
 <script>
+import { useFavoriteStore } from "@/stores/FavoriteStore";
 import RoutineCard from "./RoutineCard.vue";
+import { mapActions } from "pinia";
 
 export default {
-  name: "RoutineGrid",
-  components: {
-    RoutineCard,
-  },
   props: {
     routines: {
       type: Array,
@@ -39,6 +37,21 @@ export default {
     getAllRoutines: {
       required: true,
     },
+  },
+  methods: {
+    ...mapActions(useFavoriteStore, {
+      $getAllFavorites: "getAll",
+    }),
+  },
+  async beforeMount() {
+    try {
+      await this.$getAllFavorites();
+    } catch (e) {
+      console.error(e);
+    }
+  },
+  components: {
+    RoutineCard,
   },
 };
 </script>

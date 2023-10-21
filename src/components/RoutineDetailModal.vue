@@ -8,10 +8,8 @@
             {{ routine.name }}
             <v-spacer></v-spacer>
             <v-btn
-              :icon="
-                routine.metadata?.liked ? 'mdi-heart' : 'mdi-heart-outline'
-              "
-              :color="routine.metadata?.liked ? 'pink' : 'grey'"
+              :icon="liked ? 'mdi-heart' : 'mdi-heart-outline'"
+              :color="liked ? 'pink' : 'grey'"
               variant="tonal"
               @click="toggleFavorite()"
             ></v-btn>
@@ -107,13 +105,14 @@
 import { useRoutineStore } from "@/stores/RoutineStore";
 import { useFavoriteStore } from "@/stores/FavoriteStore";
 import DeleteModal from "./DeleteModal.vue";
-import { mapActions } from "pinia";
+import { mapActions, mapState } from "pinia";
 import { useSecurityStore } from "@/stores/SecurityStore";
 
 export default {
   data: () => ({
     dialog: false,
     canEdit: false,
+    liked: false,
   }),
   props: {
     routine: {
@@ -122,6 +121,11 @@ export default {
     getAllRoutines: {
       required: true,
     },
+  },
+  computed: {
+    ...mapState(useFavoriteStore, {
+      $findFavorite: "findIndex",
+    }),
   },
   methods: {
     ...mapActions(useSecurityStore, {
@@ -137,9 +141,10 @@ export default {
 
     async toggleFavorite() {
       try {
-        if (this.routine.metadata?.liked)
-          await this.$removeFavorite(this.routine);
+        if (this.liked) await this.$removeFavorite(this.routine);
         else await this.$addFavorite(this.routine);
+        this.liked = !this.liked;
+        this.closeAndGetAllRoutines();
       } catch (e) {
         console.error(e);
       }
@@ -158,6 +163,7 @@ export default {
     try {
       const user = await this.$getCurrentUser();
       this.canEdit = this.routine.user.id == user.id;
+      this.liked = this.$findFavorite(this.routine) >= 0;
     } catch (e) {
       console.error(e);
     }

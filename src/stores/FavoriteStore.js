@@ -29,28 +29,12 @@ export const useFavoriteStore = defineStore("favorite", {
     },
 
     async create(routine) {
-      try {
-        routine.metadata = { liked: true };
-        const routineStore = useRoutineStore();
-        await routineStore.modify(routine);
-      } catch (e) {
-        console.error(e);
-      }
-
       const result = await FavoriteApi.add(routine);
       if (!this.findIndex(result)) this.push(result);
       return result;
     },
 
     async delete(routine) {
-      try {
-        routine.metadata.liked = false;
-        const routineStore = useRoutineStore();
-        await routineStore.modify(routine);
-      } catch (e) {
-        console.error(e);
-      }
-
       await FavoriteApi.delete(routine.id);
       const index = this.findIndex(routine);
       if (index >= 0) this.splice(index);

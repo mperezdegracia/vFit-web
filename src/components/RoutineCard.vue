@@ -1,7 +1,7 @@
 <template>
   <v-card
     :loading="loading"
-    class="mx-auto text-left rounded-lg my-2"
+    class="mx-auto text-left rounded-lg"
     elevation="4"
     min-width="240"
     max-width="350"
@@ -70,7 +70,6 @@ import RoutineDetailModal from "./RoutineDetailModal.vue";
 export default {
   data: () => ({
     loading: false,
-    show: true,
     difficulty: null,
     difficulties: ["rookie", "beginner", "intermediate", "advanced", "expert"],
   }),
