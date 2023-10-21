@@ -30,10 +30,10 @@
 <script>
 import SideBar from "@/components/SideBar.vue";
 import { mapActions } from "pinia";
-import { useRoutineStore } from "@/stores/RoutineStore";
 import { useCycleStore } from "@/stores/CycleStore";
 import { useCycleExerciseStore } from "@/stores/CycleExerciseStore";
 import RoutineGrid from "@/components/RoutineGrid.vue";
+import { useRoutineStore } from "@/stores/RoutineStore";
 
 export default {
   data: () => ({
@@ -41,7 +41,7 @@ export default {
   }),
   methods: {
     ...mapActions(useRoutineStore, {
-      $getAllRoutines: "getAll",
+      $getMyRoutines: "getMyRoutines",
     }),
     ...mapActions(useCycleStore, {
       $getAllCycles: "getAll",
@@ -52,7 +52,7 @@ export default {
 
     async getAllRoutines() {
       try {
-        const result = await this.$getAllRoutines();
+        const result = await this.$getMyRoutines();
         this.routines = result.content;
 
         await Promise.all(

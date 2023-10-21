@@ -2,8 +2,7 @@
   <v-row>
     <v-col cols="12" md="2">
       <SideBar />
-      <br />
-      <v-card class="rounded-lg elevation-6">
+      <v-card class="rounded-lg elevation-6 mt-4" v-if="searching">
         <v-card-item align="center" justify="center">
           <v-card-title
             >Filtros
@@ -18,8 +17,8 @@
             class="ma-1"
             v-for="difFilter in difFilters"
             :key="difFilter.value"
-            :class="{ 'bg-primary': selectedDifFilter === difFilter.value }"
-            @click="selectDifFilter(difFilter)"
+            :class="{ 'bg-primary': difficultyFilter === difFilter.value }"
+            @click="filterByDifficulty(difFilter)"
           >
             {{ difFilter.text }}
           </v-chip>
@@ -31,8 +30,8 @@
             class="ma-1"
             v-for="ratFilter in ratFilters"
             :key="ratFilter.value"
-            :class="{ 'bg-primary': selectedRatFilter === ratFilter.value }"
-            @click="selectRatFilter(ratFilter)"
+            :class="{ 'bg-primary': scoreFilter === ratFilter.value }"
+            @click="filterByScore(ratFilter)"
           >
             {{ ratFilter.text }}
           </v-chip>
@@ -49,7 +48,7 @@
 
       <v-sheet class="bg-contrast mt-5" align="center" justify="center">
         <v-form validate-on="submit lazy" @submit.prevent="submit">
-          <v-responsive max-width="800" class="pa-3">
+          <v-responsive max-width="700" class="pa-3">
             <v-text-field
               v-model="search"
               label="Buscar..."
@@ -64,55 +63,74 @@
                   icon="mdi-magnify"
                   :loading="searchLoading"
                 />
-                <v-menu>
-                  <template v-slot:activator="{ props: menu }">
-                    <v-tooltip location="top">
-                      <template v-slot:activator="{ props: tooltip }">
-                        <v-btn
-                          class="ml-4"
-                          color="primary"
-                          icon="mdi-order-bool-descending"
-                          v-bind="mergeProps(menu, tooltip)"
-                          :loading="orderLoading"
-                        >
-                        </v-btn>
-                      </template>
-                      <span>Ordenar por</span>
-                    </v-tooltip>
-                  </template>
+                <div v-if="searching">
+                  <v-menu>
+                    <template v-slot:activator="{ props: menu }">
+                      <v-tooltip location="top">
+                        <template v-slot:activator="{ props: tooltip }">
+                          <v-btn
+                            class="ml-4"
+                            color="primary"
+                            icon="mdi-order-bool-descending"
+                            v-bind="mergeProps(menu, tooltip)"
+                            :loading="orderLoading"
+                          >
+                          </v-btn>
+                        </template>
+                        <span>Ordenar por</span>
+                      </v-tooltip>
+                    </template>
 
-                  <v-list>
-                    <v-list-item
-                      v-for="(item, index) in items"
-                      :key="index"
-                      @click="orderBy(item)"
-                    >
-                      <v-list-item-title>{{ item.title }}</v-list-item-title>
-                    </v-list-item>
-                  </v-list>
-                </v-menu>
+                    <v-list>
+                      <v-list-item
+                        v-for="(item, index) in orderByItems"
+                        :key="index"
+                        @click="orderBy(item)"
+                        :disabled="item.id == orderByCriteria"
+                      >
+                        <v-list-item-title>
+                          <v-icon
+                            :icon="
+                              item.dir == 'asc'
+                                ? 'mdi-menu-up'
+                                : 'mdi-menu-down'
+                            "
+                            class="mr-2"
+                          ></v-icon>
+                          {{ item.title }}
+                        </v-list-item-title>
+                      </v-list-item>
+                    </v-list>
+                  </v-menu>
+                  <v-btn
+                    icon="mdi-delete-sweep"
+                    color="red"
+                    class="ml-4"
+                    @click="clearSearch()"
+                  ></v-btn>
+                </div>
               </template>
             </v-text-field>
           </v-responsive>
         </v-form>
       </v-sheet>
 
-      <div v-if="searchText.length == 0 && searchResults.length == 0">
-        <v-row align="center" justify="center" class="mb-10">
-          <v-col md="3" sm="6" align="center" justify="center">
+      <div v-if="!searching">
+        <v-row align="center" justify="center">
+          <v-col md="4" sm="6" align="center" justify="center">
             <v-card class="rounded-xl elevation-4 ma-4 pb-3" to="/my-routines">
               <v-img :width="250" :height="250" cover src="/home0.svg" />
               <p class="text-h5">¡Ejecute una rutina!</p>
             </v-card>
           </v-col>
-          <v-col md="3" sm="6" align="center" justify="center">
+          <v-col md="4" sm="6" align="center" justify="center">
             <v-card class="rounded-xl elevation-4 ma-4 pb-3" to="/exercises">
               <v-img :width="250" :height="250" cover src="/home1.svg" />
               <p class="text-h5">¡Crea un ejercicio!</p>
             </v-card>
           </v-col>
 
-          <v-col md="3" sm="6" align="center" justify="center">
+          <v-col md="4" sm="6" align="center" justify="center">
             <v-card
               class="rounded-xl elevation-4 ma-4 pb-3"
               to="/routine/create"
@@ -142,10 +160,7 @@
           </v-col>
           <v-divider class="my-1"></v-divider>
         </v-row>
-        <RoutineGrid
-          :routines="searchResults"
-          :getAllRoutines="getRoutinesSearch"
-        />
+        <RoutineGrid :routines="routines" :getAllRoutines="getRoutinesSearch" />
       </div>
     </v-col>
   </v-row>
@@ -158,29 +173,29 @@ import SideBar from "@/components/SideBar.vue";
 import { mergeProps } from "vue";
 import { useRoutineStore } from "@/stores/RoutineStore";
 import { mapActions } from "pinia";
+import { useCycleStore } from "@/stores/CycleStore";
+import { useCycleExerciseStore } from "@/stores/CycleExerciseStore";
 
 export default {
   data: () => ({
     searchLoading: false,
     orderLoading: false,
-    filterLoading: false,
-    items: [
-      { title: "Fecha de creación - ascendiente", orderBy: "date", dir: "asc" },
+    searching: false,
+
+    orderByItems: [
+      { id: 0, title: "Fecha de creación", orderBy: "date", dir: "asc" },
       {
-        title: "Fecha de creación - descendiente",
+        id: 1,
+        title: "Fecha de creación",
         orderBy: "date",
         dir: "desc",
       },
 
-      { title: "Puntuación - ascendiente", orderBy: "score", dir: "asc" },
-      { title: "Puntuación - descendiente", orderBy: "score", dir: "desc" },
+      { id: 2, title: "Puntuación", orderBy: "score", dir: "asc" },
+      { id: 3, title: "Puntuación", orderBy: "score", dir: "desc" },
 
-      { title: "Dificultad - ascendiente", orderBy: "difficulty", dir: "asc" },
-      {
-        title: "Dificultad - descendiente",
-        orderBy: "difficulty",
-        dir: "desc",
-      },
+      { id: 4, title: "Dificultad", orderBy: "difficulty", dir: "asc" },
+      { id: 5, title: "Dificultad", orderBy: "difficulty", dir: "desc" },
     ],
     difFilters: [
       { text: "Todas", value: null },
@@ -202,10 +217,12 @@ export default {
 
     search: "",
     searchText: "",
-    searchResults: [],
-    selectedDifFilter: null,
-    selectedRatFilter: null,
+    orderByCriteria: 0,
+    difficultyFilter: null,
+    scoreFilter: null,
     data: {},
+
+    routines: [],
 
     searchRules: [
       (value) => {
@@ -219,16 +236,53 @@ export default {
     ...mapActions(useRoutineStore, {
       $getAllRoutines: "getAll",
     }),
+    ...mapActions(useCycleStore, {
+      $getAllCycles: "getAll",
+    }),
+    ...mapActions(useCycleExerciseStore, {
+      $getAllExercises: "getAll",
+    }),
 
     mergeProps,
 
+    clearSearch() {
+      this.searching = false;
+      this.searchText = this.search = "";
+      this.orderByCriteria = 0;
+      this.difficultyFilter = null;
+      this.scoreFilter = null;
+    },
+
     async getRoutinesSearch() {
       try {
+        this.searching = true;
         this.data.search = this.search;
         if (this.search.length == 0) delete this.data["search"];
         const result = await this.$getAllRoutines(this.data);
-        this.searchResults = result.content;
+        this.routines = result.content;
         this.searchText = this.search;
+
+        await Promise.all(
+          this.routines.map(async (routine) => {
+            try {
+              const result = await this.$getAllCycles(routine.id);
+              routine.cycles = result.content;
+
+              await Promise.all(
+                routine.cycles.map(async (cycle) => {
+                  try {
+                    const result = await this.$getAllExercises(cycle.id);
+                    cycle.exercises = result.content;
+                  } catch (e) {
+                    console.error(e);
+                  }
+                })
+              );
+            } catch (e) {
+              console.error(e);
+            }
+          })
+        );
       } catch (e) {
         console.error(e);
       }
@@ -248,6 +302,7 @@ export default {
       this.orderLoading = true;
       this.data.orderBy = item.orderBy;
       this.data.direction = item.dir;
+      this.orderByCriteria = item.id;
 
       if (item.orderBy == null) {
         delete this.data["orderBy"];
@@ -255,30 +310,21 @@ export default {
       }
 
       await this.getRoutinesSearch();
-
       this.orderLoading = false;
     },
 
-    async selectDifFilter(item) {
-      this.filterLoading = true;
-      this.selectedDifFilter = item.value;
+    async filterByDifficulty(item) {
+      this.difficultyFilter = item.value;
       this.data.difficulty = item.value;
       if (item.value == null) delete this.data["difficulty"];
-
       await this.getRoutinesSearch();
-
-      this.filterLoading = false;
     },
 
-    async selectRatFilter(item) {
-      this.filterLoading = true;
-      this.selectedRatFilter = item.value;
+    async filterByScore(item) {
+      this.scoreFilter = item.value;
       this.data.score = item.value;
       if (item.value == null) delete this.data["score"];
-
       await this.getRoutinesSearch();
-
-      this.filterLoading = false;
     },
   },
 

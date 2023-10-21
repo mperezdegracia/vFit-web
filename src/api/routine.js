@@ -37,10 +37,11 @@ export class RoutineApi {
 }
 
 export class Routine {
-  constructor(name, detail, isPublic, difficulty) {
+  constructor(name, detail, isPublic, difficulty, metadata) {
     this.name = name;
     this.detail = detail;
     this.isPublic = isPublic;
     this.difficulty = difficulty;
+    this.metadata = metadata;
   }
 }

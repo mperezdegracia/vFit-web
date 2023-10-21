@@ -5,7 +5,7 @@
       <v-card max-width="800" min-height="400" class="rounded-lg">
         <v-card-title class="text-h5 text-primary mt-4 ml-4">
           <div class="d-flex align-items-center item">
-            Detalles de la rutina
+            {{ routine.name }}
             <v-spacer></v-spacer>
             <v-btn
               :icon="
@@ -17,6 +17,11 @@
             ></v-btn>
           </div>
         </v-card-title>
+
+        <v-card-subtitle class="text-center">
+          {{ routine.detail }}
+        </v-card-subtitle>
+
         <v-card-text>
           <v-row>
             <v-col
@@ -62,7 +67,7 @@
         <v-card-actions>
           <v-container>
             <v-row class="pt-4 pb-2" align="end">
-              <v-col cols="12" sm="4" class="py-1">
+              <v-col v-if="canEdit" cols="12" sm="4" class="py-1">
                 <v-btn
                   :to="`/routine/${routine.id}`"
                   variant="tonal"
@@ -72,7 +77,7 @@
                   >Editar</v-btn
                 ></v-col
               >
-              <v-col cols="12" sm="4" class="py-1">
+              <v-col v-if="canEdit" cols="12" sm="4" class="py-1">
                 <DeleteModal
                   block
                   :object="routine"
@@ -80,7 +85,7 @@
                   :postDeleteAction="closeAndGetAllRoutines"
                 />
               </v-col>
-              <v-col cols="12" sm="4" class="py-1">
+              <v-col class="py-1">
                 <v-btn
                   variant="tonal"
                   color="black"
@@ -103,10 +108,12 @@ import { useRoutineStore } from "@/stores/RoutineStore";
 import { useFavoriteStore } from "@/stores/FavoriteStore";
 import DeleteModal from "./DeleteModal.vue";
 import { mapActions } from "pinia";
+import { useSecurityStore } from "@/stores/SecurityStore";
 
 export default {
   data: () => ({
     dialog: false,
+    canEdit: false,
   }),
   props: {
     routine: {
@@ -117,6 +124,9 @@ export default {
     },
   },
   methods: {
+    ...mapActions(useSecurityStore, {
+      $getCurrentUser: "getCurrentUser",
+    }),
     ...mapActions(useRoutineStore, {
       $deleteRoutine: "delete",
     }),
@@ -143,6 +153,14 @@ export default {
         console.error(e);
       }
     },
+  },
+  async beforeMount() {
+    try {
+      const user = await this.$getCurrentUser();
+      this.canEdit = this.routine.user.id == user.id;
+    } catch (e) {
+      console.error(e);
+    }
   },
   components: {
     DeleteModal,

@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import { RoutineApi } from "@/api/routine";
+import { useSecurityStore } from "./SecurityStore";
 
 export const useRoutineStore = defineStore("routine", {
   state: () => ({ items: [] }),
@@ -57,7 +58,14 @@ export const useRoutineStore = defineStore("routine", {
 
     async getAll(params, controller) {
       const result = await RoutineApi.getAll(params, controller);
+      this.replaceAll(result.content);
       return result;
+    },
+
+    async getMyRoutines() {
+      const securityStore = useSecurityStore();
+      const user = await securityStore.getCurrentUser();
+      return await this.getAll({ userId: user.id });
     },
   },
 });

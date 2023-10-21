@@ -21,7 +21,7 @@
             <v-img class="rounded" src="/empty.svg" height="250"> </v-img>
           </v-col>
           <v-col
-            sm="6"
+            cols="6"
             md="4"
             lg="3"
             v-for="(exercise, index) in exercises"
@@ -59,7 +59,7 @@ export default {
 
     async getAllExercises() {
       try {
-        const result = await this.$getAllExercises({ size: 12 });
+        const result = await this.$getAllExercises();
         this.exercises = result.content;
       } catch (e) {
         console.error(e);

@@ -67,6 +67,7 @@ export const useSecurityStore = defineStore("security", {
         await UserApi.logout();
       } finally {
         this.removeToken();
+        this.setUser(null);
         router.push("/login");
       }
     },

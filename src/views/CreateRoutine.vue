@@ -35,7 +35,6 @@
             v-model="name"
             :rules="nameRules"
             label="Nombre de la rutina"
-            required
             class="my-4"
           >
           </v-text-field>
@@ -45,6 +44,14 @@
             :counter="200"
             label="Detalles"
           ></v-textarea>
+          <v-text-field
+            v-model="image"
+            :rules="maxLength255Rule"
+            label="URL a imágen"
+            class="my-4"
+            :counter="255"
+          >
+          </v-text-field>
 
           <div class="mt-4">
             <div class="text-caption">Selecciona la dificultad esperada</div>
@@ -238,6 +245,7 @@ export default {
 
     name: "",
     detail: "",
+    image: "",
     difficulty: 0,
     difficultyLabels: {
       0: "Muy fácil",
@@ -295,9 +303,16 @@ export default {
         return "Este campo es obligatorio.";
       },
     ],
+    maxLength255Rule: [
+      (value) => {
+        if (value?.length <= 255) return true;
+        return "El campo tiene que tener menos de 255 caracteres.";
+      },
+    ],
 
     cycles: [],
-    toDeleteCyles: [],
+    toModifyCycles: [],
+    toDeleteCycles: [],
     toDeleteCycleExercise: [],
   }),
   methods: {
@@ -319,6 +334,7 @@ export default {
     ...mapActions(useCycleExerciseStore, {
       $getAllExercises: "getAll",
       $createCycleExercise: "create",
+      $modifyCycleExercise: "modify",
       $deleteCycleExercise: "delete",
     }),
 
@@ -342,7 +358,7 @@ export default {
     deleteCycle(index) {
       const cycle = this.cycles.splice(index, 1);
       if (this.$route.params.id && cycle[0].id)
-        this.toDeleteCyles.push(cycle[0]);
+        this.toDeleteCycles.push(cycle[0]);
     },
 
     addCycleExercise(cycleIdx, exercise, duration, reps) {
@@ -374,7 +390,8 @@ export default {
           this.name,
           this.detail,
           true,
-          this.difficultyEnum[this.difficulty]
+          this.difficultyEnum[this.difficulty],
+          { image: this.image }
         );
         if (!this.$route.params.id) {
           routine = await this.$createRoutine(routine);
@@ -395,7 +412,7 @@ export default {
           );
 
           await Promise.all(
-            this.toDeleteCyles.map(async (cData) => {
+            this.toDeleteCycles.map(async (cData) => {
               if (!cData.id) return;
               try {
                 await this.$deleteCycle(this.$route.params.id, cData);
@@ -410,7 +427,6 @@ export default {
           this.cycles.map(async (cData, cIdx) => {
             try {
               let cycle = cData;
-              console.log(cycle);
               if (!cData.id) {
                 cycle = await this.$createCycle(
                   routine.id,
@@ -430,15 +446,20 @@ export default {
               await Promise.all(
                 cData.exercises.map(async (eData, eIdx) => {
                   try {
-                    await this.$createCycleExercise(
-                      cycle.id,
-                      eData.exercise.id,
-                      new CycleExercise(
-                        eIdx + 1,
-                        parseInt(eData.duration),
-                        parseInt(eData.reps)
-                      )
-                    );
+                    if (!eData.order) {
+                      await this.$createCycleExercise(
+                        cycle.id,
+                        eData.exercise.id,
+                        new CycleExercise(
+                          eIdx + 1,
+                          parseInt(eData.duration),
+                          parseInt(eData.reps)
+                        )
+                      );
+                    } else {
+                      eData.order = eIdx + 1;
+                      await this.$modifyCycleExercise(cycle.id, eData);
+                    }
                   } catch (e) {
                     this.errors.push(e);
                   }
@@ -449,7 +470,6 @@ export default {
             }
           })
         );
-
         if (this.errors.length == 0) router.push("/my-routines");
       } catch (e) {
         this.errors.push(e);
@@ -463,6 +483,7 @@ export default {
       let result = await this.$getRoutine(this.$route.params);
       this.name = result.name;
       this.detail = result.detail;
+      this.image = result.metadata?.image;
       this.difficulty = this.difficultyEnum.findIndex(
         (dif) => result.difficulty === dif
       );
