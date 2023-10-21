@@ -22,7 +22,7 @@
         </v-btn>
       </div>
 
-      <RoutineGrid :routines="routines" :getAllRoutines="getAllRoutines" />
+      <RoutineGrid :result="result" :getAllRoutines="getAllRoutines" />
     </v-col>
   </v-row>
 </template>
@@ -37,7 +37,7 @@ import { useRoutineStore } from "@/stores/RoutineStore";
 
 export default {
   data: () => ({
-    routines: [],
+    result: { content: [] },
   }),
   methods: {
     ...mapActions(useRoutineStore, {
@@ -50,13 +50,13 @@ export default {
       $getAllExercises: "getAll",
     }),
 
-    async getAllRoutines() {
+    async getAllRoutines(params) {
       try {
-        const result = await this.$getMyRoutines();
-        this.routines = result.content;
+        const result = await this.$getMyRoutines(params);
+        this.result = result;
 
         await Promise.all(
-          this.routines.map(async (routine) => {
+          this.result.content.map(async (routine) => {
             try {
               const result = await this.$getAllCycles(routine.id);
               routine.cycles = result.content;

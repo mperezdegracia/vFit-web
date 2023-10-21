@@ -9,7 +9,7 @@
         Favoritas
       </h1>
       <v-divider class="mb-4 mx-6"></v-divider>
-      <RoutineGrid :routines="routines" :getAllRoutines="getAllFavorites" />
+      <RoutineGrid :result="result" :getAllRoutines="getAllFavorites" />
     </v-col>
   </v-row>
 </template>
@@ -24,7 +24,7 @@ import SideBar from "@/components/SideBar.vue";
 
 export default {
   data: () => ({
-    routines: [],
+    result: { content: [] },
   }),
   methods: {
     ...mapActions(useFavoriteStore, {
@@ -37,13 +37,13 @@ export default {
       $getAllExercises: "getAll",
     }),
 
-    async getAllFavorites() {
+    async getAllFavorites(params) {
       try {
-        const result = await this.$getAllFavorites();
-        this.routines = result.content;
+        const result = await this.$getAllFavorites(params);
+        this.result = result;
 
         await Promise.all(
-          this.routines.map(async (routine) => {
+          this.result.content.map(async (routine) => {
             try {
               const result = await this.$getAllCycles(routine.id);
               routine.cycles = result.content;
