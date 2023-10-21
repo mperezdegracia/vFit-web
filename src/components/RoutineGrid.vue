@@ -1,14 +1,14 @@
 <template>
   <v-container fluid>
     <v-row>
-      <v-col v-if="routines.length == 0" align="center">
+      <v-col v-if="result.content.length == 0" align="center">
         <v-img class="rounded" src="/empty.svg" height="250"> </v-img>
       </v-col>
       <v-col
         sm="6"
         md="4"
         lg="3"
-        v-for="(routine, index) in routines"
+        v-for="(routine, index) in result.content"
         :key="index"
         align="start"
         justify="start"
@@ -18,6 +18,22 @@
           :routine="routine"
           :getAllRoutines="getAllRoutines"
         />
+      </v-col>
+    </v-row>
+    <v-row class="mt-8">
+      <v-col justify="center" align="center">
+        <v-btn
+          icon="mdi-chevron-left"
+          :disabled="result.page == 0"
+          @click="getAllRoutines({ page: result.page - 1 })"
+          class="mr-1"
+        ></v-btn>
+        <v-btn
+          icon="mdi-chevron-right"
+          :disabled="result.isLastPage"
+          @click="getAllRoutines({ page: result.page + 1 })"
+          class="ml-1"
+        ></v-btn>
       </v-col>
     </v-row>
   </v-container>
@@ -30,8 +46,7 @@ import { mapActions } from "pinia";
 
 export default {
   props: {
-    routines: {
-      type: Array,
+    result: {
       required: true,
     },
     getAllRoutines: {
@@ -42,13 +57,20 @@ export default {
     ...mapActions(useFavoriteStore, {
       $getAllFavorites: "getAll",
     }),
+
+    async getAllFavorites() {
+      try {
+        await this.$getAllFavorites();
+      } catch (e) {
+        console.error(e);
+      }
+    },
   },
   async beforeMount() {
-    try {
-      await this.$getAllFavorites();
-    } catch (e) {
-      console.error(e);
-    }
+    await this.getAllFavorites();
+  },
+  async updated() {
+    await this.getAllFavorites();
   },
   components: {
     RoutineCard,

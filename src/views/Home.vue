@@ -117,22 +117,22 @@
 
       <div v-if="!searching">
         <v-row align="center" justify="center">
-          <v-col md="4" sm="6" align="center" justify="center">
-            <v-card class="rounded-xl elevation-4 ma-4 pb-3" to="/my-routines">
+          <v-col lg="3" md="4" sm="6" align="center" justify="center">
+            <v-card class="rounded-xl elevation-4 ma-2 pb-3" to="/my-routines">
               <v-img :width="250" :height="250" cover src="/home0.svg" />
-              <p class="text-h5">¡Ejecute una rutina!</p>
+              <p class="text-h5">¡Mire sus rutinas!</p>
             </v-card>
           </v-col>
-          <v-col md="4" sm="6" align="center" justify="center">
-            <v-card class="rounded-xl elevation-4 ma-4 pb-3" to="/exercises">
+          <v-col lg="3" md="4" sm="6" align="center" justify="center">
+            <v-card class="rounded-xl elevation-4 ma-2 pb-3" to="/exercises">
               <v-img :width="250" :height="250" cover src="/home1.svg" />
-              <p class="text-h5">¡Crea un ejercicio!</p>
+              <p class="text-h5">¡Mire sus ejercicios!</p>
             </v-card>
           </v-col>
 
-          <v-col md="4" sm="6" align="center" justify="center">
+          <v-col lg="3" md="4" sm="6" align="center" justify="center">
             <v-card
-              class="rounded-xl elevation-4 ma-4 pb-3"
+              class="rounded-xl elevation-4 ma-2 pb-3"
               to="/routine/create"
             >
               <v-img :width="250" :height="250" cover src="/home2.svg" />
@@ -160,7 +160,7 @@
           </v-col>
           <v-divider class="mb-4 mx-6"></v-divider>
         </v-row>
-        <RoutineGrid :routines="routines" :getAllRoutines="getRoutinesSearch" />
+        <RoutineGrid :result="result" :getAllRoutines="getRoutinesSearch" />
       </div>
     </v-col>
   </v-row>
@@ -222,7 +222,7 @@ export default {
     scoreFilter: null,
     data: {},
 
-    routines: [],
+    result: { content: [] },
 
     searchRules: [
       (value) => {
@@ -253,17 +253,20 @@ export default {
       this.scoreFilter = null;
     },
 
-    async getRoutinesSearch() {
+    async getRoutinesSearch(params) {
       try {
         this.searching = true;
         this.data.search = this.search;
         if (this.search.length == 0) delete this.data["search"];
+        if (params) this.data = { ...this.data, ...params };
+
         const result = await this.$getAllRoutines(this.data);
-        this.routines = result.content;
+        this.result = result;
+
         this.searchText = this.search;
 
         await Promise.all(
-          this.routines.map(async (routine) => {
+          this.result.content.map(async (routine) => {
             try {
               const result = await this.$getAllCycles(routine.id);
               routine.cycles = result.content;

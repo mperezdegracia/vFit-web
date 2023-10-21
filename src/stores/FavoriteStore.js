@@ -40,8 +40,11 @@ export const useFavoriteStore = defineStore("favorite", {
       if (index >= 0) this.splice(index);
     },
 
-    async getAll(controller) {
-      const result = await FavoriteApi.getAll(controller);
+    async getAll(params, controller) {
+      const result = await FavoriteApi.getAll(
+        { size: 12, ...params },
+        controller
+      );
       this.replaceAll(result.content);
       return result;
     },
