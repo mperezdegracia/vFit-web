@@ -9,85 +9,69 @@ const routes = [
       /* Public pages */
       {
         path: "",
-        name: "Landing",
         component: () => import("@/views/Landing.vue"),
       },
       {
         path: "about-us",
-        name: "aboutus",
         component: () => import("@/views/AboutUs.vue"),
       },
       {
         path: "contact",
-        name: "contact",
         component: () => import("@/views/Contact.vue"),
       },
       {
         path: "services",
-        name: "services",
         component: () => import("@/views/Services.vue"),
       },
       {
         path: "login",
-        name: "Login",
         component: () => import("@/views/Login.vue"),
       },
       {
         path: "register",
-        name: "Register",
         component: () => import("@/views/Register.vue"),
       },
       {
         path: "verify-email",
-        name: "Verify Email",
         component: () => import("@/views/VerifyEmail.vue"),
       },
 
       /* Private pages */
       {
         path: "home",
-        name: "Home",
         component: () => import("@/views/Home.vue"),
       },
       {
         path: "my-routines",
-        name: "Routines",
         component: () => import("@/views/Routines.vue"),
       },
       {
         path: "liked-routines",
-        name: "Liked Routines",
         component: () => import("@/views/LikedRoutines.vue"),
       },
       {
         path: "exercises",
-        name: "Exercises",
         component: () => import("@/views/Exercises.vue"),
       },
       {
         path: "routine",
-        name: "Routine",
         children: [
           {
             path: ":id",
-            name: "Edit-Routine",
             component: () => import("@/views/CreateRoutine.vue"),
           },
           {
             path: "create",
-            name: "Create-Routine",
             component: () => import("@/views/CreateRoutine.vue"),
           },
         ],
       },
       {
         path: "settings",
-        name: "Settings",
         component: () => import("@/views/Settings.vue"),
       },
       {
         path: "/:notFound",
-        name: "PathNotFound",
         component: () => import("@/views/PageNotFound.vue"),
       },
     ],

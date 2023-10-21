@@ -1,11 +1,9 @@
 <template>
   <v-app-bar color="white" app>
-    <!-- Logo/Branding -->
-
     <v-col md="2" sm="6" v-if="!$isLoggedIn">
       <router-link to="/">
         <v-img
-          src="@/assets/logo_omg.png"
+          src="@/assets/logo_appbar.png"
           alt="Logo"
           max-height="120px"
           max-width="120px"
@@ -16,7 +14,7 @@
     <v-col md="2" sm="6" v-else>
       <router-link to="/home">
         <v-img
-          src="@/assets/logo_omg.png"
+          src="@/assets/logo_appbar.png"
           alt="Logo"
           max-height="120px"
           max-width="120px"
@@ -28,7 +26,6 @@
     <v-col v-if="!$isLoggedIn">
       <v-row align="center" justify="end">
         <div class="d-none d-md-flex">
-          <!-- Navigation Buttons -->
           <v-col cols="4" align="center" justify="center">
             <v-btn
               color="black"
@@ -61,7 +58,6 @@
           </v-col>
         </div>
 
-        <!-- Login Button -->
         <v-btn
           variant="outlined"
           color="primary"
@@ -76,7 +72,6 @@
     <v-col align="end" justify="end" v-else>
       <v-row align="end" justify="end">
         <div class="d-none d-md-flex">
-          <!-- Navigation Buttons -->
           <v-btn
             color="black"
             class="mx-1"

@@ -162,7 +162,6 @@
 </template>
 
 <script>
-import LanguageDropdown from "@/components/LanguageDropdown.vue";
 import Profile from "@/components/Profile.vue";
 
 export default {
@@ -197,7 +196,6 @@ export default {
     ],
   }),
   components: {
-    LanguageDropdown,
     Profile,
   },
 };

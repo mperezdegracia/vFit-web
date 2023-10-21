@@ -7,44 +7,24 @@
 
       <v-container fluid align="center" justify="center">
         <v-row class="ma-4" align="center" justify="center">
-          <v-col>
-            <v-avatar size="150" style="align: center">
-              <img
-                src="../photos/us/alber.png"
-                height="150"
-                width="150"
-                alt="Foto del usuario"
-              />
+          <v-col align="center">
+            <v-avatar size="150" class="elevation-4">
+              <v-img src="/alber.png" height="150" cover />
             </v-avatar>
           </v-col>
-          <v-col>
-            <v-avatar size="150" style="align: center">
-              <img
-                src="../photos/us/theo.png"
-                height="150"
-                width="150"
-                alt="Foto del usuario"
-              />
+          <v-col align="center">
+            <v-avatar size="150" class="elevation-4">
+              <v-img src="/theo.png" height="150" cover />
             </v-avatar>
           </v-col>
-          <v-col>
-            <v-avatar size="150" style="align: center">
-              <img
-                src="../photos/us/paki.png"
-                height="150"
-                width="150"
-                alt="Foto del usuario"
-              />
+          <v-col align="center">
+            <v-avatar size="150" class="elevation-4">
+              <v-img src="/paki.png" height="150" cover />
             </v-avatar>
           </v-col>
-          <v-col>
-            <v-avatar size="150" style="align: center">
-              <img
-                src="../photos/us/mate.png"
-                height="150"
-                width="150"
-                alt="Foto del usuario"
-              />
+          <v-col align="center">
+            <v-avatar size="150" class="elevation-4">
+              <v-img src="/mate.png" height="150" cover />
             </v-avatar>
           </v-col>
         </v-row>
