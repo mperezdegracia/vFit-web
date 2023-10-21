@@ -2,8 +2,9 @@ import { Api } from "./api";
 
 export class CycleExerciseApi {
   static getUrl(cycleId, slug) {
-    return `${Api.baseUrl}/cycles/${cycleId}/exercises${slug ? `/${slug}` : ""
-      }`;
+    return `${Api.baseUrl}/cycles/${cycleId}/exercises${
+      slug ? `/${slug}` : ""
+    }`;
   }
 
   static async add(cycleId, exerciseId, cycleExercise, controller) {
@@ -11,7 +12,7 @@ export class CycleExerciseApi {
       CycleExerciseApi.getUrl(cycleId, exerciseId),
       true,
       cycleExercise,
-      controller,
+      controller
     );
   }
 
@@ -20,7 +21,7 @@ export class CycleExerciseApi {
       CycleExerciseApi.getUrl(cycleId, cycleExercise.exercise.id),
       true,
       cycleExercise,
-      controller,
+      controller
     );
   }
 
@@ -28,7 +29,7 @@ export class CycleExerciseApi {
     return await Api.delete(
       CycleExerciseApi.getUrl(cycleId, id),
       true,
-      controller,
+      controller
     );
   }
 
@@ -36,7 +37,7 @@ export class CycleExerciseApi {
     return await Api.get(
       CycleExerciseApi.getUrl(cycleId, id),
       true,
-      controller,
+      controller
     );
   }
 

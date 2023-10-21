@@ -1,22 +1,43 @@
 <template>
-  <v-card :loading="loading" class="mx-auto text-left rounded-lg" min-width="240" max-width="300" max-height="400"
-    :border="true" @click="hover=!hover">
+  <v-card
+    :loading="loading"
+    class="mx-auto text-left rounded-lg"
+    min-width="240"
+    max-width="300"
+    max-height="400"
+    :border="true"
+    @click="hover = !hover"
+  >
     <template v-slot:loader="{ isActive }">
-      <v-progress-linear :active="isActive" color="deep-purple" height="4" indeterminate></v-progress-linear>
+      <v-progress-linear
+        :active="isActive"
+        color="deep-purple"
+        height="4"
+        indeterminate
+      ></v-progress-linear>
     </template>
 
-    <v-card-item class="px-2 ">
+    <v-card-item class="px-2">
       <div class="d-flex align-center">
-
-
-
         <v-card-title>{{ exercise.name }}</v-card-title>
         <v-spacer></v-spacer>
-        <CreateExerciseModal v-if="hover" :hover="hover" label="Edit" class="mx-1" prepend-icon="mdi-pencil" :exercise="exercise" :getAllExercises="getAllExercises"
-          color="secondary" @click="dialog != dialog" />
-        <DeleteModal v-if="hover" :object="exercise" :deleteAction="$deleteExercise" :postDeleteAction="getAllExercises" />
-
-
+        <CreateExerciseModal
+          v-if="hover"
+          :hover="hover"
+          label="Edit"
+          class="mx-1"
+          prepend-icon="mdi-pencil"
+          :exercise="exercise"
+          :getAllExercises="getAllExercises"
+          color="secondary"
+          @click="dialog != dialog"
+        />
+        <DeleteModal
+          v-if="hover"
+          :object="exercise"
+          :deleteAction="$deleteExercise"
+          :postDeleteAction="getAllExercises"
+        />
       </div>
     </v-card-item>
 
@@ -27,9 +48,10 @@
     <v-card-text class="px-2">
       {{
         expand
-        ? exercise.detail
-        : `${exercise.detail.substring(0, 20)}${exercise.detail.length > 20 ? "..." : ""
-          }`
+          ? exercise.detail
+          : `${exercise.detail.substring(0, 20)}${
+              exercise.detail.length > 20 ? "..." : ""
+            }`
       }}
     </v-card-text>
 
@@ -67,7 +89,7 @@ export default {
     loading: false,
     expand: false,
     dialog: false,
-    hover: false
+    hover: false,
   }),
   props: {
     exercise: {
@@ -84,7 +106,6 @@ export default {
     ...mapActions(useExerciseStore, {
       $deleteExercise: "delete",
     }),
-
   },
   components: { DeleteModal, CreateExerciseModal },
 };

@@ -52,7 +52,7 @@ export class Api {
         },
         body: JSON.stringify(data),
       },
-      controller,
+      controller
     );
   }
 
@@ -67,7 +67,7 @@ export class Api {
         },
         body: JSON.stringify(data),
       },
-      controller,
+      controller
     );
   }
 

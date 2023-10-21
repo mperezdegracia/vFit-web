@@ -9,7 +9,7 @@
             </v-container>
 
             <v-container fluid>
-              <v-row>
+              <v-row class="my-2">
                 <v-col cols="12" md="6">
                   <h2 class="mx-4">Rutinas de entrenamiento</h2>
                   <h4 class="ma-4">
@@ -58,6 +58,15 @@
                     garantizar sus entrenamientos siguen siendo atractivos y
                     orientados a resultados.
                   </p>
+                </v-col>
+              </v-row>
+              <v-divider> </v-divider>
+
+              <v-row align="end" justify="end" class="mt-1">
+                <v-col cols="12" align="end" justify="end">
+                  <a href="https://storyset.com/health"
+                    >Health illustrations by Storyset</a
+                  >
                 </v-col>
               </v-row>
             </v-container>
