@@ -34,7 +34,7 @@ export const useCycleExerciseStore = defineStore("cycleExercise", {
         exerciseId,
         cycleExercise
       );
-      if (!this.findIndex(result)) this.push(result);
+      if (this.findIndex(result) < 0) this.push(result);
       return result;
     },
 
@@ -65,6 +65,7 @@ export const useCycleExerciseStore = defineStore("cycleExercise", {
 
     async getAll(cycleId, controller) {
       const result = await CycleExerciseApi.getAll(cycleId, controller);
+      this.replaceAll(result.content);
       return result;
     },
   },

@@ -139,6 +139,10 @@ export default {
       $removeFavorite: "delete",
     }),
 
+    checkFavorite() {
+      this.liked = this.$findFavorite(this.routine) >= 0;
+    },
+
     async toggleFavorite() {
       try {
         if (this.liked) await this.$removeFavorite(this.routine);
@@ -159,14 +163,17 @@ export default {
       }
     },
   },
-  async beforeMount() {
-    try {
-      const user = await this.$getCurrentUser();
-      this.canEdit = this.routine.user.id == user.id;
-      this.liked = this.$findFavorite(this.routine) >= 0;
-    } catch (e) {
-      console.error(e);
-    }
+  watch: {
+    async dialog(visible) {
+      if (!visible) return;
+      try {
+        const user = await this.$getCurrentUser();
+        this.canEdit = this.routine.user.id == user.id;
+        this.checkFavorite();
+      } catch (e) {
+        console.error(e);
+      }
+    },
   },
   components: {
     DeleteModal,

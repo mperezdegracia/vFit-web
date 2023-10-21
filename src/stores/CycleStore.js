@@ -29,7 +29,7 @@ export const useCycleStore = defineStore("cycle", {
 
     async create(routineId, cycle) {
       const result = await CycleApi.add(routineId, cycle);
-      if (!this.findIndex(result)) this.push(result);
+      if (this.findIndex(result) < 0) this.push(result);
       return result;
     },
 
@@ -57,6 +57,7 @@ export const useCycleStore = defineStore("cycle", {
 
     async getAll(routineId, controller) {
       const result = await CycleApi.getAll(routineId, controller);
+      this.replaceAll(result.content);
       return result;
     },
   },

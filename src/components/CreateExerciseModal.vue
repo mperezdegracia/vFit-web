@@ -188,12 +188,14 @@ export default {
       this.loading = false;
     },
   },
-  beforeMount() {
-    if (!this.exercise) return;
-    this.name = this.exercise.name;
-    this.detail = this.exercise.detail;
-    this.type = this.exercise.type;
-    this.image = this.exercise.metadata?.image || "";
+  watch: {
+    dialog(visible) {
+      if (!this.exercise || !visible) return;
+      this.name = this.exercise.name;
+      this.detail = this.exercise.detail;
+      this.type = this.exercise.type;
+      this.image = this.exercise.metadata?.image || "";
+    },
   },
 };
 </script>

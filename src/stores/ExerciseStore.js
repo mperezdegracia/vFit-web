@@ -29,7 +29,7 @@ export const useExerciseStore = defineStore("exercise", {
 
     async create(exercise) {
       const result = await ExerciseApi.add(exercise);
-      if (!this.findIndex(result)) this.push(result);
+      if (this.findIndex(result) < 0) this.push(result);
       return result;
     },
 
@@ -60,6 +60,7 @@ export const useExerciseStore = defineStore("exercise", {
         { size: 12, direction: "desc", ...params },
         controller
       );
+      this.replaceAll(result.content);
       return result;
     },
   },

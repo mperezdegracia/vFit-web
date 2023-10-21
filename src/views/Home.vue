@@ -167,7 +167,6 @@
 </template>
 
 <script>
-import RoutineScroll from "@/components/RoutineScroll.vue";
 import RoutineGrid from "@/components/RoutineGrid.vue";
 import SideBar from "@/components/SideBar.vue";
 import { mergeProps } from "vue";
@@ -333,7 +332,6 @@ export default {
 
   components: {
     SideBar,
-    RoutineScroll,
     RoutineGrid,
   },
 };

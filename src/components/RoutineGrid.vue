@@ -69,9 +69,6 @@ export default {
   async beforeMount() {
     await this.getAllFavorites();
   },
-  async updated() {
-    await this.getAllFavorites();
-  },
   components: {
     RoutineCard,
   },

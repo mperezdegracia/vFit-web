@@ -109,6 +109,9 @@ export default {
       $deleteExercise: "delete",
     }),
   },
+  updated() {
+    this.expand = false;
+  },
   components: { DeleteModal, CreateExerciseModal },
 };
 </script>

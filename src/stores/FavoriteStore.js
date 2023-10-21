@@ -1,6 +1,5 @@
 import { defineStore } from "pinia";
 import { FavoriteApi } from "@/api/favorite";
-import { useRoutineStore } from "./RoutineStore";
 
 export const useFavoriteStore = defineStore("favorite", {
   state: () => ({ items: [] }),
@@ -29,9 +28,8 @@ export const useFavoriteStore = defineStore("favorite", {
     },
 
     async create(routine) {
-      const result = await FavoriteApi.add(routine);
-      if (!this.findIndex(result)) this.push(result);
-      return result;
+      await FavoriteApi.add(routine);
+      if (this.findIndex(routine) < 0) this.push(routine);
     },
 
     async delete(routine) {
