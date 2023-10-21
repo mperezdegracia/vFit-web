@@ -2,7 +2,9 @@
   <v-card
     :loading="loading"
     class="mx-auto text-left bg-grey-lighten-4"
-    width="210"
+    min-width="240"
+    max-width="350"
+    max-height="400"
     :border="true"
     @click="expand = !expand"
   >

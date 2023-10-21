@@ -139,6 +139,7 @@
 </template>
 
 <script>
+import { User } from "@/api/user";
 import { useSecurityStore } from "@/stores/SecurityStore";
 import { mapActions } from "pinia";
 
@@ -189,24 +190,32 @@ export default {
       const results = await event;
       if (!results.valid) return;
 
-      this.user.birthdate = Math.floor(
-        new Date(this.birthdate).getTime() / 1000
-      );
-
       try {
         this.loading = true;
-        this.user = await this.$modifyUser(this.user);
+        const user = new User(
+          this.user.username,
+          this.user.email,
+          this.user.password,
+          this.user.firstName,
+          this.user.lastName,
+          this.user.gender,
+          Math.floor(new Date(this.user.birthdate).getTime() / 1000),
+          this.user.phone || "",
+          this.user.avatarUrl || ""
+        );
+        this.user = await this.$modifyUser(user);
+        this.backupUser = { ...this.user };
       } catch (e) {
         console.error(e);
+        this.reset();
       }
       this.loading = false;
       this.edit = false;
     },
 
     reset() {
-      this.user = { ...this.backupUser };
       this.edit = false;
-      // >>>>>>> c9e8f4c2699cd2c5eabe27a026d96d87057ee002
+      this.user = { ...this.backupUser };
     },
   },
   async beforeMount() {

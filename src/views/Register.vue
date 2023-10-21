@@ -68,7 +68,7 @@
               label="Genero"
               :rules="requiredRule"
               prepend-inner-icon="mdi-gender-male-female"
-              :items="['Male', 'Female', 'Other']"
+              :items="['male', 'female', 'other']"
             ></v-select>
           </v-col>
           <v-col cols="12" md="6" class="py-1">
@@ -218,7 +218,7 @@ export default {
           this.password,
           this.firstName,
           this.lastName,
-          this.gender.toLowerCase(),
+          this.gender,
           Math.floor(new Date(this.birthdate).getTime() / 1000),
           this.phone,
           this.avatarUrl

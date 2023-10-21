@@ -2,8 +2,9 @@ import { Api } from "./api";
 
 export class CycleApi {
   static getUrl(routineId, slug) {
-    return `${Api.baseUrl}/routines/${routineId}/cycles${slug ? `/${slug}` : ""
-      }`;
+    return `${Api.baseUrl}/routines/${routineId}/cycles${
+      slug ? `/${slug}` : ""
+    }`;
   }
 
   static async add(routineId, cycle, controller) {
@@ -15,7 +16,7 @@ export class CycleApi {
       CycleApi.getUrl(routineId, cycle.id),
       true,
       cycle,
-      controller,
+      controller
     );
   }
 
@@ -28,7 +29,11 @@ export class CycleApi {
   }
 
   static async getAll(routineId, controller) {
-    return await Api.get(CycleApi.getUrl(routineId), true, controller);
+    return await Api.get(
+      CycleApi.getUrl(routineId, "?orderBy=order"),
+      true,
+      controller
+    );
   }
 }
 

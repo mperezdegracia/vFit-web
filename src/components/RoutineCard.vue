@@ -3,7 +3,8 @@
     :loading="loading"
     class="mx-auto text-left rounded-lg my-2"
     elevation="4"
-    width="240"
+    min-width="240"
+    max-width="350"
     max-height="400"
     :border="true"
   >
@@ -19,6 +20,7 @@
     <v-img
       cover
       class="rounded"
+      height="150"
       :src="routine.metadata?.image || '/push_down.jpg'"
     ></v-img>
 

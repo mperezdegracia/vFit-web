@@ -21,7 +21,8 @@
             <v-img class="rounded" src="/empty.svg" height="250"> </v-img>
           </v-col>
           <v-col
-            cols="6"
+            cols="12"
+            sm="6"
             md="4"
             lg="3"
             v-for="(exercise, index) in exercises"

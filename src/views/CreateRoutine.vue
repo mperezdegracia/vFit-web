@@ -88,7 +88,7 @@
               <v-expansion-panel-title class="bg-grey-lighten-3"
                 >{{ cycle.name }} ({{ cycle.type }}) -
                 <span class="font-weight-bold ml-1"
-                  >{{ cycle.reps }} reps</span
+                  >{{ cycle.repetitions }} reps</span
                 ></v-expansion-panel-title
               >
               <v-expansion-panel-text>
@@ -115,8 +115,8 @@
                     >
                       <td>{{ exercise.exercise.name }}</td>
                       <td>
-                        <span v-if="exercise.reps"
-                          >{{ exercise.reps }} reps / </span
+                        <span v-if="exercise.repetitions"
+                          >{{ exercise.repetitions }} reps / </span
                         >{{ exercise.duration }}s
                       </td>
                       <td class="text-right">
@@ -233,7 +233,6 @@ import { Routine } from "@/api/routine";
 import { mapActions } from "pinia";
 import { useCycleExerciseStore } from "@/stores/CycleExerciseStore";
 import { useCycleStore } from "@/stores/CycleStore";
-import { useExerciseStore } from "@/stores/ExerciseStore";
 import { useRoutineStore } from "@/stores/RoutineStore";
 import { router } from "@/router";
 import AddCycleExerciseModal from "@/components/AddCycleExerciseModal.vue";
@@ -266,6 +265,9 @@ export default {
     cycleReps: "",
     cycleType: null,
     cycleDetail: "",
+
+    cycles: [],
+    backupCycles: [],
 
     nameRules: [
       (value) => {
@@ -309,11 +311,6 @@ export default {
         return "El campo tiene que tener menos de 255 caracteres.";
       },
     ],
-
-    cycles: [],
-    toModifyCycles: [],
-    toDeleteCycles: [],
-    toDeleteCycleExercise: [],
   }),
   methods: {
     ...mapActions(useRoutineStore, {
@@ -326,10 +323,6 @@ export default {
       $createCycle: "create",
       $modifyCycle: "modify",
       $deleteCycle: "delete",
-    }),
-    ...mapActions(useExerciseStore, {
-      $getExercise: "getAll",
-      $createExercise: "create",
     }),
     ...mapActions(useCycleExerciseStore, {
       $getAllExercises: "getAll",
@@ -344,37 +337,32 @@ export default {
 
       this.cycles.push({
         name: this.cycleName,
-        reps: this.cycleReps,
-        type: this.cycleType,
         detail: this.cycleDetail,
+        type: this.cycleType,
+        repetitions: this.cycleReps,
         exercises: [],
       });
+
       this.cycleName = "";
       this.cycleReps = "";
       this.cycleType = null;
       this.cycleDetail = "";
     },
 
-    deleteCycle(index) {
-      const cycle = this.cycles.splice(index, 1);
-      if (this.$route.params.id && cycle[0].id)
-        this.toDeleteCycles.push(cycle[0]);
+    deleteCycle(cycleIdx) {
+      this.cycles.splice(cycleIdx, 1);
     },
 
-    addCycleExercise(cycleIdx, exercise, duration, reps) {
+    addCycleExercise(cycleIdx, exercise, duration, repetitions) {
       this.cycles[cycleIdx].exercises.push({
         exercise,
         duration,
-        reps,
+        repetitions,
       });
     },
 
     deleteExercise(cycleIdx, exerciseIdx) {
-      const exercise = this.cycles[cycleIdx].exercises.splice(exerciseIdx, 1);
-      if (this.$route.params.id && this.cycles[cycleIdx].id) {
-        exercise[0].cycleId = this.cycles[cycleIdx].id;
-        this.toDeleteCycleExercise.push(exercise[0]);
-      }
+      this.cycles[cycleIdx].exercises.splice(exerciseIdx, 1);
     },
 
     async submit(event) {
@@ -398,87 +386,68 @@ export default {
         } else {
           routine.id = this.$route.params.id;
           routine = await this.$modifyRoutine(routine);
-        }
-
-        if (this.$route.params.id) {
-          await Promise.all(
-            this.toDeleteCycleExercise.map(async (eData) => {
-              try {
-                await this.$deleteCycleExercise(eData.cycleId, eData);
-              } catch (e) {
-                console.error(e);
-              }
-            })
-          );
 
           await Promise.all(
-            this.toDeleteCycles.map(async (cData) => {
+            this.backupCycles.map(async (cData) => {
               if (!cData.id) return;
               try {
-                await this.$deleteCycle(this.$route.params.id, cData);
+                await this.$deleteCycle(routine.id, cData);
               } catch (e) {
-                console.error(e);
+                this.errors.push(e);
               }
             })
           );
         }
-
-        await Promise.all(
-          this.cycles.map(async (cData, cIdx) => {
-            try {
-              let cycle = cData;
-              if (!cData.id) {
-                cycle = await this.$createCycle(
-                  routine.id,
-                  new Cycle(
-                    cData.name,
-                    cData.detail,
-                    cData.type,
-                    cIdx + 1,
-                    parseInt(cData.reps)
-                  )
-                );
-              } else {
-                cycle.order = cIdx + 1;
-                cycle = await this.$modifyCycle(routine.id, cycle);
-              }
-
-              await Promise.all(
-                cData.exercises.map(async (eData, eIdx) => {
-                  try {
-                    if (!eData.order) {
-                      await this.$createCycleExercise(
-                        cycle.id,
-                        eData.exercise.id,
-                        new CycleExercise(
-                          eIdx + 1,
-                          parseInt(eData.duration),
-                          parseInt(eData.reps)
-                        )
-                      );
-                    } else {
-                      eData.order = eIdx + 1;
-                      await this.$modifyCycleExercise(cycle.id, eData);
-                    }
-                  } catch (e) {
-                    this.errors.push(e);
-                  }
-                })
-              );
-            } catch (e) {
-              this.errors.push(e);
-            }
-          })
-        );
+        await this.createCycles(routine);
         if (this.errors.length == 0) router.push("/my-routines");
       } catch (e) {
         this.errors.push(e);
       }
       this.loading = false;
     },
+
+    async createCycles(routine) {
+      await Promise.all(
+        this.cycles.map(async (cData, cIdx) => {
+          try {
+            const cycle = await this.$createCycle(
+              routine.id,
+              new Cycle(
+                cData.name,
+                cData.detail,
+                cData.type,
+                cIdx + 1,
+                parseInt(cData.repetitions)
+              )
+            );
+
+            await Promise.all(
+              cData.exercises.map(async (eData, eIdx) => {
+                try {
+                  await this.$createCycleExercise(
+                    cycle.id,
+                    eData.exercise.id,
+                    new CycleExercise(
+                      eIdx + 1,
+                      parseInt(eData.duration),
+                      parseInt(eData.repetitions)
+                    )
+                  );
+                } catch (e) {
+                  this.errors.push(e);
+                }
+              })
+            );
+          } catch (e) {
+            this.errors.push(e);
+          }
+        })
+      );
+    },
   },
   async beforeMount() {
     if (!this.$route.params.id) return;
+
     try {
       let result = await this.$getRoutine(this.$route.params);
       this.name = result.name;
@@ -501,6 +470,8 @@ export default {
           }
         })
       );
+
+      this.backupCycles = JSON.parse(JSON.stringify(this.cycles));
     } catch (e) {
       console.error(e);
     }
