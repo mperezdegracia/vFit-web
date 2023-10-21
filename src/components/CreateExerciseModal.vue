@@ -1,6 +1,6 @@
 <template>
-  <v-btn color="primary" variant="tonal" prepend-icon="mdi-plus"
-    >{{ label || "Agregar ejercicio" }}
+  <v-btn color="primary" variant="tonal" :size="label=='Create'? 'default':30 "  prepend-icon="mdi-plus" >  
+    {{ label=="Create"?  "Agregar Ejercicio" : ""}}
     <v-dialog v-model="dialog" activator="parent" width="600">
       <v-card max-width="600">
         <v-form validate-on="submit lazy" @submit.prevent="submit">
@@ -61,7 +61,7 @@
                   <v-btn
                     variant="tonal"
                     color="black"
-                    @click="dialog = false"
+                    @click="dialog=false"
                     prepend-icon="mdi-close"
                     block
                     >Cerrar</v-btn
@@ -75,7 +75,8 @@
     </v-dialog>
   </v-btn>
 </template>
-
+<style>
+</style>
 <script>
 import { mapActions } from "pinia";
 import { useExerciseStore } from "@/stores/ExerciseStore";
@@ -119,6 +120,9 @@ export default {
     ],
   }),
   props: {
+    hover:{
+      required:false
+    },
     label: {
       required: false,
     },
@@ -137,6 +141,7 @@ export default {
 
     cleanFields() {
       this.dialog = false;
+      this.hover = false
       this.resetFields();
     },
 

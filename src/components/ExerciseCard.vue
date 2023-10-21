@@ -1,24 +1,23 @@
 <template>
-  <v-card
-    :loading="loading"
-    class="mx-auto text-left rounded-lg"
-    min-width="240"
-    max-width="350"
-    max-height="400"
-    :border="true"
-    @click="expand = !expand"
-  >
+  <v-card :loading="loading" class="mx-auto text-left rounded-lg" min-width="240" max-width="300" max-height="400"
+    :border="true" @click="hover=!hover">
     <template v-slot:loader="{ isActive }">
-      <v-progress-linear
-        :active="isActive"
-        color="deep-purple"
-        height="4"
-        indeterminate
-      ></v-progress-linear>
+      <v-progress-linear :active="isActive" color="deep-purple" height="4" indeterminate></v-progress-linear>
     </template>
 
-    <v-card-item class="px-2">
-      <v-card-title>{{ exercise.name }}</v-card-title>
+    <v-card-item class="px-2 ">
+      <div class="d-flex align-center">
+
+
+
+        <v-card-title>{{ exercise.name }}</v-card-title>
+        <v-spacer></v-spacer>
+        <CreateExerciseModal v-if="hover" :hover="hover" label="Edit" class="mx-1" prepend-icon="mdi-pencil" :exercise="exercise" :getAllExercises="getAllExercises"
+          color="secondary" @click="dialog != dialog" />
+        <DeleteModal v-if="hover" :object="exercise" :deleteAction="$deleteExercise" :postDeleteAction="getAllExercises" />
+
+
+      </div>
     </v-card-item>
 
     <v-card-subtitle class="px-2 py-1">
@@ -28,50 +27,32 @@
     <v-card-text class="px-2">
       {{
         expand
-          ? exercise.detail
-          : `${exercise.detail.substring(0, 20)}${
-              exercise.detail.length > 20 ? "..." : ""
-            }`
+        ? exercise.detail
+        : `${exercise.detail.substring(0, 20)}${exercise.detail.length > 20 ? "..." : ""
+          }`
       }}
     </v-card-text>
 
-    <div v-if="expand && (getAllExercises || addExercise)">
+    <!-- <div v-if="expand && (getAllExercises || addExercise)">
       <v-divider class="mx-2 my-1"></v-divider>
       <v-card-actions>
         <v-row class="pt-2" v-if="getAllExercises">
           <v-col class="py-1">
-            <CreateExerciseModal
-              label="Editar"
-              :exercise="exercise"
-              :getAllExercises="getAllExercises"
-              color="secondary"
-              prepend-icon="mdi-pencil"
-              block
-            />
+            <CreateExerciseModal label="Editar" :exercise="exercise" :getAllExercises="getAllExercises" color="secondary"
+              prepend-icon="mdi-pencil" block />
           </v-col>
           <v-col class="py-1">
-            <DeleteModal
-              :object="exercise"
-              :deleteAction="$deleteExercise"
-              :postDeleteAction="getAllExercises"
-            />
+            <DeleteModal :object="exercise" :deleteAction="$deleteExercise" :postDeleteAction="getAllExercises" />
           </v-col>
         </v-row>
         <v-row v-else-if="addExercise">
           <v-col>
-            <v-btn
-              @click="addExercise(exercise)"
-              variant="tonal"
-              color="primary"
-              prepend-icon="mdi-plus"
-              block
-            >
+            <v-btn @click="addExercise(exercise)" variant="tonal" color="primary" prepend-icon="mdi-plus" block>
               Agregar al ciclo
-            </v-btn></v-col
-          >
+            </v-btn></v-col>
         </v-row>
       </v-card-actions>
-    </div>
+    </div> -->
   </v-card>
 </template>
 
@@ -86,6 +67,7 @@ export default {
     loading: false,
     expand: false,
     dialog: false,
+    hover: false
   }),
   props: {
     exercise: {
@@ -102,6 +84,7 @@ export default {
     ...mapActions(useExerciseStore, {
       $deleteExercise: "delete",
     }),
+
   },
   components: { DeleteModal, CreateExerciseModal },
 };
