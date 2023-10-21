@@ -66,7 +66,6 @@
             <v-select
               v-model="gender"
               label="Genero"
-              :rules="requiredRule"
               prepend-inner-icon="mdi-gender-male-female"
               :items="['male', 'female', 'other']"
             ></v-select>
