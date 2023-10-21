@@ -37,9 +37,10 @@ export class ExerciseApi {
 }
 
 export class Exercise {
-  constructor(name, detail, type) {
+  constructor(name, detail, type, metadata) {
     this.name = name;
     this.detail = detail;
     this.type = type;
+    this.metadata = metadata;
   }
 }

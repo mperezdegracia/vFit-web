@@ -1,11 +1,6 @@
 <template>
-  <v-btn
-    color="primary"
-    variant="tonal"
-    :size="label == 'Create' ? 'default' : 30"
-    prepend-icon="mdi-plus"
-  >
-    {{ label == "Create" ? "Agregar Ejercicio" : "" }}
+  <v-btn color="primary" variant="tonal" prepend-icon="mdi-plus"
+    >{{ label || "Agregar ejercicio" }}
     <v-dialog v-model="dialog" activator="parent" width="600">
       <v-card max-width="600">
         <v-form validate-on="submit lazy" @submit.prevent="submit">
@@ -46,6 +41,14 @@
                 :rules="typeRules"
                 :items="['exercise', 'rest']"
               ></v-select>
+              <v-text-field
+                v-model="image"
+                :rules="maxLength255Rule"
+                label="URL a imágen"
+                class="my-4"
+                :counter="255"
+              >
+              </v-text-field>
             </v-container>
           </v-card-text>
           <v-card-actions>
@@ -66,7 +69,7 @@
                   <v-btn
                     variant="tonal"
                     color="black"
-                    @click="dialog = false"
+                    @click="cleanFields"
                     prepend-icon="mdi-close"
                     block
                     >Cerrar</v-btn
@@ -80,7 +83,7 @@
     </v-dialog>
   </v-btn>
 </template>
-<style></style>
+
 <script>
 import { mapActions } from "pinia";
 import { useExerciseStore } from "@/stores/ExerciseStore";
@@ -95,6 +98,7 @@ export default {
     name: "",
     detail: "",
     type: null,
+    image: "",
 
     nameRules: [
       (value) => {
@@ -122,11 +126,14 @@ export default {
         return "Este campo es obligatorio.";
       },
     ],
+    maxLength255Rule: [
+      (value) => {
+        if (value?.length <= 255) return true;
+        return "El campo tiene que tener menos de 255 caracteres.";
+      },
+    ],
   }),
   props: {
-    hover: {
-      required: false,
-    },
     label: {
       required: false,
     },
@@ -145,7 +152,6 @@ export default {
 
     cleanFields() {
       this.dialog = false;
-      this.hover = false;
       this.resetFields();
     },
 
@@ -154,6 +160,7 @@ export default {
       this.name = "";
       this.detail = "";
       this.type = null;
+      this.image = "";
     },
 
     async submit(event) {
@@ -163,7 +170,9 @@ export default {
       this.loading = true;
 
       try {
-        const exercise = new Exercise(this.name, this.detail, this.type);
+        const exercise = new Exercise(this.name, this.detail, this.type, {
+          image: this.image,
+        });
         if (!this.exercise) {
           await this.$createExercise(exercise);
         } else {
@@ -184,6 +193,7 @@ export default {
     this.name = this.exercise.name;
     this.detail = this.exercise.detail;
     this.type = this.exercise.type;
+    this.image = this.exercise.metadata?.image || "";
   },
 };
 </script>

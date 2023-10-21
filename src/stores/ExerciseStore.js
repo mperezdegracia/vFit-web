@@ -56,7 +56,10 @@ export const useExerciseStore = defineStore("exercise", {
     },
 
     async getAll(params, controller) {
-      const result = await ExerciseApi.getAll(params, controller);
+      const result = await ExerciseApi.getAll(
+        { size: 12, direction: "desc", ...params },
+        controller
+      );
       return result;
     },
   },

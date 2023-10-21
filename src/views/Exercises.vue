@@ -12,15 +12,12 @@
       <v-divider class="mb-4 mx-6"></v-divider>
       <div class="d-flex mr-5 mt-3 mb-0">
         <v-spacer></v-spacer>
-        <CreateExerciseModal
-          label="Create"
-          :getAllExercises="getAllExercises"
-        />
+        <CreateExerciseModal :getAllExercises="getAllExercises" />
       </div>
 
       <v-container fluid>
         <v-row>
-          <v-col v-if="exercises.length == 0" align="center">
+          <v-col v-if="result.content.length == 0" align="center">
             <v-img class="rounded" src="/empty.svg" height="250"> </v-img>
           </v-col>
           <v-col
@@ -28,7 +25,7 @@
             sm="6"
             md="4"
             lg="3"
-            v-for="(exercise, index) in exercises"
+            v-for="(exercise, index) in result.content"
             :key="index"
             align="start"
             justify="start"
@@ -38,6 +35,22 @@
               :exercise="exercise"
               :getAllExercises="getAllExercises"
             />
+          </v-col>
+        </v-row>
+        <v-row class="mt-8">
+          <v-col justify="center" align="center">
+            <v-btn
+              icon="mdi-chevron-left"
+              :disabled="result.page == 0"
+              @click="getAllExercises({ page: result.page - 1 })"
+              class="mr-1"
+            ></v-btn>
+            <v-btn
+              icon="mdi-chevron-right"
+              :disabled="result.isLastPage"
+              @click="getAllExercises({ page: result.page + 1 })"
+              class="ml-1"
+            ></v-btn>
           </v-col>
         </v-row>
       </v-container>
@@ -54,17 +67,17 @@ import CreateExerciseModal from "@/components/CreateExerciseModal.vue";
 
 export default {
   data: () => ({
-    exercises: [],
+    result: { content: [] },
   }),
   methods: {
     ...mapActions(useExerciseStore, {
       $getAllExercises: "getAll",
     }),
 
-    async getAllExercises() {
+    async getAllExercises(params) {
       try {
-        const result = await this.$getAllExercises();
-        this.exercises = result.content;
+        const result = await this.$getAllExercises(params);
+        this.result = result;
       } catch (e) {
         console.error(e);
       }

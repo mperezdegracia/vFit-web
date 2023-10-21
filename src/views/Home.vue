@@ -217,7 +217,7 @@ export default {
 
     search: "",
     searchText: "",
-    orderByCriteria: 0,
+    orderByCriteria: 1,
     difficultyFilter: null,
     scoreFilter: null,
     data: {},

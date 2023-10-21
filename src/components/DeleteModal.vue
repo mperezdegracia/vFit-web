@@ -1,11 +1,6 @@
 <template>
-  <v-btn
-    variant="tonal"
-    class="p-0 btn"
-    color="red-lighten-1"
-    size="30"
-    prepend-icon="mdi-delete"
-  >
+  <v-btn variant="tonal" color="red-lighten-1" prepend-icon="mdi-delete" block>
+    Borrar
     <v-dialog v-model="dialog" activator="parent" width="500">
       <v-card max-width="600">
         <v-card-title class="text-h5 text-primary mt-4 ml-4"
@@ -44,6 +39,7 @@
     </v-dialog>
   </v-btn>
 </template>
+
 <script>
 export default {
   data: () => ({

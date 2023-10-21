@@ -452,7 +452,7 @@ export default {
       let result = await this.$getRoutine(this.$route.params);
       this.name = result.name;
       this.detail = result.detail;
-      this.image = result.metadata?.image;
+      this.image = result.metadata?.image || "";
       this.difficulty = this.difficultyEnum.findIndex(
         (dif) => result.difficulty === dif
       );

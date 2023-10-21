@@ -5,7 +5,6 @@
     elevation="4"
     min-width="240"
     max-width="350"
-    max-height="400"
     :border="true"
   >
     <template v-slot:loader="{ isActive }">
@@ -19,9 +18,9 @@
 
     <v-img
       cover
-      class="rounded"
+      class="rounded elevation-1"
       height="150"
-      :src="routine.metadata?.image || '/push_down.jpg'"
+      :src="routine.metadata?.image || '/routine.svg'"
     ></v-img>
 
     <v-card-item class="px-2">

@@ -58,7 +58,7 @@ export const useRoutineStore = defineStore("routine", {
 
     async getAll(params, controller) {
       const result = await RoutineApi.getAll(
-        { size: 12, ...params },
+        { size: 12, direction: "desc", ...params },
         controller
       );
       this.replaceAll(result.content);
@@ -68,7 +68,7 @@ export const useRoutineStore = defineStore("routine", {
     async getMyRoutines(params) {
       const securityStore = useSecurityStore();
       const user = await securityStore.getCurrentUser();
-      return await this.getAll({ ...{ userId: user.id }, ...params });
+      return await this.getAll({ userId: user.id, ...params });
     },
   },
 });
