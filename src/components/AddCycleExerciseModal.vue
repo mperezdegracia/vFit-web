@@ -29,7 +29,7 @@
               />
               <v-row v-else align="center">
                 <v-col cols="9">
-                  <ExerciseCard :exercise="exercise" />
+                  <ExerciseCard class="pa-2 bg-contrast" :exercise="exercise" />
                 </v-col>
                 <v-col cols="3"
                   ><v-btn
