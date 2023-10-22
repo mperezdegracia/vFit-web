@@ -7,7 +7,7 @@
           <v-card-title class="text-h5 text-primary mt-4 ml-4">{{
             !exercise ? "Crear un ejercicio nuevo" : "Editar ejercicio"
           }}</v-card-title>
-          <v-card-text>
+          <v-card-text class="pb-0">
             <v-container>
               <v-alert
                 v-if="error"
@@ -45,15 +45,14 @@
                 v-model="image"
                 :rules="maxLength255Rule"
                 label="URL a imágen"
-                class="my-4"
                 :counter="255"
               >
               </v-text-field>
             </v-container>
           </v-card-text>
-          <v-card-actions>
+          <v-card-actions class="pt-0">
             <v-container>
-              <v-row class="pt-4 pb-2" align="center">
+              <v-row class="pb-2" align="center">
                 <v-col cols="12" sm="6" class="py-1">
                   <v-btn
                     type="submit"
