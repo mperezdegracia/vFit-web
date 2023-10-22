@@ -129,31 +129,31 @@
           <v-col cols="4" align="center" justify="center">
             <a
               class="text-decoration-none text-white"
-              href="#search_routine_id"
+              href="#create_exercise_id"
             >
-              <v-img :width="100" cover src="/search_routine.svg" />
-              <p>Buscar una rutina</p>
+              <v-img :width="100" cover src="/execute_routine.svg" />
+              <p>Crear un ejercicio</p>
             </a>
           </v-col>
 
           <v-col cols="4" align="center" justify="center">
             <a
               class="text-decoration-none text-white"
-              href="#execute_routine_id"
+              href="#search_routine_id"
             >
-              <v-img :width="100" cover src="/execute_routine.svg" />
-              <p>Ejecutar una rutina</p>
+              <v-img :width="100" cover src="/search_routine.svg" />
+              <p>Buscar una rutina</p>
             </a>
           </v-col>
         </v-row>
       </v-row>
 
-      <v-row align="center" justify="center">
+      <v-row align="center" justify="center" id="add_routine_id">
         <v-col align="center" justify="center" class="pa-0">
           <v-img :width="550" src="/landing3.svg"></v-img>
         </v-col>
         <v-col class="pa-0">
-          <div id="add_routine_id" class="text-left mr-4">
+          <div class="text-left mr-4">
             <h1 class="text-primary text-h2 font-weight-bold">
               Crea tus propias rutinas
             </h1>
@@ -174,9 +174,36 @@
         </v-col>
       </v-row>
 
-      <v-row align="center" justify="center">
+      <v-row align="center" justify="center" id="create_exercise_id">
         <v-col class="pa-0">
-          <div id="search_routine_id" class="text-right ml-4">
+          <div class="text-right mr-4">
+            <h1 class="text-primary text-h2 font-weight-bold">
+              Crea tus propios ejercios
+            </h1>
+            <p>
+              V-Fit te permite personalizar tu experiencia de fitness de manera
+              única. Con nuestra funcionalidad para crear tus propios
+              ejercicios, puedes diseñar ejercicios a medida, adaptados a tus
+              necesidades y preferencias. Puedes incluso añadir una cantidad de
+              repeticiones deseadas o una cantidad de tiempo esperado. Estos
+              ejercicios personalizados se pueden guardar para más adelante ser
+              utilizados en tus propias rutinas de entrenamiento personalizadas,
+              brindándote la flexibilidad y la libertad para alcanzar tus metas
+              de fitness de la manera que mejor funcione para ti.
+            </p>
+          </div>
+        </v-col>
+        <v-col align="center" justify="center" class="pa-0">
+          <v-img :width="550" cover src="/landing5.svg"></v-img>
+        </v-col>
+      </v-row>
+
+      <v-row align="center" justify="center" id="search_routine_id">
+        <v-col align="center" justify="center" class="pa-0">
+          <v-img :width="550" cover src="/landing4.svg"></v-img>
+        </v-col>
+        <v-col class="pa-0">
+          <div class="text-left ml-4">
             <h1 class="text-primary text-h2 font-weight-bold">Busca rutinas</h1>
             <p>
               Inspírate y encuentra la rutina de ejercicios perfecta que se
@@ -191,34 +218,6 @@
               rutinas. Se trata de encontrar la opción adecuada para sus
               objetivos y nuestra función de búsqueda hace que parezca sencillo.
               ¡Encuentra tu próxima aventura de entrenamiento hoy!
-            </p>
-          </div>
-        </v-col>
-        <v-col align="center" justify="center" class="pa-0">
-          <v-img :width="550" cover src="/landing4.svg"></v-img>
-        </v-col>
-      </v-row>
-
-      <v-row align="center" justify="center">
-        <v-col align="center" justify="center" class="pa-0">
-          <v-img :width="550" cover src="/landing5.svg"></v-img>
-        </v-col>
-        <v-col class="pa-0">
-          <div id="execute_routine_id" class="text-left mr-4">
-            <h1 class="text-primary text-h2 font-weight-bold">
-              Ejecuta rutinas
-            </h1>
-            <p>
-              Haz realidad tus planes de fitness con un solo clic. Con nuestra
-              función de ejecución de entrenamiento, puede ejecutar el
-              entrenamiento sin problemas, que usted u otros han creado. Sigue
-              paso a paso instrucciones, ver demostraciones de ejercicios y
-              realice un seguimiento de su progreso en tiempo real, todo desde
-              la palma de tu mano. Si estás en el gimnasio o haciendo ejercicio
-              en casa, esta funcionalidad te garantiza que te mantengas
-              encaminado, mantengas la forma adecuada y logre su objetivos
-              físico. Es como tener un entrenador personal en tu bolsillo,
-              ¡haciendo que cada repetición y cada serie cuenten!
             </p>
           </div>
         </v-col>
