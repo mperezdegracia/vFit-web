@@ -12,7 +12,8 @@
         <v-divider />
 
         <v-card-text>
-          <span class="font-weight-bold">Dificultad: </span>
+          <span class="font-weight-bold">Dificultad</span>
+          <v-divider class="my-2"></v-divider>
           <v-chip
             class="ma-1"
             v-for="difFilter in difFilters"
@@ -21,19 +22,6 @@
             @click="filterByDifficulty(difFilter)"
           >
             {{ difFilter.text }}
-          </v-chip>
-        </v-card-text>
-
-        <v-card-text class="mr-1">
-          <span class="font-weight-bold">Puntuación: </span>
-          <v-chip
-            class="ma-1"
-            v-for="ratFilter in ratFilters"
-            :key="ratFilter.value"
-            :class="{ 'bg-primary': scoreFilter === ratFilter.value }"
-            @click="filterByScore(ratFilter)"
-          >
-            {{ ratFilter.text }}
           </v-chip>
         </v-card-text>
       </v-card>
@@ -190,11 +178,8 @@ export default {
         dir: "desc",
       },
 
-      { id: 2, title: "Puntuación", orderBy: "score", dir: "asc" },
-      { id: 3, title: "Puntuación", orderBy: "score", dir: "desc" },
-
-      { id: 4, title: "Dificultad", orderBy: "difficulty", dir: "asc" },
-      { id: 5, title: "Dificultad", orderBy: "difficulty", dir: "desc" },
+      { id: 2, title: "Dificultad", orderBy: "difficulty", dir: "asc" },
+      { id: 3, title: "Dificultad", orderBy: "difficulty", dir: "desc" },
     ],
     difFilters: [
       { text: "Todas", value: null },
@@ -204,21 +189,11 @@ export default {
       { text: "Difícil", value: "advanced" },
       { text: "Muy difícil", value: "expert" },
     ],
-    ratFilters: [
-      { text: "Todas", value: null },
-      { text: "0", value: "0" },
-      { text: "1", value: "1" },
-      { text: "2", value: "2" },
-      { text: "3", value: "3" },
-      { text: "4", value: "4" },
-      { text: "5", value: "5" },
-    ],
 
     search: "",
     searchText: "",
     orderByCriteria: 1,
     difficultyFilter: null,
-    scoreFilter: null,
     data: {},
 
     result: { content: [] },
@@ -247,9 +222,13 @@ export default {
     clearSearch() {
       this.searching = false;
       this.searchText = this.search = "";
-      this.orderByCriteria = 0;
+      this.orderByCriteria = 1;
       this.difficultyFilter = null;
-      this.scoreFilter = null;
+
+      delete this.data["search"];
+      delete this.data["orderBy"];
+      delete this.data["direction"];
+      delete this.data["difficulty"];
     },
 
     async getRoutinesSearch(params) {
@@ -321,15 +300,7 @@ export default {
       if (item.value == null) delete this.data["difficulty"];
       await this.getRoutinesSearch();
     },
-
-    async filterByScore(item) {
-      this.scoreFilter = item.value;
-      this.data.score = item.value;
-      if (item.value == null) delete this.data["score"];
-      await this.getRoutinesSearch();
-    },
   },
-
   components: {
     SideBar,
     RoutineGrid,

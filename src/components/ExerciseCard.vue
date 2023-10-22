@@ -2,6 +2,7 @@
   <v-card
     :loading="loading"
     class="mx-auto text-left rounded-lg"
+    elevation="4"
     min-width="225"
     max-width="350"
     :border="true"

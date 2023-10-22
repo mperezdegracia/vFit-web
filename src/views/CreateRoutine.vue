@@ -389,7 +389,6 @@ export default {
 
           await Promise.all(
             this.backupCycles.map(async (cData) => {
-              if (!cData.id) return;
               try {
                 await this.$deleteCycle(routine.id, cData);
               } catch (e) {
@@ -398,6 +397,7 @@ export default {
             })
           );
         }
+        console.log(this.backupCycles, this.cycles);
         await this.createCycles(routine);
         if (this.errors.length == 0) router.push("/my-routines");
       } catch (e) {
@@ -458,13 +458,13 @@ export default {
       );
 
       result = await this.$getAllCycles(result.id);
-      this.cycles = result.content;
+      this.cycles = JSON.parse(JSON.stringify(result.content));
 
       await Promise.all(
         this.cycles.map(async (cycle) => {
           try {
             result = await this.$getAllExercises(cycle.id);
-            cycle.exercises = result.content;
+            cycle.exercises = JSON.parse(JSON.stringify(result.content));
           } catch (e) {
             console.error(e);
           }

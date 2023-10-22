@@ -25,27 +25,14 @@
 
     <v-card-item class="px-2">
       <v-card-title>{{ routine.name }}</v-card-title>
-      <v-card-subtitle>
-        <span class="me-1">{{ routine.user.username }}</span>
-        <v-icon color="secondary" icon="mdi-account" size="small"></v-icon>
-      </v-card-subtitle>
     </v-card-item>
 
-    <v-card-text class="px-2">
-      <v-row align="center" class="mx-0">
-        <v-rating
-          :model-value="4.5"
-          color="amber"
-          density="compact"
-          half-increments
-          readonly
-          size="small"
-        ></v-rating>
-        <div class="text-grey ms-4">4.5 (413)</div>
-      </v-row>
-    </v-card-text>
+    <v-card-subtitle class="px-2">
+      <span class="me-1">{{ routine.user.username }}</span>
+      <v-icon color="secondary" icon="mdi-account" size="small"></v-icon>
+    </v-card-subtitle>
 
-    <v-card-text class="px-2 py-1">
+    <v-card-text class="px-2">
       Dificultad:
       <Icon
         v-for="index in 5"
