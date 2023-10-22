@@ -20,17 +20,13 @@
   </v-footer>
 </template>
 
-<style>
+<style scoped>
 .icon-lg {
   font-size: 30px;
   color: aliceblue;
 }
 
 .icon-lg:hover {
-  color: lightcoral;
-}
-
-.txt-btn:hover {
   color: lightcoral;
 }
 </style>

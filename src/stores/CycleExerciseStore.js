@@ -1,6 +1,5 @@
 import { defineStore } from "pinia";
 import { CycleExerciseApi } from "@/api/cycleExercise";
-import { useExerciseStore } from "./ExerciseStore";
 
 export const useCycleExerciseStore = defineStore("cycleExercise", {
   state: () => ({ items: [] }),
